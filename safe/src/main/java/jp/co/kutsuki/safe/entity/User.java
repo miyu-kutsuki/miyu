@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * userテーブル用エンティティ
+ * usersテーブル用エンティティ
  * @author kutsuki
  *
  */
