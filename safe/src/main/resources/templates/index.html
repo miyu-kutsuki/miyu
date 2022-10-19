@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>SAFE</title>
+</head>
+<body>
+	<form th:action="@{/login}">
+		<input type="submit" value="ログイン画面へ">
+	</form>
+	
+	<form th:action="@{/UserRegistration}">
+		<input type="submit" value="新規会員登録へ">
+	</form>
+	
+	<form th:action="@{/Management}">
+		<input type="submit" value="管理者専用画面へ">
+	</form>
+</body>
+</html>
