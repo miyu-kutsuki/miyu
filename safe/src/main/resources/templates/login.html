@@ -5,6 +5,7 @@
 <title>ログインページ</title>
 </head>
 <body>
+	<h1>ログイン画面</h1>
 	<form th:action="@{/loginAction}" method="post">
 		<div>
 			<div th:unless="${msg} == null">
@@ -21,5 +22,10 @@
 		</div>
 		<input type="submit" value="ログイン">
 	</form>
+	
+	<form th:action="@{/safe}">
+		<input type="submit" value="トップページへ">
+	</form>
+	
 </body>
 </html>

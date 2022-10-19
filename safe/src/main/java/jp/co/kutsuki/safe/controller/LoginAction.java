@@ -68,21 +68,21 @@ public class LoginAction {
 			//user_idが一致しているかチェック
 			if(!userInformation.getUser_id().equals(user_id)) {
 				msg.add("ユーザーIDが違います。");
-			}else {
-				//passwordが一致しているかチェック
-				if(!userInformation.getPassword().equals(password)) {
-					//passwordがnullかチェック
-					if(password.length() == 0) {
-						msg.add("パスワードが入力されていません。");
-					}else {
-						msg.add("ユーザーID、パスワードの組み合わせが違います。");
-					}
-				}
 			}
 		}else {
 			msg.add("ユーザーIDが入力されていません。");
 		}
-				
+		
+		//passwordがnullかチェック
+		if(!(password.length() == 0)) {
+			//passwordが一致しているかチェック
+			if(!userInformation.getPassword().equals(password)) {
+				msg.add("パスワードが違います。");
+			}
+		}else {
+			msg.add("パスワードが入力されていません。");
+		}
+		
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
 			session.setAttribute("user", userInformation);
@@ -93,17 +93,12 @@ public class LoginAction {
 		}
 	}
 	
-	/** リダイレクト先の画面 */
+	/** リダイレクト先の画面
+	 * ログイン成功 */
 	@RequestMapping("/user")
 	public String PostUserView(Model model) {
 		User userInformation = (User) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
 		return "userAuthentication";
-	}
-	
-	/** リダイレクト先の画面 */
-	@RequestMapping("/login")
-	public String PostloginView() {
-		return "login";
 	}
 }

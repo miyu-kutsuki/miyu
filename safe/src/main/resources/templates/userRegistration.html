@@ -5,10 +5,13 @@
 <title>ユーザー登録画面</title>
 </head>
 <body>
+	<h1>ユーザー新規登録画面</h1>
 	<form th:action="@{/UserRegistrationAction}" method="post">
 		<div>
 			<div th:unless="${msg} == null">
-				<label id="error" th:text="${msg}"></label>
+				<th:block th:each="errorMsg : ${msg}">
+					<label id="error" th:text="${errorMsg}"></label><br>
+				</th:block>
 			</div>
 			<label for="user_id">ユーザーID：</label>
 			<input type="text" name="user_id">
@@ -18,6 +21,10 @@
 			<input type="password" name="password">
 		</div>
 		<input type="submit" value="登録">
+	</form>
+	
+	<form th:action="@{/safe}">
+		<input type="submit" value="トップページへ">
 	</form>
 
 </body>
