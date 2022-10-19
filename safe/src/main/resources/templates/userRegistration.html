@@ -2,15 +2,13 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ログインページ</title>
+<title>ユーザー登録画面</title>
 </head>
 <body>
-	<form th:action="@{/loginAction}" method="post">
+	<form th:action="@{/UserRegistrationAction}" method="post">
 		<div>
 			<div th:unless="${msg} == null">
-				<th:block th:each="errorMsg : ${msg}">
-					<label id="error" th:text="${errorMsg}"></label><br>
-				</th:block>
+				<label id="error" th:text="${msg}"></label>
 			</div>
 			<label for="user_id">ユーザーID：</label>
 			<input type="text" name="user_id">
@@ -19,7 +17,8 @@
 			<label for="password">パスワード：</label>
 			<input type="password" name="password">
 		</div>
-		<input type="submit" value="ログイン">
+		<input type="submit" value="登録">
 	</form>
+
 </body>
 </html>

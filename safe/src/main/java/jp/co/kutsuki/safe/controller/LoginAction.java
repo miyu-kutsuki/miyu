@@ -1,5 +1,8 @@
 package jp.co.kutsuki.safe.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,22 +30,67 @@ public class LoginAction {
 	@Autowired
 	HttpSession session;
 	
-	/** post・リダイレクトでユーザー画面へ遷移 */
+	/** post・リダイレクトでユーザー画面へ遷移 
+	 * @return */
 	@RequestMapping(value="/loginAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password,
 			RedirectAttributes redirectAttributes) {
 		
+		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
+		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
 		User userInformation = userDao.getUserTable(user_id);
 		
-		if(!(userInformation.getId() == null)) {
-			if(userInformation.getPassword().equals(password)) {
-				session.setAttribute("user", userInformation);
-				return "redirect:/user";
+		//errorメッセージ用変数
+		List<String> msg = new ArrayList<>();
+		
+		//user_idが4以内16桁以上かチェック
+		if(5 > user_id.length() || user_id.length() > 15) {
+			msg.add("ユーザーIDは5〜15桁で入力して下さい。");
+		}
+		
+		//user_idが半角英数、"_"、"-"のみかチェック
+		if(!(user_id.matches("^[A-Za-z0-9_-]+$"))) {
+			msg.add("ユーザーIDは『半角英数』『_』『-』のみ使用可能です。");
+		}
+		
+		//passwaordが4以内21桁以上かチェック
+		if(5 > password.length() || password.length() > 20) {
+			msg.add("パスワードは5〜20桁で入力して下さい。");
+		}
+		
+		//passwaordが半角英数、"_"、"-"のみかチェック
+		if(!password.matches("^[A-Za-z0-9_-]+$")) {
+			msg.add("パスワードは『半角英数』『_』『-』のみ使用可能です。");
+		}
+		
+		//user_idがnullかチェック
+		if(!(user_id.length() == 0)) {
+			//user_idが一致しているかチェック
+			if(!userInformation.getUser_id().equals(user_id)) {
+				msg.add("ユーザーIDが違います。");
+			}else {
+				//passwordが一致しているかチェック
+				if(!userInformation.getPassword().equals(password)) {
+					//passwordがnullかチェック
+					if(password.length() == 0) {
+						msg.add("パスワードが入力されていません。");
+					}else {
+						msg.add("ユーザーID、パスワードの組み合わせが違います。");
+					}
+				}
 			}
 		}else {
-			redirectAttributes.addFlashAttribute("msg", "該当のユーザーが見つかりません。");
+			msg.add("ユーザーIDが入力されていません。");
 		}
-		return "redirect:login";
+				
+		//msgのサイズ0かチェック
+		if(msg.size() == 0) {
+			session.setAttribute("user", userInformation);
+			return "redirect:/user";
+		}else {
+			redirectAttributes.addFlashAttribute("msg", msg);
+			return "redirect:login";
+		}
 	}
 	
 	/** リダイレクト先の画面 */
@@ -50,7 +98,7 @@ public class LoginAction {
 	public String PostUserView(Model model) {
 		User userInformation = (User) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
-		return "user";
+		return "userAuthentication";
 	}
 	
 	/** リダイレクト先の画面 */

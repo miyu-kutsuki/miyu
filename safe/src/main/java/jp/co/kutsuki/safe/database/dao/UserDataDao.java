@@ -33,7 +33,24 @@ public class UserDataDao {
 			user.setEnd_flag(rs.getBoolean("end_flag"));
 		}
 		
+		//条件に一致するuser_idがなかった場合
+		//NullPointerExceptionを回避するために"none"を代入している
+		if(user.getId() == null) {
+			user.setUser_id("none");
+			user.setPassword("none");
+		}
 		return user;
+	}
+	
+	/** userテーブルに1件登録 
+	 * rsが０なら正常、０以外なら異常終了 */
+	public int setUserTable(User user) {
+		//SQL定義
+		String sql = " insert into users(user_id, password) values(?, ?)";
+		//SQL実行し登録を実施
+		int rs = template.update(sql, user.getUser_id(), user.getPassword());
+		
+		return rs;
 	}
 
 }
