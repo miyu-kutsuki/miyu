@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 新規登録ページ遷移用コントローラー
+ * 探し人の登録ページ遷移用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("UserRegistration")
-public class UserRegistrationPageAction {
+@RequestMapping("MissingPersons")
+public class MissingPersonsPageAction {
 	
 	@GetMapping
 	public String LoginPageView() {
-		return "userRegistration";
+		return "MissingPersonRegistration";
 	}
 }

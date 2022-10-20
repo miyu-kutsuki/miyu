@@ -2,10 +2,10 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ユーザー登録画面</title>
+<title>ユーザー登録ページ</title>
 </head>
 <body>
-	<h1>ユーザー新規登録画面</h1>
+	<h1>ユーザー新規登録ページ</h1>
 	<form th:action="@{/UserRegistrationAction}" method="post">
 		<div>
 			<div th:unless="${msg} == null">

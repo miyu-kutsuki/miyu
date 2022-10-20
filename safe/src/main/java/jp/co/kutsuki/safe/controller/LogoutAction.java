@@ -26,7 +26,7 @@ public class LogoutAction {
 	}
 	
 	/** リダイレクト先の画面 */
-	@RequestMapping("/logout")
+	@RequestMapping("logout")
 	public String PostLogout() {
 		return "login";
 	}

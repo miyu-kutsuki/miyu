@@ -96,7 +96,7 @@ public class UserRegistrationAction {
 		
 	/** リダイレクト先の画面
 	 * 登録失敗 */
-	@RequestMapping("/Registration")
+	@RequestMapping("Registration")
 	public String PostloginView() {
 		return "userRegistration";
 	}

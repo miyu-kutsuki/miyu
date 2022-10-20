@@ -95,10 +95,10 @@ public class LoginAction {
 	
 	/** リダイレクト先の画面
 	 * ログイン成功 */
-	@RequestMapping("/user")
+	@RequestMapping("user")
 	public String PostUserView(Model model) {
 		User userInformation = (User) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
-		return "userAuthentication";
+		return "safeMenu";
 	}
 }
