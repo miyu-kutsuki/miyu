@@ -7,7 +7,7 @@
 <body>
 	<h1>ログイン成功！</h1>
 	<h1 th:text="'ようこそ' + ${user.user_id} + 'さん'"></h1>
-	<form th:action="@{/logoutAction}" method="post">
+	<form th:action="@{/LogoutAction}" method="post">
 		<input type="submit" value="ログアウト">
 	</form>
 </body>

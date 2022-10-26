@@ -13,7 +13,7 @@ import jp.co.kutsuki.safe.database.dao.UserDataDao;
  *
  */
 @Controller
-@RequestMapping("safe")
+@RequestMapping("Safe")
 public class TopPageAction {
 	
 	@Autowired

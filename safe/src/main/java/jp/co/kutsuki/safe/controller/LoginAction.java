@@ -32,7 +32,7 @@ public class LoginAction {
 	
 	/** post・リダイレクトでユーザー画面へ遷移 
 	 * @return */
-	@RequestMapping(value="/loginAction", method = RequestMethod.POST)
+	@RequestMapping(value="/LoginAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password,
 			RedirectAttributes redirectAttributes) {
 		
@@ -86,16 +86,16 @@ public class LoginAction {
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
 			session.setAttribute("user", userInformation);
-			return "redirect:/user";
+			return "redirect:Menu";
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);
-			return "redirect:login";
+			return "redirect:Login";
 		}
 	}
 	
 	/** リダイレクト先の画面
 	 * ログイン成功 */
-	@RequestMapping("user")
+	@RequestMapping("Menu")
 	public String PostUserView(Model model) {
 		User userInformation = (User) session.getAttribute("user");
 		model.addAttribute("user", userInformation);

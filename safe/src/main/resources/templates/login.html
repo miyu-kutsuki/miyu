@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>ログイン画面</h1>
-	<form th:action="@{/loginAction}" method="post">
+	<form th:action="@{/LoginAction}" method="post">
 		<div>
 			<div th:unless="${msg} == null">
 				<th:block th:each="errorMsg : ${msg}">
@@ -23,7 +23,7 @@
 		<input type="submit" value="ログイン">
 	</form>
 	
-	<form th:action="@{/safe}">
+	<form th:action="@{/Safe}">
 		<input type="submit" value="トップページへ">
 	</form>
 	

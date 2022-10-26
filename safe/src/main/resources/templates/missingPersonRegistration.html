@@ -24,8 +24,8 @@
 		
 		<div>
 			<label for="gender">性別</label><br>
-			<input type="radio" value="M">男
-			<input type="radio" value="W">女
+			<input type="radio" name="gender" value="M">男
+			<input type="radio" name="gender" value="W">女
 		</div>
 		
 		<div>
@@ -49,7 +49,11 @@
 		<input type="submit" value="登録">
 	</form>
 	
-	<form th:action="@{/logoutAction}" method="post">
+	<form th:action="@{/Menu}" method="post">
+		<input type="submit" value="メニューページへ">
+	</form>
+	
+	<form th:action="@{/LogoutAction}" method="post">
 		<input type="submit" value="ログアウト">
 	</form>
 

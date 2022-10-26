@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>各情報表示ページ</title>
+</head>
+<body>
+	<h1>各情報表示ページ</h1>
+	<label th:text="${msg}"></label>
+	<table>
+		<tr th:each="missingPerson : ${missingPersonsList}">
+			<td th:text="${missingPerson.date}"></td>
+			<td th:text="${missingPerson.name}"></td>
+			<td th:each="place : ${missingPerson.place}">
+				<p th:text=${place}></p>
+			</td>
+		</tr>
+	</table>
+	 
+	
+	<form th:action="@{/Search}" method="post">
+		<input type="submit" value="検索">
+	</form>
+	
+		<form th:action="@{/Menu}" method="post">
+		<input type="submit" value="メニュー画面へ">
+	</form>
+	
+</body>
+</html>

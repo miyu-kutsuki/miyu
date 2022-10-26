@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * ログインページ遷移用コントローラー
+ * 検索ページ遷移用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("Login")
-public class LoginPageAction {
+@RequestMapping("Informations")
+public class SearchPageAction {
 	
 	@GetMapping
 	public String LoginPageView() {
-		return "login";
+		return "informations";
 	}
 }

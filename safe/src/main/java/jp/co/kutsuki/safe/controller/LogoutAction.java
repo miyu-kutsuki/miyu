@@ -19,14 +19,14 @@ public class LogoutAction {
 	HttpSession session;
 	
 	/** post・リダイレクトでユーザー画面へ遷移 */
-	@RequestMapping(value="/logoutAction", method = RequestMethod.POST)
+	@RequestMapping(value="/LogoutAction", method = RequestMethod.POST)
 	public String Logout() {
-		//session.invalidate();
-		return "redirect:/login";
+		session.invalidate();
+		return "redirect:/Login";
 	}
 	
 	/** リダイレクト先の画面 */
-	@RequestMapping("logout")
+	@RequestMapping("Login")
 	public String PostLogout() {
 		return "login";
 	}
