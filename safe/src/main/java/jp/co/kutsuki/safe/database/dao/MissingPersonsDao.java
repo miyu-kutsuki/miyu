@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.MissingPersons;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
@@ -46,6 +47,40 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		String sql = " select * from missing_persons where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
+		//結果を取得
+		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		if(!rs.isLast()) {
+			while(rs.next()) {
+				MissingPersons missingPersons = new MissingPersons();
+				missingPersons.setId(rs.getInt("id"));
+				// Date型からLocaldate型へ変換
+				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+				missingPersons.setDate(date);
+				missingPersons.setName(rs.getString("name"));
+				missingPersons.setGender(rs.getString("gender"));
+				missingPersons.setAge(rs.getInt("age"));
+				missingPersons.setDetail(rs.getString("detail"));
+				//文字列からArrayListに変換
+				String placeStr = rs.getString("place");
+				List<String> place = Arrays.asList(placeStr.split(","));
+				missingPersons.setPlace(place);
+				missingPersons.setUser_id(rs.getString("user_id"));
+				missingPersonsList.add(missingPersons);
+			}
+		}else {
+			redirectAttributes.addFlashAttribute("msg", "該当データがありません。");
+		}
+		return missingPersonsList;
+	}
+	
+	/** missing_personsテーブルから
+	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
+	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch, RedirectAttributes redirectAttributes) {
+		//SQL定義
+		String sql = " select * from missing_persons where date >= ? and date <= ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
 		//rs(SQL実行取得結果)が0の場合elseを処理する

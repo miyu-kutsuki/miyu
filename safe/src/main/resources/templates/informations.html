@@ -8,6 +8,9 @@
 	<h1>各情報表示ページ</h1>
 	
 	<h2>探し人情報</h2>
+	<th:block th:each="errorMsg : ${msg}">
+		<label id="error" th:text="${errorMsg}"></label><br>
+	</th:block>
 	
 	<form th:action="@{/Search}" method="post">
 		<label>日付</label><br>
@@ -16,7 +19,6 @@
 		<input type="submit" value="検索">
 	</form>
 	
-	<label th:text="${msg}"></label>
 	<table>
 		<tr th:each="missingPerson : ${missingPersonsList}">
 			<td th:text="${missingPerson.date}"></td>

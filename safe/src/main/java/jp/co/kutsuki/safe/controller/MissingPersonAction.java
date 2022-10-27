@@ -37,7 +37,8 @@ public class MissingPersonAction {
 	/**データベースmissing_personsテーブルに探し人情報を登録後、 
 	 * post・リダイレクトでメニュー選択ページへ遷移 */
 	@RequestMapping(value="/MissingPersonsRegistration", method = RequestMethod.POST)
-	public String UserView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam LocalDate date, @RequestParam String name, @RequestParam String gender, @RequestParam Integer age,
+	public String UserView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam LocalDate date, 
+			@RequestParam String name, @RequestParam String gender, @RequestParam Integer age,
 			@RequestParam String detail, @RequestParam String[] place,
 			RedirectAttributes redirectAttributes, Model model) {
 		
