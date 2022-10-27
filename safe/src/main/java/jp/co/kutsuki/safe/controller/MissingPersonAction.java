@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.kutsuki.safe.database.dao.MissingPersonsDao;
 import jp.co.kutsuki.safe.entity.MissingPersons;
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
 /**
  * missing_personsテーブル登録用コントローラー
@@ -29,7 +29,7 @@ import jp.co.kutsuki.safe.entity.User;
 public class MissingPersonAction {
 	
 	@Autowired
-	MissingPersonsDao missingPersonsDao;
+	MissingPersonsRepository  missingPersonsRepository;
 	
 	@Autowired
 	HttpSession session;
@@ -58,7 +58,7 @@ public class MissingPersonAction {
 			List<String> placeList = Arrays.asList(place);
 			missingPersons.setPlace(placeList);
 			missingPersons.setUser_id(userInformation.getUser_id());
-			missingPersonsDao.setMissingPersonsTable(missingPersons);
+			missingPersonsRepository.setMissingPersonsTable(missingPersons);
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);
 		}

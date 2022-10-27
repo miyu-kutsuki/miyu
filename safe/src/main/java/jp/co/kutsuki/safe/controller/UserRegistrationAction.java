@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.kutsuki.safe.database.dao.UserDataDao;
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
  *ユーザー登録用のコントローラー
@@ -25,7 +25,7 @@ import jp.co.kutsuki.safe.entity.User;
 public class UserRegistrationAction {
 	
 	@Autowired
-	UserDataDao userDao;
+	UserRepository userRepository;
 	
 	@Autowired
 	HttpSession session;
@@ -38,7 +38,7 @@ public class UserRegistrationAction {
 		
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
-		User userInformation = userDao.getUserTable(user_id);
+		User userInformation = userRepository.getUserTable(user_id);
 		
 		//errorメッセージ用変数
 		List<String> msg = new ArrayList<>();
@@ -83,7 +83,7 @@ public class UserRegistrationAction {
 			User user = new User();
 			user.setUser_id(user_id);
 			user.setPassword(password);
-			userDao.setUserTable(user);
+			userRepository.setUserTable(user);
 			session.setAttribute("user", userInformation);
 			userInformation = (User) session.getAttribute("user");
 			model.addAttribute("user", userInformation);

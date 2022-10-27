@@ -6,24 +6,29 @@
 </head>
 <body>
 	<h1>各情報表示ページ</h1>
+	
+	<h2>探し人情報</h2>
+	
+	<form th:action="@{/Search}" method="post">
+		<label>日付</label><br>
+		<input type="date" name="startDate">〜
+		<input type="date" name="endDate">
+		<input type="submit" value="検索">
+	</form>
+	
 	<label th:text="${msg}"></label>
 	<table>
 		<tr th:each="missingPerson : ${missingPersonsList}">
 			<td th:text="${missingPerson.date}"></td>
 			<td th:text="${missingPerson.name}"></td>
 			<td th:each="place : ${missingPerson.place}">
-				<p th:text=${place}></p>
+				[[${place}]]
 			</td>
 		</tr>
 	</table>
-	 
-	
-	<form th:action="@{/Search}" method="post">
-		<input type="submit" value="検索">
-	</form>
-	
-		<form th:action="@{/Menu}" method="post">
-		<input type="submit" value="メニュー画面へ">
+		
+	<form th:action="@{/Menu}" method="post">
+		<input type="submit" value="メニューページへ">
 	</form>
 	
 </body>

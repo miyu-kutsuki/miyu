@@ -1,12 +1,20 @@
 package jp.co.kutsuki.safe.safedb.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.ArrayList;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jp.co.kutsuki.safe.entity.MissingPersons;
 
 /**
  * missing_personsテーブルのリポジトリ
  * @author kutsuki
  *
  */
-public interface MissingPersonsRepository extends CrudRepository<MissingPersonsRepository, Integer>{
-
+public interface MissingPersonsRepository {
+	
+	public void setMissingPersonsTable(MissingPersons missingPersons) ;
+	
+	public ArrayList<MissingPersons> getMissingPersonsTable(RedirectAttributes redirectAttributes) ;
+	
 }

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.Informations;
+import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
 /**
  * missing_personsテーブル
@@ -14,10 +16,10 @@ import jp.co.kutsuki.safe.entity.Informations;
  *
  */
 @Repository
-public class InformationDao {
+public class InformationDao implements InformationRepository{
 	
 	@Autowired
-	private MissingPersonsDao missingPersonsDao;
+	MissingPersonsRepository  missingPersonsRepository;
 	
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
@@ -25,7 +27,7 @@ public class InformationDao {
 	 * end_flag==falseのみ全件取得  */
 	public void setInformationTable(Informations informations, RedirectAttributes redirectAttributes) {
 		//missing_personsテーブルのend_flag==falseのみを取得
-		informations.setMissingPersonsList(missingPersonsDao.getMissingPersonsTable(redirectAttributes));
+		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsTable(redirectAttributes));
 	}
 
 }

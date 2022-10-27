@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.MissingPersons;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
 /**
  * missing_personsテーブルのDAOクラス
@@ -20,11 +21,11 @@ import jp.co.kutsuki.safe.entity.MissingPersons;
  *
  */
 @Repository
-public class MissingPersonsDao {
+public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	@Autowired
 	private JdbcTemplate template;
-
+	
 	/** missing_personsテーブルに1件登録 */
 	@Transactional
 	public void setMissingPersonsTable(MissingPersons missingPersons) {

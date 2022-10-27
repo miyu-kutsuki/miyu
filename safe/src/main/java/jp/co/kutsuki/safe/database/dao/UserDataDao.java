@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
  * usersテーブルのDAOクラス
@@ -14,7 +15,7 @@ import jp.co.kutsuki.safe.entity.User;
  *
  */
 @Repository
-public class UserDataDao {
+public class UserDataDao implements UserRepository{
 	
 	@Autowired
 	private JdbcTemplate template;
