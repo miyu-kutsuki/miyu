@@ -23,6 +23,9 @@
 		<tr th:each="missingPerson : ${missingPersonsList}">
 			<td th:text="${missingPerson.date}"></td>
 			<td th:text="${missingPerson.name}"></td>
+			<td th:text="${missingPerson.gender}"></td>
+			<td th:text="${missingPerson.age}"></td>
+			<td th:text="${missingPerson.detail}"></td>
 			<td th:each="place : ${missingPerson.place}">
 				[[${place}]]
 			</td>
