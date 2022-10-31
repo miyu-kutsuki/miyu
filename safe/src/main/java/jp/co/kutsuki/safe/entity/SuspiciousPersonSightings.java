@@ -11,16 +11,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * missing_persons_sightingsテーブル用エンティティ
+ * suspicious_person_sightingsテーブル用エンティティ
  * @author kutsuki
  *
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MissingPersonsSightings {
+public class SuspiciousPersonSightings {
 	
-	/** missing_persons_sightingsテーブル用識別ID */
+	/** suspicious_person_sightingsテーブル用識別ID */
 	@Id
 	private Integer id;
 	

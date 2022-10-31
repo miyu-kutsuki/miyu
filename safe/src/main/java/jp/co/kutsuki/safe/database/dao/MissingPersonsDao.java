@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.MissingPersons;
@@ -42,7 +41,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	/** missing_personsテーブルから
 	 * end_flag==falseのみ全件取得 */
-	public ArrayList<MissingPersons> getMissingPersonsTable(RedirectAttributes redirectAttributes) {
+	public ArrayList<MissingPersons> getMissingPersonsTable() {
 		//SQL定義
 		String sql = " select * from missing_persons where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
@@ -74,7 +73,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	/** missing_personsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
-	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch, RedirectAttributes redirectAttributes) {
+	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch) {
 		//SQL定義
 		String sql = " select * from missing_persons where date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施

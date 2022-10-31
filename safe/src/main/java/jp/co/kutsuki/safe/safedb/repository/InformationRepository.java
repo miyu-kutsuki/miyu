@@ -1,7 +1,5 @@
 package jp.co.kutsuki.safe.safedb.repository;
 
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.Informations;
 
@@ -14,7 +12,7 @@ import jp.co.kutsuki.safe.entity.Informations;
  */
 public interface InformationRepository {
 	
-	public void setInformationTable(Informations informations, RedirectAttributes redirectAttributes) ;
+	public void setInformationTable(Informations informations) ;
 	
-	public void setDateInformationTable(Informations informations, DateSearch dateSearch, RedirectAttributes redirectAttributes);
+	public void setDateInformationTable(Informations informations, DateSearch dateSearch);
 }

@@ -64,9 +64,9 @@ public class SearchAction {
 		}
 		
 		if(msgList.size() == 0) {
-			informationRepository.setDateInformationTable(informations, dateSearch, redirectAttributes);
+			informationRepository.setDateInformationTable(informations, dateSearch);
 		}else if(msgList.size() == 2) {
-			informationRepository.setInformationTable(informations, redirectAttributes);
+			informationRepository.setInformationTable(informations);
 		}
 				
 		//missing_personsがnullかチェック
@@ -84,7 +84,7 @@ public class SearchAction {
 			//日付の範囲を指定しているかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullではない場合
 			//end_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch, redirectAttributes);
+			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
@@ -93,7 +93,7 @@ public class SearchAction {
 			//missing_personsがnullではないかつ
 			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			//missing_personsのend_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch, redirectAttributes);
+			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			
@@ -102,7 +102,7 @@ public class SearchAction {
 			//missing_persons_sightingsがnullではないかつ
 			//missing_persons・suspicious_person_sightingテーブルがnullの場合
 			//missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch, redirectAttributes);
+			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
@@ -116,7 +116,7 @@ public class SearchAction {
 			//日付の範囲指定がないかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullではない場合
 			//end_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations, redirectAttributes);
+			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
@@ -125,7 +125,7 @@ public class SearchAction {
 			//missing_personsがnullではないかつ
 			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			//missing_personsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations, redirectAttributes);
+			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			
@@ -134,7 +134,7 @@ public class SearchAction {
 			//missing_persons_sightingsがnullではないかつ
 			//missing_persons・suspicious_person_sightingテーブルがnullの場合
 			//missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations, redirectAttributes);
+			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
