@@ -68,8 +68,6 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 				missingPersons.setUser_id(rs.getString("user_id"));
 				missingPersonsList.add(missingPersons);
 			}
-		}else {
-			redirectAttributes.addFlashAttribute("msg", "該当データがありません。");
 		}
 		return missingPersonsList;
 	}
@@ -102,8 +100,6 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 				missingPersons.setUser_id(rs.getString("user_id"));
 				missingPersonsList.add(missingPersons);
 			}
-		}else {
-			redirectAttributes.addFlashAttribute("msg", "該当データがありません。");
 		}
 		return missingPersonsList;
 	}

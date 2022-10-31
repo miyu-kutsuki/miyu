@@ -17,8 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Informations {
-	
-	/** 各テーブルを保管するリスト */
+		
+	/** missing_personsテーブルを保管するリスト */
 	private ArrayList<MissingPersons> missingPersonsList;
+	
+	/** missing_persons_sightingsテーブルを保管するリスト */
+	private ArrayList<MissingPersonsSightings> missingPersonsSightingsList;
 	
 }

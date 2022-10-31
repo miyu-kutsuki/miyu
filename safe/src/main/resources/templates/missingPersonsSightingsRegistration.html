@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>探し人目撃情報登録ページ</title>
+</head>
+<body>
+	<h1>探し人目撃情報登録ページ</h1>
+	
+	<form th:action="@{/MissingPersonsSightingsRegistration}" method="post">
+		<div>
+			<div th:unless="${msg} == null">
+				<th:block th:each="errorMsg : ${msg}">
+					<label id="error" th:text="${errorMsg}"></label><br>
+				</th:block>
+			</div>
+			<label for="date">行方不明日</label><br>
+			<input type="date" name="date">
+		</div>
+				
+		<div>
+			<label for="gender">性別</label><br>
+			<input type="radio" name="gender" value="男">男
+			<input type="radio" name="gender" value="女">女
+			<input type="radio" name="gender" value="不">不明
+		</div>
+		
+		<div>
+			<label for="age">推定年齢</label><br>
+			<input type="number" name="age">
+		</div>
+		
+		<div>
+			<label for="detail">服装・背格好・経緯</label><br>
+			<textarea name="detail" rows="5" cols="30"></textarea>
+		</div>
+		
+		<div>
+			<label for="place">目撃場所</label><br>
+			都道府県名<br>
+			<input type="text" name="place"><br>
+			市区町村<br>
+			<input type="text" name="place"><br>
+			番地等<br>
+			<textarea name="place" rows="5" cols="30"></textarea>
+		</div>
+		
+		<input type="submit" value="登録">
+	</form>
+	
+	<form th:action="@{/Menu}" method="post">
+		<input type="submit" value="メニューページへ">
+	</form>
+
+</body>
+</html>

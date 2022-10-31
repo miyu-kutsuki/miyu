@@ -8,6 +8,7 @@ import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.Informations;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 
 /**
  * missing_personsテーブル
@@ -22,6 +23,9 @@ public class InformationDao implements InformationRepository{
 	@Autowired
 	MissingPersonsRepository  missingPersonsRepository;
 	
+	@Autowired
+	MissingPersonsSightingsRepository  missingPersonsSightingsRepository;
+	
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingテーブルから
@@ -29,6 +33,8 @@ public class InformationDao implements InformationRepository{
 	public void setInformationTable(Informations informations, RedirectAttributes redirectAttributes) {
 		//missing_personsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsTable(redirectAttributes));
+		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsTable(redirectAttributes));
 	}
 	
 	/** missing_personsテーブル
@@ -38,7 +44,11 @@ public class InformationDao implements InformationRepository{
 	public void setDateInformationTable(Informations informations, DateSearch dateSearch, RedirectAttributes redirectAttributes) {
 		//missing_personsテーブルの範囲指定された日付＋end_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getDateMissingPersonsTable(dateSearch, redirectAttributes));
+		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getDateMissingPersonsSightingsTable(dateSearch, redirectAttributes));
 	}
+	
+	
 
 
 }

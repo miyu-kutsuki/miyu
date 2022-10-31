@@ -7,11 +7,10 @@
 <body>
 	<h1>各情報表示ページ</h1>
 	
-	<h2>探し人情報</h2>
 	<th:block th:each="errorMsg : ${msg}">
 		<label id="error" th:text="${errorMsg}"></label><br>
 	</th:block>
-	
+		
 	<form th:action="@{/Search}" method="post">
 		<label>日付</label><br>
 		<input type="date" name="startDate">〜
@@ -19,13 +18,34 @@
 		<input type="submit" value="検索">
 	</form>
 	
+	<h2>探し人情報</h2>
+	
+	<p id="error" th:text="${msg1}"></p>
+	
 	<table>
 		<tr th:each="missingPerson : ${missingPersonsList}">
 			<td th:text="${missingPerson.date}"></td>
 			<td th:text="${missingPerson.name}"></td>
 			<td th:text="${missingPerson.gender}"></td>
 			<td th:text="${missingPerson.age}"></td>
+			<td th:text="${missingPerson.detail}"></td>
 			<td th:each="place : ${missingPerson.place}">
+				[[${place}]]
+			</td>
+		</tr>
+	</table>
+	
+	<h2>探し人目撃情報</h2>
+	
+	<p id="error" th:text="${msg2}"></p>
+	
+	<table>
+		<tr th:each="missingPersonSightings : ${missingPersonSightingsList}">
+			<td th:text="${missingPersonSightings.date}"></td>
+			<td th:text="${missingPersonSightings.gender}"></td>
+			<td th:text="${missingPersonSightings.age}"></td>
+			<td th:text="${missingPersonSightings.detail}"></td>
+			<td th:each="place : ${missingPersonSightings.place}">
 				[[${place}]]
 			</td>
 		</tr>
