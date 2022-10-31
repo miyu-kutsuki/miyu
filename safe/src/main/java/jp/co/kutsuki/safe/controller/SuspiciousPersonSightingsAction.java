@@ -16,29 +16,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.kutsuki.safe.entity.MissingPersons;
+import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
 import jp.co.kutsuki.safe.entity.User;
-import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
+import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
- * missing_personsテーブル登録用コントローラー
+ * suspicious_person_sightingsテーブル登録用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-public class MissingPersonAction {
+public class SuspiciousPersonSightingsAction {
 	
 	@Autowired
-	MissingPersonsRepository  missingPersonsRepository;
+	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 	
 	@Autowired
 	HttpSession session;
 	
-	/**データベースmissing_personsテーブルに探し人情報を登録後、 
+	/**データベースmissing_persons_sightingsテーブルに探し人の目撃情報を登録後、 
 	 * post・リダイレクトでメニュー選択ページへ遷移 */
-	@RequestMapping(value="/MissingPersonsRegistration", method = RequestMethod.POST)
-	public String MissingPersonView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam LocalDate date, 
-			@RequestParam String name, @RequestParam String gender, @RequestParam Integer age,
+	@RequestMapping(value="/SuspiciousPersonSightingsRegistration", method = RequestMethod.POST)
+	public String SuspiciousPersonSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam LocalDate date, 
+			@RequestParam String gender, @RequestParam Integer age,
 			@RequestParam String detail, @RequestParam String[] place,
 			RedirectAttributes redirectAttributes, Model model) {
 		
@@ -49,21 +49,21 @@ public class MissingPersonAction {
 		
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
-			MissingPersons missingPersons = new MissingPersons();
-			missingPersons.setDate(date);
-			missingPersons.setName(name);
-			missingPersons.setGender(gender);
-			missingPersons.setAge(age);
-			missingPersons.setDetail(detail);
+			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
+			suspiciousPersonSightings.setDate(date);
+			suspiciousPersonSightings.setGender(gender);
+			suspiciousPersonSightings.setAge(age);
+			suspiciousPersonSightings.setDetail(detail);
 			//String配列からArrayListへ変換
 			List<String> placeList = Arrays.asList(place);
-			missingPersons.setPlace(placeList);
-			missingPersons.setUser_id(userInformation.getUser_id());
-			missingPersonsRepository.setMissingPersonsTable(missingPersons);
+			suspiciousPersonSightings.setPlace(placeList);
+			suspiciousPersonSightings.setUser_id(userInformation.getUser_id());
+			suspiciousPersonSightingsRepository.setSuspiciousPersonSightingsTable(suspiciousPersonSightings);
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);
 		}
 		
 		return "redirect:Menu";
 	}
+
 }
