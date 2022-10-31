@@ -8,11 +8,12 @@ import jp.co.kutsuki.safe.entity.Informations;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
+import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
  * missing_personsテーブル
  * missing_persons_sightingsテーブル
- * suspicious_person_sightingテーブルのDAOクラス
+ * suspicious_person_sightingsテーブルのDAOクラス
  * @author kutsuki
  *
  */
@@ -25,26 +26,34 @@ public class InformationDao implements InformationRepository{
 	@Autowired
 	MissingPersonsSightingsRepository  missingPersonsSightingsRepository;
 	
+	@Autowired
+	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
+	
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
-	 * suspicious_person_sightingテーブルから
+	 * suspicious_person_sightingsテーブルから
 	 * end_flag==falseのみ全件取得  */
 	public void setInformationTable(Informations informations) {
 		//missing_personsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsTable());
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsTable());
+		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable());
+
 	}
 	
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
-	 * suspicious_person_sightingテーブルから
+	 * suspicious_person_sightingsテーブルから
 	 * end_flag==falseのみ全件取得  */
 	public void setDateInformationTable(Informations informations, DateSearch dateSearch) {
 		//missing_personsテーブルの範囲指定された日付＋end_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getDateMissingPersonsTable(dateSearch));
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getDateMissingPersonsSightingsTable(dateSearch));
+		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDateSuspiciousPersonSightingsTable(dateSearch));
 	}
 	
 	

@@ -50,6 +50,23 @@
 			</td>
 		</tr>
 	</table>
+	
+	<h2>不審者目撃情報</h2>
+	
+	<p id="error" th:text="${msg3}"></p>
+	
+	<table>
+		<tr th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
+			<td th:text="${suspiciousPersonSightings.date}"></td>
+			<td th:text="${suspiciousPersonSightings.gender}"></td>
+			<td th:text="${suspiciousPersonSightings.age}"></td>
+			<td th:text="${suspiciousPersonSightings.detail}"></td>
+			<td th:each="place : ${suspiciousPersonSightings.place}">
+				[[${place}]]
+			</td>
+		</tr>
+	</table>
+	
 		
 	<form th:action="@{/Menu}" method="post">
 		<input type="submit" value="メニューページへ">

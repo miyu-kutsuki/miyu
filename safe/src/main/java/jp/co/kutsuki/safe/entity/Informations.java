@@ -24,4 +24,7 @@ public class Informations {
 	/** missing_persons_sightingsテーブルを保管するリスト */
 	private ArrayList<MissingPersonsSightings> missingPersonsSightingsList;
 	
+	/** suspicious_person_sightingテーブルを保管するリスト */
+	private ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList;
+	
 }
