@@ -28,7 +28,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	@Transactional
 	public void setMissingPersonsTable(MissingPersons missingPersons) {
 		//SQL定義
-		String sql = " insert into missing_persons(date, name, gender, age, detail, prefectures, municipalities, other, user_id) "
+		String sql = "insert into missing_persons(date, name, gender, age, detail, prefectures, municipalities, other, user_id)"
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(), missingPersons.getAge(),

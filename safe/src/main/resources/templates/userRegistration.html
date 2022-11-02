@@ -8,7 +8,8 @@
 	<h1>ユーザー新規登録ページ</h1>
 	<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
 		<ul th:if="${#fields.hasErrors('*')}">
-			<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
 		</ul>
 	
 		<ul th:unless="${msg} == null">

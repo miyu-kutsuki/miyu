@@ -8,7 +8,8 @@
 	<h1>ログイン画面</h1>
 	<form th:action="@{/LoginAction}" method="post" th:object="${user}">
 		<ul th:if="${#fields.hasErrors('*')}">
-				<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
+				<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
+				<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
 		</ul>
 		<ul th:unless="${msg} == null">
 			<th:block th:each="errorMsg : ${msg}">

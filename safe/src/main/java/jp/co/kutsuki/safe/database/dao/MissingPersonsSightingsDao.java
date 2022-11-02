@@ -2,8 +2,6 @@ package jp.co.kutsuki.safe.database.dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,13 +28,12 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Transactional
 	public void setMissingPersonsSightingsTable(MissingPersonsSightings missingPersonsSightings) {
 		//SQL定義
-		String sql = " insert into missing_persons_sightings(date, gender, age, detail, place, user_id) values(?, ?, ?, ?, ?, ?)";
-		//missingPersons.getPlace()をString配列に変換
-		String[] placeList = missingPersonsSightings.getPlace().toArray(new String[missingPersonsSightings.getPlace().size()]);
-		String place = String.join(",", placeList);
+		String sql = "insert into missing_persons_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id) "
+				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(), missingPersonsSightings.getAge(),
-				missingPersonsSightings.getDetail(), place, missingPersonsSightings.getUser_id());
+				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(), 
+				missingPersonsSightings.getMunicipalities(), missingPersonsSightings.getOther(), missingPersonsSightings.getUser_id());
 	}
 	
 	/** missing_persons_sightingsテーブルから
@@ -58,10 +55,9 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 			missingPersonsSightings.setGender(rs.getString("gender"));
 			missingPersonsSightings.setAge(rs.getInt("age"));
 			missingPersonsSightings.setDetail(rs.getString("detail"));
-			//文字列からArrayListに変換
-			String placeStr = rs.getString("place");
-			List<String> place = Arrays.asList(placeStr.split(","));
-			missingPersonsSightings.setPlace(place);
+			missingPersonsSightings.setPrefectures(rs.getString("prefectures"));
+			missingPersonsSightings.setMunicipalities(rs.getString("municipalities"));
+			missingPersonsSightings.setOther(rs.getString("other"));
 			missingPersonsSightings.setUser_id(rs.getString("user_id"));
 			missingPersonsSightingsList.add(missingPersonsSightings);
 		}
@@ -88,10 +84,9 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 			missingPersonsSightings.setGender(rs.getString("gender"));
 			missingPersonsSightings.setAge(rs.getInt("age"));
 			missingPersonsSightings.setDetail(rs.getString("detail"));
-			//文字列からArrayListに変換
-			String placeStr = rs.getString("place");
-			List<String> place = Arrays.asList(placeStr.split(","));
-			missingPersonsSightings.setPlace(place);
+			missingPersonsSightings.setPrefectures(rs.getString("prefectures"));
+			missingPersonsSightings.setMunicipalities(rs.getString("municipalities"));
+			missingPersonsSightings.setOther(rs.getString("other"));
 			missingPersonsSightings.setUser_id(rs.getString("user_id"));
 			missingPersonsSightingsList.add(missingPersonsSightings);
 		}
