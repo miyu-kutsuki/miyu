@@ -27,7 +27,7 @@ public class MissingPersonsSightings {
 	@Id
 	private Integer id;
 	
-	/** 行方不明日 */
+	/** 目撃日 */
 	@NotNull(message = "日付が入力されていません。")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate date;

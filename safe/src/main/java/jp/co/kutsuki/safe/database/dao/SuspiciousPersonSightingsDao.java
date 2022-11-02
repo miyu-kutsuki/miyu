@@ -2,8 +2,6 @@ package jp.co.kutsuki.safe.database.dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,13 +28,12 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	@Transactional
 	public void setSuspiciousPersonSightingsTable(SuspiciousPersonSightings suspiciousPersonSightings) {
 		//SQL定義
-		String sql = " insert into suspicious_person_sightings(date, gender, age, detail, place, user_id) values(?, ?, ?, ?, ?, ?)";
-		//missingPersons.getPlace()をString配列に変換
-		String[] placeList = suspiciousPersonSightings.getPlace().toArray(new String[suspiciousPersonSightings.getPlace().size()]);
-		String place = String.join(",", placeList);
+		String sql = "insert into suspicious_person_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id) "
+				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, suspiciousPersonSightings.getDate(), suspiciousPersonSightings.getGender(), suspiciousPersonSightings.getAge(),
-				suspiciousPersonSightings.getDetail(), place, suspiciousPersonSightings.getUser_id());
+				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(), 
+				suspiciousPersonSightings.getMunicipalities(), suspiciousPersonSightings.getOther(), suspiciousPersonSightings.getUser_id());
 	}
 	
 	/** suspicious_person_sightingsテーブルから
@@ -58,10 +55,9 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 			suspiciousPersonSightings.setGender(rs.getString("gender"));
 			suspiciousPersonSightings.setAge(rs.getInt("age"));
 			suspiciousPersonSightings.setDetail(rs.getString("detail"));
-			//文字列からArrayListに変換
-			String placeStr = rs.getString("place");
-			List<String> place = Arrays.asList(placeStr.split(","));
-			suspiciousPersonSightings.setPlace(place);
+			suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+			suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+			suspiciousPersonSightings.setOther(rs.getString("other"));
 			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
 			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
 		}
@@ -88,10 +84,9 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 			suspiciousPersonSightings.setGender(rs.getString("gender"));
 			suspiciousPersonSightings.setAge(rs.getInt("age"));
 			suspiciousPersonSightings.setDetail(rs.getString("detail"));
-			//文字列からArrayListに変換
-			String placeStr = rs.getString("place");
-			List<String> place = Arrays.asList(placeStr.split(","));
-			suspiciousPersonSightings.setPlace(place);
+			suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+			suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+			suspiciousPersonSightings.setOther(rs.getString("other"));
 			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
 			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
 		}
