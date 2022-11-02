@@ -29,8 +29,10 @@
 			<td th:text="${missingPerson.gender}"></td>
 			<td th:text="${missingPerson.age}"></td>
 			<td th:text="${missingPerson.detail}"></td>
-			<td th:each="place : ${missingPerson.place}">
-				[[${place}]]
+			<td>
+			[[${missingPerson.prefectures}]]
+			[[${missingPerson.municipalities}]]
+			[[${missingPerson.other}]]
 			</td>
 		</tr>
 	</table>
@@ -45,8 +47,10 @@
 			<td th:text="${missingPersonSightings.gender}"></td>
 			<td th:text="${missingPersonSightings.age}"></td>
 			<td th:text="${missingPersonSightings.detail}"></td>
-			<td th:each="place : ${missingPersonSightings.place}">
-				[[${place}]]
+			<td>
+			[[${missingPersonSightings.prefectures}]]
+			[[${missingPersonSightings.municipalities}]]
+			[[${missingPersonSightings.other}]]
 			</td>
 		</tr>
 	</table>
@@ -61,8 +65,10 @@
 			<td th:text="${suspiciousPersonSightings.gender}"></td>
 			<td th:text="${suspiciousPersonSightings.age}"></td>
 			<td th:text="${suspiciousPersonSightings.detail}"></td>
-			<td th:each="place : ${suspiciousPersonSightings.place}">
-				[[${place}]]
+			<td>
+			[[${suspiciousPersonSightings.prefectures}]]
+			[[${suspiciousPersonSightings.municipalities}]]
+			[[${suspiciousPersonSightings.other}]]
 			</td>
 		</tr>
 	</table>
