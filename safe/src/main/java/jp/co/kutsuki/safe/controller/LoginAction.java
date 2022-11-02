@@ -37,7 +37,7 @@ public class LoginAction {
 	 * @return */
 	@RequestMapping(value="/LoginAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password, 
-			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 		
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
@@ -76,19 +76,12 @@ public class LoginAction {
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
 			session.setAttribute("user", userInformation);
+			userInformation = (User) session.getAttribute("user");
+			model.addAttribute("user", userInformation);
 			return "redirect:Menu";
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);
 			return "redirect:Login";
 		}
-	}
-	
-	/** リダイレクト先の画面
-	 * ログイン成功 */
-	@RequestMapping("Menu")
-	public String PostUserView(Model model) {
-		User userInformation = (User) session.getAttribute("user");
-		model.addAttribute("user", userInformation);
-		return "safeMenu";
 	}
 }

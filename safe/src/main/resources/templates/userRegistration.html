@@ -8,7 +8,7 @@
 	<h1>ユーザー新規登録ページ</h1>
 	<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
 		<ul th:if="${#fields.hasErrors('*')}">
-				<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
 		</ul>
 	
 		<ul th:unless="${msg} == null">
@@ -18,11 +18,11 @@
 		</ul>
 		<div>
 			<label for="user_id">ユーザーID：</label>
-			<input type="text" name="user_id">
+			<input type="text" th:field="*{user_id}">
 		</div>
 		<div>
 			<label for="password">パスワード：</label>
-			<input type="password" name="password">
+			<input type="password" th:field="*{password}">
 		</div>
 		<input type="submit" value="登録">
 	</form>
