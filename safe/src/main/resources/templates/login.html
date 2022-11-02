@@ -6,19 +6,22 @@
 </head>
 <body>
 	<h1>ログイン画面</h1>
-	<form th:action="@{/LoginAction}" method="post">
+	<form th:action="@{/LoginAction}" method="post" th:object="${user}">
+		<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
+		</ul>
+		<ul th:unless="${msg} == null">
+			<th:block th:each="errorMsg : ${msg}">
+				<li id="error" th:text="${errorMsg}"></li>
+			</th:block>
+		</ul>
 		<div>
-			<div th:unless="${msg} == null">
-				<th:block th:each="errorMsg : ${msg}">
-					<label id="error" th:text="${errorMsg}"></label><br>
-				</th:block>
-			</div>
 			<label for="user_id">ユーザーID：</label>
-			<input type="text" name="user_id">
+			<input type="text" th:field="*{user_id}">
 		</div>
 		<div>
 			<label for="password">パスワード：</label>
-			<input type="password" name="password">
+			<input type="password" th:field="*{password}">
 		</div>
 		<input type="submit" value="ログイン">
 	</form>

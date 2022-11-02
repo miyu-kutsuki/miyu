@@ -2,17 +2,21 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ユーザー登録ページ</title>
+<title>ユーザー新規登録ページ</title>
 </head>
 <body>
 	<h1>ユーザー新規登録ページ</h1>
-	<form th:action="@{/UserRegistrationAction}" method="post">
+	<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
+		<ul th:if="${#fields.hasErrors('*')}">
+				<li th:each="errors:${#fields.errors('*')}" th:text="${errors}"></li>
+		</ul>
+	
+		<ul th:unless="${msg} == null">
+			<th:block th:each="errorMsg : ${msg}">
+				<li id="error" th:text="${errorMsg}"></li>
+			</th:block>
+		</ul>
 		<div>
-			<div th:unless="${msg} == null">
-				<th:block th:each="errorMsg : ${msg}">
-					<label id="error" th:text="${errorMsg}"></label><br>
-				</th:block>
-			</div>
 			<label for="user_id">ユーザーID：</label>
 			<input type="text" name="user_id">
 		</div>
