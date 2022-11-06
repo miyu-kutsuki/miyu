@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
+import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
@@ -43,6 +44,36 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		String sql = " select * from suspicious_person_sightings where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
+		//結果を取得
+		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		while(rs.next()) {
+			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
+			suspiciousPersonSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			suspiciousPersonSightings.setDate(date);
+			suspiciousPersonSightings.setGender(rs.getString("gender"));
+			suspiciousPersonSightings.setAge(rs.getInt("age"));
+			suspiciousPersonSightings.setDetail(rs.getString("detail"));
+			suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+			suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+			suspiciousPersonSightings.setOther(rs.getString("other"));
+			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
+			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
+		}
+		
+		return suspiciousPersonSightingsList;
+	}
+	
+	/** suspicious_person_sightingsテーブルから
+	 * ログインユーザーとuser_idが一致したデータの
+	 * end_flag==falseのみ全件取得 */
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user) {
+		//SQL定義
+		String sql = " select * from suspicious_person_sightings where user_id = ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
 		//rs(SQL実行取得結果)が0の場合elseを処理する

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザーページ</title>
+</head>
+<body>
+	<h1>ユーザーページ</h1>
+
+	<label>ユーザーID</label>
+	<br>
+	<label id="user" th:text="${user_id}"></label>
+
+	<h2>登録履歴</h2>
+
+	<h3>探し人情報</h3>
+	<p id="error" th:text="${msg1}"></p>
+	<form th:action="@{/UserInformationsMissingPersonAction}" method="post">
+		<table>
+			<tr th:each="missingPerson : ${missingPersonsList}">
+				<td th:text="${missingPerson.date}"></td>
+				<td th:text="${missingPerson.name}"></td>
+				<td th:text="${missingPerson.gender}"></td>
+				<td th:text="${missingPerson.age}"></td>
+				<td th:text="${missingPerson.detail}"></td>
+				<td>[[${missingPerson.prefectures}]]
+					[[${missingPerson.municipalities}]] [[${missingPerson.other}]]</td>
+				<td><input type="hidden" name="edit" value=${missingPerson.id}>
+					<input type="submit" value="編集"></td>
+				<td><input type="hidden" name="end" value=${missingPerson.id}>
+					<input type="submit" value="終了"></td>
+			</tr>
+		</table>
+	</form>
+	
+	<h3>探し人目撃情報</h3>
+	<p id="error" th:text="${msg2}"></p>
+	<form th:action="@{/UserInformationsMissingPersonSightingsAction}" method="post">
+	<table>
+		<tr th:each="missingPersonSightings : ${missingPersonSightingsList}">
+			<td th:text="${missingPersonSightings.date}"></td>
+			<td th:text="${missingPersonSightings.gender}"></td>
+			<td th:text="${missingPersonSightings.age}"></td>
+			<td th:text="${missingPersonSightings.detail}"></td>
+			<td>[[${missingPersonSightings.prefectures}]]
+				[[${missingPersonSightings.municipalities}]]
+				[[${missingPersonSightings.other}]]</td>
+			<td><input type="hidden" name="edit"
+				value=${missingPersonSightings.id}> <input type="submit"
+				value="編集"></td>
+			<td><input type="hidden" name="end"
+				value=${missingPersonSightings.id}> <input type="submit"
+				value="終了"></td>
+		</tr>
+	</table>
+	</form>
+	
+	<h3>不審者目撃情報</h3>
+	<p id="error" th:text="${msg3}"></p>
+	<form th:action="@{/UserInformationsSuspiciousPersonSightingsAction}" method="post">
+	<table>
+		<tr th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
+			<td th:text="${suspiciousPersonSightings.date}"></td>
+			<td th:text="${suspiciousPersonSightings.gender}"></td>
+			<td th:text="${suspiciousPersonSightings.age}"></td>
+			<td th:text="${suspiciousPersonSightings.detail}"></td>
+			<td>[[${suspiciousPersonSightings.prefectures}]]
+				[[${suspiciousPersonSightings.municipalities}]]
+				[[${suspiciousPersonSightings.other}]]</td>
+			<td><input type="hidden" name="edit"
+				value=${missingPersonSightings.id}> <input type="submit"
+				value="編集"></td>
+			<td><input type="hidden" name="end"
+				value=${missingPersonSightings.id}> <input type="submit"
+				value="終了"></td>
+		</tr>
+	</table>
+	</form>
+	
+	<form th:action="@{/Menu}" method="get">
+		<input type="submit" value="メニューページへ">
+	</form>
+	
+</body>
+</html>

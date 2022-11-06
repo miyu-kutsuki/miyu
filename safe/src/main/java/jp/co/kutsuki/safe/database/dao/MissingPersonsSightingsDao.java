@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
+import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 
 /**
@@ -43,6 +44,36 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		String sql = " select * from missing_persons_sightings where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
+		//結果を取得
+		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		while(rs.next()) {
+			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
+			missingPersonsSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersonsSightings.setDate(date);
+			missingPersonsSightings.setGender(rs.getString("gender"));
+			missingPersonsSightings.setAge(rs.getInt("age"));
+			missingPersonsSightings.setDetail(rs.getString("detail"));
+			missingPersonsSightings.setPrefectures(rs.getString("prefectures"));
+			missingPersonsSightings.setMunicipalities(rs.getString("municipalities"));
+			missingPersonsSightings.setOther(rs.getString("other"));
+			missingPersonsSightings.setUser_id(rs.getString("user_id"));
+			missingPersonsSightingsList.add(missingPersonsSightings);
+		}
+		
+		return missingPersonsSightingsList;
+	}
+	
+	/** missing_persons_sightingsテーブルから
+	 * ログインユーザーとuser_idが一致したデータの
+	 * end_flag==falseのみ全件取得 */
+	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(User user) {
+		//SQL定義
+		String sql = " select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
 		//rs(SQL実行取得結果)が0の場合elseを処理する

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
+import jp.co.kutsuki.safe.entity.User;
 
 /**
  * suspicious_person_sightingsテーブルのリポジトリ
@@ -15,6 +16,8 @@ public interface SuspiciousPersonSightingsRepository {
 	public void setSuspiciousPersonSightingsTable(SuspiciousPersonSightings suspiciousPersonSightings);
 	
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable();
+	
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user_id);
 	
 	public ArrayList<SuspiciousPersonSightings> getDateSuspiciousPersonSightingsTable(DateSearch dateSearch);
 }

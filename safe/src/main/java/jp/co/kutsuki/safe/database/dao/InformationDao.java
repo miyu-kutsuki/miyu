@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.Informations;
+import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
@@ -40,12 +41,27 @@ public class InformationDao implements InformationRepository{
 		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsTable());
 		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable());
-
 	}
 	
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
+	 * ログインユーザーとuser_idが一致するデータ
+	 * end_flag==falseのみ全件取得  */
+	public void setInformationTable(Informations informations, User user) {
+		//missing_personsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsTable(user));
+		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsTable(user));
+		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable(user));
+	}
+
+	
+	/** missing_personsテーブル
+	 * missing_persons_sightingsテーブル
+	 * suspicious_person_sightingsテーブルから
+	 * 指定された日付の範囲の
 	 * end_flag==falseのみ全件取得  */
 	public void setDateInformationTable(Informations informations, DateSearch dateSearch) {
 		//missing_personsテーブルの範囲指定された日付＋end_flag==falseのみを取得

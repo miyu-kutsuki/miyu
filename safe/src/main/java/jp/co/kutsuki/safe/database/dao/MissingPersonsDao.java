@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.MissingPersons;
+import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
 /**
@@ -43,6 +44,38 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		String sql = " select * from missing_persons where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
+		//結果を取得
+		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		if(!rs.isLast()) {
+			while(rs.next()) {
+				MissingPersons missingPersons = new MissingPersons();
+				missingPersons.setId(rs.getInt("id"));
+				// Date型からLocaldate型へ変換
+				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+				missingPersons.setDate(date);
+				missingPersons.setName(rs.getString("name"));
+				missingPersons.setGender(rs.getString("gender"));
+				missingPersons.setAge(rs.getInt("age"));
+				missingPersons.setDetail(rs.getString("detail"));
+				missingPersons.setPrefectures(rs.getString("prefectures"));
+				missingPersons.setMunicipalities(rs.getString("municipalities"));
+				missingPersons.setOther(rs.getString("other"));
+				missingPersons.setUser_id(rs.getString("user_id"));
+				missingPersonsList.add(missingPersons);
+			}
+		}
+		return missingPersonsList;
+	}
+	
+	/** missing_personsテーブルから
+	 * ログインユーザーとuser_idが一致したデータの
+	 * end_flag==falseのみ全件取得 */
+	public ArrayList<MissingPersons> getMissingPersonsTable(User user) {
+		//SQL定義
+		String sql = " select * from missing_persons where user_id = ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
 		//rs(SQL実行取得結果)が0の場合elseを処理する

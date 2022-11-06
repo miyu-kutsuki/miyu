@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.MissingPersons;
+import jp.co.kutsuki.safe.entity.User;
 
 /**
  * missing_personsテーブルのリポジトリ
@@ -12,10 +13,12 @@ import jp.co.kutsuki.safe.entity.MissingPersons;
  */
 public interface MissingPersonsRepository {
 	
-	public void setMissingPersonsTable(MissingPersons missingPersons) ;
+	public void setMissingPersonsTable(MissingPersons missingPersons);
 	
-	public ArrayList<MissingPersons> getMissingPersonsTable() ;
+	public ArrayList<MissingPersons> getMissingPersonsTable();
 	
-	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch) ;
+	public ArrayList<MissingPersons> getMissingPersonsTable(User user_id);
+	
+	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch);
 	
 }
