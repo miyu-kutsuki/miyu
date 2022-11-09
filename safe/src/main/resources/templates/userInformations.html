@@ -25,10 +25,8 @@
 				<td th:text="${missingPerson.detail}"></td>
 				<td>[[${missingPerson.prefectures}]]
 					[[${missingPerson.municipalities}]] [[${missingPerson.other}]]</td>
-				<td><input type="hidden" name="edit" value=${missingPerson.id}>
-					<input type="submit" value="編集"></td>
-				<td><input type="hidden" name="end" value=${missingPerson.id}>
-					<input type="submit" value="終了"></td>
+				<td><button type="submit" name="edit" th:value="${missingPerson.id}">編集</button></td>
+				<td><button type="submit" name="end" th:value="${missingPerson.id}">終了</button></td>
 			</tr>
 		</table>
 	</form>
@@ -45,12 +43,9 @@
 			<td>[[${missingPersonSightings.prefectures}]]
 				[[${missingPersonSightings.municipalities}]]
 				[[${missingPersonSightings.other}]]</td>
-			<td><input type="hidden" name="edit"
-				value=${missingPersonSightings.id}> <input type="submit"
-				value="編集"></td>
-			<td><input type="hidden" name="end"
-				value=${missingPersonSightings.id}> <input type="submit"
-				value="終了"></td>
+			<td><button type="submit" name="edit" th:value="${missingPersonSightings.id}">編集</button></td>
+			<td><button type="submit" name="end" th:value="${missingPersonSightings.id}">終了</button></td>
+			
 		</tr>
 	</table>
 	</form>
@@ -67,12 +62,9 @@
 			<td>[[${suspiciousPersonSightings.prefectures}]]
 				[[${suspiciousPersonSightings.municipalities}]]
 				[[${suspiciousPersonSightings.other}]]</td>
-			<td><input type="hidden" name="edit"
-				value=${missingPersonSightings.id}> <input type="submit"
-				value="編集"></td>
-			<td><input type="hidden" name="end"
-				value=${missingPersonSightings.id}> <input type="submit"
-				value="終了"></td>
+			<td><button type="submit" name="edit" th:value="${suspiciousPersonSightings.id}">編集</button></td>
+			<td><button type="submit" name="end" th:value="${suspiciousPersonSightings.id}">終了</button></td>
+			
 		</tr>
 	</table>
 	</form>

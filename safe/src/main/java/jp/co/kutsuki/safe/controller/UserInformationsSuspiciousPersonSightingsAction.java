@@ -8,35 +8,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
+import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
- * 探し人情報の編集アクション・終了アクション用コントローラー
+ * 不審者目撃情報の編集アクション・終了アクション用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-public class UserInformationsMissingPersonAction {
+public class UserInformationsSuspiciousPersonSightingsAction {
 	
 	@Autowired
-	MissingPersonsRepository missingPersonsRepository;
+	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 	
 	@Autowired
 	HttpSession session;
 		
-	@RequestMapping(value="/UserInformationsMissingPersonAction", method = RequestMethod.POST)
+	@RequestMapping(value="/UserInformationsSuspiciousPersonSightingsAction", method = RequestMethod.POST)
 	public String UserInformationsView(@RequestParam(name = "edit", required = false) String edit, 
 			@RequestParam(name = "end", required = false) String end) {
 		
 		//編集ボタンが押下されたら指定されたidのデータを更新
 		if(!(edit == null)) {
 			session.setAttribute("id", edit);
-			return "redirect:MissingPersonsEditPage";
+			return "redirect:SuspiciousPersonSightingsEditPage";
 		}
 		
 		//終了ボタンが押下されたら指定されたidのカラムend_flagにtrueをセットする
 		if(!(end == null)) {
-			missingPersonsRepository.Delete(end);
+			suspiciousPersonSightingsRepository.Delete(end);
 		}
 		
 		return "redirect:UserInformations";

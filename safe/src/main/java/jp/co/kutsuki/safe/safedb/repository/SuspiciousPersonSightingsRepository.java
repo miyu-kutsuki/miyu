@@ -20,4 +20,10 @@ public interface SuspiciousPersonSightingsRepository {
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user_id);
 	
 	public ArrayList<SuspiciousPersonSightings> getDateSuspiciousPersonSightingsTable(DateSearch dateSearch);
+	
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsIdTable(String id);
+	
+	public void Update(String id, SuspiciousPersonSightings suspiciousPersonSightings);
+	
+	public void Delete(String id);
 }

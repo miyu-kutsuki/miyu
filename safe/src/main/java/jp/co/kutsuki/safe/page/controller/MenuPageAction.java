@@ -1,4 +1,4 @@
-package jp.co.kutsuki.safe.controller;
+package jp.co.kutsuki.safe.page.controller;
 
 import javax.servlet.http.HttpSession;
 

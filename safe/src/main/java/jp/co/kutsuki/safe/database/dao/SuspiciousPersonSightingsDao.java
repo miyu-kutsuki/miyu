@@ -123,4 +123,67 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		}
 		return suspiciousPersonSightingsList;
 	}
+	
+	/** missing_persons_sightingsテーブルから
+	 * idが一致したデータのみ取得 */
+	@Override
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsIdTable(String id) {
+		//SQL定義
+		String sql = " select * from suspicious_person_sightings where id = ?";
+		//SQL実行し取得を実施
+		Integer listId = Integer.valueOf(id);
+		SqlRowSet rs = template.queryForRowSet(sql, listId);
+		//結果を取得
+		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		if(!rs.isLast()) {
+			while(rs.next()) {
+				SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
+				suspiciousPersonSightings.setId(rs.getInt("id"));
+				// Date型からLocaldate型へ変換
+				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+				suspiciousPersonSightings.setDate(date);
+				suspiciousPersonSightings.setGender(rs.getString("gender"));
+				suspiciousPersonSightings.setAge(rs.getInt("age"));
+				suspiciousPersonSightings.setDetail(rs.getString("detail"));
+				suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+				suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+				suspiciousPersonSightings.setOther(rs.getString("other"));
+				suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
+				suspiciousPersonSightingsList.add(suspiciousPersonSightings);
+			}
+		}
+		return suspiciousPersonSightingsList;
+	}
+	
+	/**
+	 * idで指定された行のデータを更新する
+	 */
+	@Transactional
+	@Override
+	public void Update(String id, SuspiciousPersonSightings suspiciousPersonSightings) {
+		//SQL定義
+		String sql = "update suspicious_person_sightings "
+				+ "set(date, gender, age, detail, prefectures, municipalities, other)=(?, ?, ?, ?, ?, ?, ?) where id = ?";
+		//SQL実行し登録を実施
+		Integer listId = Integer.valueOf(id);
+		template.update(sql, suspiciousPersonSightings.getDate(), suspiciousPersonSightings.getGender(), suspiciousPersonSightings.getAge(),
+				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(), 
+				suspiciousPersonSightings.getMunicipalities(), suspiciousPersonSightings.getOther(), listId);
+	}
+	
+	/**
+	 * idで指定された行のend_flagにtrueをセットする
+	 * @param id
+	 */
+	@Transactional
+	@Override
+	public void Delete(String id) {
+		//SQL定義
+		String sql = "update suspicious_person_sightings set end_flag = true where id = ?";
+		//SQL実行し登録を実施
+		Integer listId = Integer.valueOf(id);
+		template.update(sql, listId);
+	}
+
 }

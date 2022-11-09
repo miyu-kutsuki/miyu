@@ -72,7 +72,35 @@ public class InformationDao implements InformationRepository{
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDateSuspiciousPersonSightingsTable(dateSearch));
 	}
 	
+	/**
+	 * missing_personsテーブルid指定されたデータを取得
+	 * @param informations
+	 * @param id
+	 */
+	public void setMissingPersonsTable(Informations informations, String id) {
+		//missing_personsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsIdTable(id));
+	}
 	
+	/**
+	 * missing_persons_sightingsテーブルid指定されたデータを取得
+	 * @param informations
+	 * @param id
+	 */
+	public void setMissingPersonsSightingsTable(Informations informations, String id) {
+		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsIdTable(id));
+	}
+	
+	/**
+	 * suspicious_person_sightingsテーブルid指定されたデータを取得
+	 * @param informations
+	 * @param id
+	 */
+	public void setSuspiciousPersonSightingsTable(Informations informations, String id) {
+		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsIdTable(id));
 
+	}
 
 }

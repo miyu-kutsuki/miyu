@@ -21,4 +21,10 @@ public interface MissingPersonsRepository {
 	
 	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch);
 	
+	public ArrayList<MissingPersons> getMissingPersonsIdTable(String id);
+	
+	public void Update(String id, MissingPersons missingPersons);
+	
+	public void Delete(String id);
+	
 }

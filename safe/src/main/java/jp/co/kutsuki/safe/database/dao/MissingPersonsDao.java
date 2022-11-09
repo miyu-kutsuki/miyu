@@ -27,6 +27,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	/** missing_personsテーブルに1件登録 */
 	@Transactional
+	@Override
 	public void setMissingPersonsTable(MissingPersons missingPersons) {
 		//SQL定義
 		String sql = "insert into missing_persons(date, name, gender, age, detail, prefectures, municipalities, other, user_id)"
@@ -39,6 +40,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	/** missing_personsテーブルから
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersons> getMissingPersonsTable() {
 		//SQL定義
 		String sql = " select * from missing_persons where end_flag = false order by date ASC";
@@ -71,6 +73,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	/** missing_personsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersons> getMissingPersonsTable(User user) {
 		//SQL定義
 		String sql = " select * from missing_persons where user_id = ? and end_flag = false order by date ASC";
@@ -102,6 +105,7 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 	
 	/** missing_personsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch) {
 		//SQL定義
 		String sql = " select * from missing_persons where date >= ? and date <= ? and end_flag = false order by date ASC";
@@ -129,5 +133,68 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 			}
 		}
 		return missingPersonsList;
+	}
+	
+	/** missing_personsテーブルから
+	 * idが一致したデータのみ取得 */
+	@Override
+	public ArrayList<MissingPersons> getMissingPersonsIdTable(String id) {
+		//SQL定義
+		String sql = " select * from missing_persons where id = ?";
+		//SQL実行し取得を実施
+		Integer listId = Integer.valueOf(id);
+		SqlRowSet rs = template.queryForRowSet(sql, listId);
+		//結果を取得
+		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+		//rs(SQL実行取得結果)が0の場合elseを処理する
+		if(!rs.isLast()) {
+			while(rs.next()) {
+				MissingPersons missingPersons = new MissingPersons();
+				missingPersons.setId(rs.getInt("id"));
+				// Date型からLocaldate型へ変換
+				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+				missingPersons.setDate(date);
+				missingPersons.setName(rs.getString("name"));
+				missingPersons.setGender(rs.getString("gender"));
+				missingPersons.setAge(rs.getInt("age"));
+				missingPersons.setDetail(rs.getString("detail"));
+				missingPersons.setPrefectures(rs.getString("prefectures"));
+				missingPersons.setMunicipalities(rs.getString("municipalities"));
+				missingPersons.setOther(rs.getString("other"));
+				missingPersons.setUser_id(rs.getString("user_id"));
+				missingPersonsList.add(missingPersons);
+			}
+		}
+		return missingPersonsList;
+	}
+
+	/**
+	 * idで指定された行のデータを更新する
+	 */
+	@Transactional
+	@Override
+	public void Update(String id, MissingPersons missingPersons) {
+		//SQL定義
+		String sql = "update missing_persons "
+				+ "set(date, name, gender, age, detail, prefectures, municipalities, other)=(?, ?, ?, ?, ?, ?, ?, ?) where id = ?";
+		//SQL実行し登録を実施
+		Integer listId = Integer.valueOf(id);
+		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(), missingPersons.getAge(),
+				missingPersons.getDetail(), missingPersons.getPrefectures(), 
+				missingPersons.getMunicipalities(), missingPersons.getOther(), listId);
+	}
+	
+	/**
+	 * idで指定された行のend_flagにtrueをセットする
+	 * @param id
+	 */
+	@Transactional
+	@Override
+	public void Delete(String id) {
+		//SQL定義
+		String sql = "update missing_persons set end_flag = true where id = ?";
+		//SQL実行し登録を実施
+		Integer listId = Integer.valueOf(id);
+		template.update(sql, listId);
 	}
 }

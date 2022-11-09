@@ -18,4 +18,10 @@ public interface InformationRepository {
 	public void setInformationTable(Informations informations, User user_id);
 	
 	public void setDateInformationTable(Informations informations, DateSearch dateSearch);
+	
+	public void setMissingPersonsTable(Informations informations, String id);
+	
+	public void setMissingPersonsSightingsTable(Informations informations, String id);
+	
+	public void setSuspiciousPersonSightingsTable(Informations informations, String id);
 }
