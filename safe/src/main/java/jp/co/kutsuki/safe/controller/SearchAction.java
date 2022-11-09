@@ -28,7 +28,6 @@ public class SearchAction {
 	@Autowired
 	InformationRepository informationRepository;
 	
-	/** post・リダイレクトで検索画面へ遷移  */
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
 	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate, 
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,

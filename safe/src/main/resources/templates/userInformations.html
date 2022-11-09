@@ -7,9 +7,12 @@
 <body>
 	<h1>ユーザーページ</h1>
 
+	<form th:action="@{/WithdrawalAction}" method="post">
 	<label>ユーザーID</label>
 	<br>
-	<label id="user" th:text="${user_id}"></label>
+	<label id="user" th:text="${user.user_id}"></label>
+	<button type="submit" name="withdrawal" th:value="${user.id}">退会</button>
+	</form>
 
 	<h2>登録履歴</h2>
 

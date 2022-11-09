@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.kutsuki.safe.database.dao.UserDataDao;
+import jp.co.kutsuki.safe.database.dao.UserDao;
 
 /**
  * トップページ用コントローラー
@@ -17,7 +17,7 @@ import jp.co.kutsuki.safe.database.dao.UserDataDao;
 public class TopPageAction {
 	
 	@Autowired
-	UserDataDao userDao;
+	UserDao userDao;
 
 	@GetMapping
 	public String TopPageView(){

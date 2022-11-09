@@ -27,6 +27,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	
 	/** suspicious_person_sightingsテーブルに1件登録 */
 	@Transactional
+	@Override
 	public void setSuspiciousPersonSightingsTable(SuspiciousPersonSightings suspiciousPersonSightings) {
 		//SQL定義
 		String sql = "insert into suspicious_person_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id) "
@@ -39,6 +40,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	
 	/** suspicious_person_sightingsテーブルから
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable() {
 		//SQL定義
 		String sql = " select * from suspicious_person_sightings where end_flag = false order by date ASC";
@@ -69,6 +71,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	/** suspicious_person_sightingsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user) {
 		//SQL定義
 		String sql = " select * from suspicious_person_sightings where user_id = ? and end_flag = false order by date ASC";
@@ -98,6 +101,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	
 	/** suspicious_person_sightingsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<SuspiciousPersonSightings> getDateSuspiciousPersonSightingsTable(DateSearch dateSearch) {
 		//SQL定義
 		String sql = " select * from suspicious_person_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";

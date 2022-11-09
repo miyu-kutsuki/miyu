@@ -31,7 +31,7 @@ public class UserInformationsPageAction {
 	public String UserInformationsPageView(Model model) {
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
-		model.addAttribute("user_id", userInformation.getUser_id());
+		model.addAttribute("user", userInformation);
 		Informations informations = new Informations();
 		
 		//エラーメッセージ用変数

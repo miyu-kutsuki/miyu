@@ -34,8 +34,6 @@ public class MissingPersonAction {
 	@Autowired
 	HttpSession session;
 	
-	/**データベースmissing_personsテーブルに探し人情報を登録後、 
-	 * post・リダイレクトでメニュー選択ページへ遷移 */
 	@RequestMapping(value="/MissingPersonsRegistration", method = RequestMethod.POST)
 	public String MissingPersonView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
 			@RequestParam String name, @RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,

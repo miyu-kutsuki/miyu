@@ -15,15 +15,17 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  *
  */
 @Repository
-public class UserDataDao implements UserRepository{
+public class UserDao implements UserRepository{
 	
 	@Autowired
 	private JdbcTemplate template;
 	
-	/** userテーブルから1件取得  */
+	/** userテーブルから
+	 * end_flag==falseのみ1件取得  */
+	@Override
 	public User getUserTable(String user_id) {
 		//SQL定義
-		String sql = " select * from users where user_id = ? ";
+		String sql = " select * from users where user_id = ? and end_flag = false";
 		//SQL実行し1件取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql,user_id);
 		//結果を取得
@@ -44,14 +46,23 @@ public class UserDataDao implements UserRepository{
 		return user;
 	}
 	
-	/** userテーブルに1件登録 
-	 * rsが０なら正常、０以外なら異常終了 */
+	/** userテーブルに1件登録 */
 	@Transactional
+	@Override
 	public void setUserTable(User user) {
 		//SQL定義
 		String sql = " insert into users(user_id, password) values(?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, user.getUser_id(), user.getPassword());
 	}
-
+	
+	/** idで指定された行のend_flagにtrueをセットする */
+	@Transactional
+	@Override
+	public void Delete(Integer id) {
+		//SQL定義
+		String sql = "update users set end_flag = true where id = ?";
+		//SQL実行し登録を実施
+		template.update(sql, id);
+	}
 }

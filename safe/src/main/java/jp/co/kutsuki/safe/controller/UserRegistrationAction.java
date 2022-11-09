@@ -33,8 +33,6 @@ public class UserRegistrationAction {
 	@Autowired
 	HttpSession session;
 	
-	/**データベースuserテーブルにユーザー情報を登録後、 
-	 * post・リダイレクトでユーザー画面へ遷移 */
 	@RequestMapping(value="/UserRegistrationAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {

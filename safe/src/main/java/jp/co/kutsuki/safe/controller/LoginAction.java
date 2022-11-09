@@ -32,9 +32,7 @@ public class LoginAction {
 	
 	@Autowired
 	HttpSession session;
-		
-	/** post・リダイレクトでユーザー画面へ遷移 
-	 * @return */
+	
 	@RequestMapping(value="/LoginAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password, 
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {

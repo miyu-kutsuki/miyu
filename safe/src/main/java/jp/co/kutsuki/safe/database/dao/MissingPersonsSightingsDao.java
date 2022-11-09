@@ -27,6 +27,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	
 	/** missing_persons_sightingsテーブルに1件登録 */
 	@Transactional
+	@Override
 	public void setMissingPersonsSightingsTable(MissingPersonsSightings missingPersonsSightings) {
 		//SQL定義
 		String sql = "insert into missing_persons_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id) "
@@ -39,6 +40,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	
 	/** missing_persons_sightingsテーブルから
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable() {
 		//SQL定義
 		String sql = " select * from missing_persons_sightings where end_flag = false order by date ASC";
@@ -69,6 +71,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	/** missing_persons_sightingsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(User user) {
 		//SQL定義
 		String sql = " select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
@@ -98,6 +101,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	
 	/** missing_persons_sightingsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
+	@Override
 	public ArrayList<MissingPersonsSightings> getDateMissingPersonsSightingsTable(DateSearch dateSearch) {
 		//SQL定義
 		String sql = " select * from missing_persons_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";
