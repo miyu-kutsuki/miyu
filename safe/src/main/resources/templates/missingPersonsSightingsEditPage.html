@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>『探し人目撃情報』登録情報編集ページ</title>
+</head>
+<body>
+		<h1>『探し人目撃情報』登録情報編集ページ</h1>
+	
+		<form th:action="@{/MissingPersonSightingsUpdate}" method="post" th:object="${missingPersonsSightings}">
+		
+		<ul th:if="${#fields.hasErrors('*')}">
+			<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('gender')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('age')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('detail')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('prefectures')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}"></li>
+			<li th:each="errors:${#fields.errors('other')}" th:text="${errors}"></li>
+		</ul> 
+		
+		<div th:each="List:${missingPersonsSightingsList}">
+			<div>
+				<label for="date">目撃日</label><br>
+				<label>変更前：[[${List.date}]]</label><br>
+				<input type="date" name="date" th:value="${List.date}">
+			</div>
+						
+			<div>
+				<label for="gender">性別</label><br>
+				<label>変更前：[[${List.gender}]]</label><br>
+				<input type="radio" name="gender" th:value="男" th:checked="${List.gender eq '男'}" required>男
+				<input type="radio"name="gender" th:value="女" th:checked="${List.gender eq '女'}">女
+				<input type="radio"name="gender" th:value="不明" th:checked="${List.gender eq '女'}">不明
+			</div>
+			
+			<div>
+				<label for="age">年齢</label><br>
+				<label>変更前：[[${List.age}]]　歳</label><br>
+				<input type="number"  name="age" th:value="${List.age}">
+			</div>
+			
+			<div>
+				<label for="detail">服装・背格好・経緯</label><br>
+				<label>変更前：[[${List.detail}]]</label><br>
+				<textarea name="detail" rows="5" cols="30">[[${List.detail}]]</textarea>
+			</div>
+			
+			<div>
+				<label>最後に立ち寄った可能性のある場所</label><br>
+				<label>変更前：[[${List.prefectures}]]・[[${List.municipalities}]]・[[${List.other}]]</label><br>
+				都道府県名<br>
+				<input type="text" name="prefectures" th:value="${List.prefectures}"><br>
+				市区町村<br>
+				<input type="text" name="municipalities" th:value="${List.municipalities}"><br>
+				番地等<br>
+				<textarea name="other" rows="5" cols="30">[[${List.other}]]</textarea>
+			</div>
+			
+		</div>
+		<input type="submit" value="登録">
+	</form>
+	
+	<form th:action="@{/UserInformations}" method="get">
+		<input type="submit" value="ユーザーページへ">
+	</form>
+	
+	
+	<form th:action="@{/Menu}" method="get">
+		<input type="submit" value="メニューページへ">
+	</form>
+	
+</body>
+</html>
