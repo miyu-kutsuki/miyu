@@ -34,7 +34,7 @@ public class SuspiciousPersonSightingsUpdateAction {
 	HttpSession session;
 		
 	@RequestMapping(value="/SuspiciousPersonSightingsUpdate", method = RequestMethod.POST)
-	public String MissingPersonUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
+	public String SuspiciousPersonSightingsUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
 			@RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonsSightings, BindingResult bindingResult,
