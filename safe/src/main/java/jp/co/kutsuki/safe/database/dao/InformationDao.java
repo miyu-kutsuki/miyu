@@ -75,6 +75,36 @@ public class InformationDao implements InformationRepository{
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDateSuspiciousPersonSightingsTable(dateSearch));
 	}
 	
+	/** missing_personsテーブル
+	 * missing_persons_sightingsテーブル
+	 * suspicious_person_sightingsテーブルから
+	 * 日付指定なし、指定された場所名を含む
+	 * end_flag==falseのみ全件取得  */
+	@Override
+	public void setPlaceInformationTable(Informations informations, DateSearch dateSearch) {
+		//missing_personsテーブルの指定された場所名を含むend_flag==falseのみを取得
+		informations.setMissingPersonsList(missingPersonsRepository.getPlaceMissingPersonsTable(dateSearch));
+		//missing_persons_sightingsテーブルの指定された場所名を含むend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getPlaceMissingPersonsSightingsTable(dateSearch));
+		//suspicious_person_sightingsテーブルの指定された場所名を含むend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getPlaceSuspiciousPersonSightingsTable(dateSearch));
+	}
+	
+	/** missing_personsテーブル
+	 * missing_persons_sightingsテーブル
+	 * suspicious_person_sightingsテーブルから
+	 * 日付指定あり、指定された場所名を含む
+	 * end_flag==falseのみ全件取得  */
+	@Override
+	public void setDatePlaceInformationTable(Informations informations, DateSearch dateSearch) {
+		//missing_personsテーブルの範囲指定された日付+指定された場所名を含む＋end_flag==falseのみを取得
+		informations.setMissingPersonsList(missingPersonsRepository.getDatePlaceMissingPersonsTable(dateSearch));
+		//missing_persons_sightingsテーブルの範囲指定された日付+指定された場所名を含むend_flag==falseのみを取得
+		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getDatePlaceMissingPersonsSightingsTable(dateSearch));
+		//suspicious_person_sightingsテーブルの範囲指定された日付+指定された場所名を含むend_flag==falseのみを取得
+		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDatePlaceSuspiciousPersonSightingsTable(dateSearch));
+	}
+	
 	/**
 	 * missing_personsテーブルid指定されたデータを取得
 	 * @param informations
@@ -106,7 +136,5 @@ public class InformationDao implements InformationRepository{
 	public void setSuspiciousPersonSightingsTable(Informations informations, String id) {
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsIdTable(id));
-
 	}
-
 }

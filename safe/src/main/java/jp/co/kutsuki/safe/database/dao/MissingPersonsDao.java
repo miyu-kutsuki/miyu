@@ -20,11 +20,11 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
  *
  */
 @Repository
-public class MissingPersonsDao implements MissingPersonsRepository{
-	
+public class MissingPersonsDao implements MissingPersonsRepository {
+
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** missing_personsテーブルに1件登録 */
 	@Transactional
 	@Override
@@ -33,11 +33,12 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		String sql = "insert into missing_persons(date, name, gender, age, detail, prefectures, municipalities, other, user_id)"
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
-		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(), missingPersons.getAge(),
-				missingPersons.getDetail(), missingPersons.getPrefectures(), 
+		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(),
+				missingPersons.getAge(),
+				missingPersons.getDetail(), missingPersons.getPrefectures(),
 				missingPersons.getMunicipalities(), missingPersons.getOther(), missingPersons.getUser_id());
 	}
-	
+
 	/** missing_personsテーブルから
 	 * end_flag==falseのみ全件取得 */
 	@Override
@@ -48,28 +49,27 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		SqlRowSet rs = template.queryForRowSet(sql);
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
-		if(!rs.isLast()) {
-			while(rs.next()) {
-				MissingPersons missingPersons = new MissingPersons();
-				missingPersons.setId(rs.getInt("id"));
-				// Date型からLocaldate型へ変換
-				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
-				missingPersons.setDate(date);
-				missingPersons.setName(rs.getString("name"));
-				missingPersons.setGender(rs.getString("gender"));
-				missingPersons.setAge(rs.getInt("age"));
-				missingPersons.setDetail(rs.getString("detail"));
-				missingPersons.setPrefectures(rs.getString("prefectures"));
-				missingPersons.setMunicipalities(rs.getString("municipalities"));
-				missingPersons.setOther(rs.getString("other"));
-				missingPersons.setUser_id(rs.getString("user_id"));
-				missingPersonsList.add(missingPersons);
-			}
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
 		}
+
 		return missingPersonsList;
 	}
-	
+
 	/** missing_personsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
@@ -81,28 +81,26 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
-		if(!rs.isLast()) {
-			while(rs.next()) {
-				MissingPersons missingPersons = new MissingPersons();
-				missingPersons.setId(rs.getInt("id"));
-				// Date型からLocaldate型へ変換
-				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
-				missingPersons.setDate(date);
-				missingPersons.setName(rs.getString("name"));
-				missingPersons.setGender(rs.getString("gender"));
-				missingPersons.setAge(rs.getInt("age"));
-				missingPersons.setDetail(rs.getString("detail"));
-				missingPersons.setPrefectures(rs.getString("prefectures"));
-				missingPersons.setMunicipalities(rs.getString("municipalities"));
-				missingPersons.setOther(rs.getString("other"));
-				missingPersons.setUser_id(rs.getString("user_id"));
-				missingPersonsList.add(missingPersons);
-			}
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
 		}
 		return missingPersonsList;
 	}
-	
+
 	/** missing_personsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
 	@Override
@@ -113,28 +111,89 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		SqlRowSet rs = template.queryForRowSet(sql, dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
-		if(!rs.isLast()) {
-			while(rs.next()) {
-				MissingPersons missingPersons = new MissingPersons();
-				missingPersons.setId(rs.getInt("id"));
-				// Date型からLocaldate型へ変換
-				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
-				missingPersons.setDate(date);
-				missingPersons.setName(rs.getString("name"));
-				missingPersons.setGender(rs.getString("gender"));
-				missingPersons.setAge(rs.getInt("age"));
-				missingPersons.setDetail(rs.getString("detail"));
-				missingPersons.setPrefectures(rs.getString("prefectures"));
-				missingPersons.setMunicipalities(rs.getString("municipalities"));
-				missingPersons.setOther(rs.getString("other"));
-				missingPersons.setUser_id(rs.getString("user_id"));
-				missingPersonsList.add(missingPersons);
-			}
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
 		}
 		return missingPersonsList;
 	}
-	
+
+	/** missing_personsテーブルから
+	 * 指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<MissingPersons> getPlaceMissingPersonsTable(DateSearch  dateSearch) {
+		//SQL定義
+		String sql = " select * from missing_persons where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%");
+		//結果を取得
+		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
+		}
+		return missingPersonsList;
+	}
+
+	/** missing_personsテーブルから
+	 * 範囲指定された日付＋指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<MissingPersons> getDatePlaceMissingPersonsTable(DateSearch dateSearch) {
+		//SQL定義
+		String sql = " select * from missing_persons where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+				dateSearch.getStartDate(), dateSearch.getEndDate());
+		//結果を取得
+		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
+		}
+		return missingPersonsList;
+	}
+
 	/** missing_personsテーブルから
 	 * idが一致したデータのみ取得 */
 	@Override
@@ -146,24 +205,22 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 		SqlRowSet rs = template.queryForRowSet(sql, listId);
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
-		if(!rs.isLast()) {
-			while(rs.next()) {
-				MissingPersons missingPersons = new MissingPersons();
-				missingPersons.setId(rs.getInt("id"));
-				// Date型からLocaldate型へ変換
-				LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
-				missingPersons.setDate(date);
-				missingPersons.setName(rs.getString("name"));
-				missingPersons.setGender(rs.getString("gender"));
-				missingPersons.setAge(rs.getInt("age"));
-				missingPersons.setDetail(rs.getString("detail"));
-				missingPersons.setPrefectures(rs.getString("prefectures"));
-				missingPersons.setMunicipalities(rs.getString("municipalities"));
-				missingPersons.setOther(rs.getString("other"));
-				missingPersons.setUser_id(rs.getString("user_id"));
-				missingPersonsList.add(missingPersons);
-			}
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersons missingPersons = new MissingPersons();
+			missingPersons.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersons.setDate(date);
+			missingPersons.setName(rs.getString("name"));
+			missingPersons.setGender(rs.getString("gender"));
+			missingPersons.setAge(rs.getInt("age"));
+			missingPersons.setDetail(rs.getString("detail"));
+			missingPersons.setPrefectures(rs.getString("prefectures"));
+			missingPersons.setMunicipalities(rs.getString("municipalities"));
+			missingPersons.setOther(rs.getString("other"));
+			missingPersons.setUser_id(rs.getString("user_id"));
+			missingPersonsList.add(missingPersons);
 		}
 		return missingPersonsList;
 	}
@@ -179,11 +236,12 @@ public class MissingPersonsDao implements MissingPersonsRepository{
 				+ "set(date, name, gender, age, detail, prefectures, municipalities, other)=(?, ?, ?, ?, ?, ?, ?, ?) where id = ?";
 		//SQL実行し登録を実施
 		Integer listId = Integer.valueOf(id);
-		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(), missingPersons.getAge(),
-				missingPersons.getDetail(), missingPersons.getPrefectures(), 
+		template.update(sql, missingPersons.getDate(), missingPersons.getName(), missingPersons.getGender(),
+				missingPersons.getAge(),
+				missingPersons.getDetail(), missingPersons.getPrefectures(),
 				missingPersons.getMunicipalities(), missingPersons.getOther(), listId);
 	}
-	
+
 	/**
 	 * idで指定された行のend_flagにtrueをセットする
 	 * @param id

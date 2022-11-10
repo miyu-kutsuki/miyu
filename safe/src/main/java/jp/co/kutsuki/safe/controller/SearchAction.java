@@ -31,11 +31,16 @@ public class SearchAction {
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
 	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate, 
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
-			Model model, RedirectAttributes redirectAttributes){
+			@RequestParam String searchPlace, Model model, RedirectAttributes redirectAttributes){
 		
 		DateSearch dateSearch = new DateSearch();
 		dateSearch.setStartDate(startDate);
 		dateSearch.setEndDate(endDate);
+		if(searchPlace.isEmpty()) {
+			dateSearch.setSearchPlace(null);
+		}else {
+			dateSearch.setSearchPlace(searchPlace);
+		}
 		Informations informations = new Informations();
 		
 		//errorメッセージ用リスト
@@ -47,6 +52,7 @@ public class SearchAction {
 		boolean missingPersons = true;
 		boolean missingPersonsSightings = true;
 		boolean suspiciousPersonSightings = true;
+		boolean place = true;
 		
 		if(dateSearch.getStartDate() == null) {
 			msgList.add("開始日付を入力してください。");
@@ -63,12 +69,21 @@ public class SearchAction {
 			return "redirect:Informations";
 		}
 		
-		if(msgList.size() == 0) {
-			informationRepository.setDateInformationTable(informations, dateSearch);
-		}else if(msgList.size() == 2) {
-			informationRepository.setInformationTable(informations);
+		//searchPlaceがnullかチェック
+		if(dateSearch.getSearchPlace() == null) {
+			place = false;
 		}
-				
+		
+		if(msgList.size() == 0 && !place) {
+			informationRepository.setDateInformationTable(informations, dateSearch);
+		}else if(msgList.size() == 2 && !place) {
+			informationRepository.setInformationTable(informations);
+		}else if(msgList.size() == 0 && place) {
+			informationRepository.setDatePlaceInformationTable(informations, dateSearch);
+		}else if(msgList.size() == 2 && place) {
+			informationRepository.setPlaceInformationTable(informations, dateSearch);
+		}
+		
 		//missing_personsがnullかチェック
 		if(informations.getMissingPersonsList().size() == 0) {
 			missingPersons = false;
@@ -85,153 +100,308 @@ public class SearchAction {
 		}
 		
 		//msgのサイズ0かチェック
-		if(msgList.size() == 0 && missingPersons && missingPersonsSightings && suspiciousPersonSightings) {
+		if(msgList.size() == 0 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingsテーブルがnullではない場合
 			//end_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 0 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings) {
+		}else if(msgList.size() == 0 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//suspicious_person_sightingsがnullではないかつ
 			//missing_persons_sightings・missing_personsテーブルがnullの場合
 			//suspicious_person_sightingsのend_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 0 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 0 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_personsがnullではないかつ
 			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			//missing_personsのend_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			
-		}else if(msgList.size() == 0 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 0 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons_sightingsがnullではないかつ
 			//missing_persons・suspicious_person_sightingテーブルがnullの場合
 			//missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setDateInformationTable(informations, dateSearch);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
-		}else if(msgList.size() == 0 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 0 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・missing_persons_sightingsがnullではないかつ
 			//suspicious_person_sightingsテーブルがnullの場合
 			//missing_persons・missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
-		}else if(msgList.size() == 0 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings) {
+		}else if(msgList.size() == 0 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・suspicious_person_sightingsがnullではないかつ
 			//missing_persons_sightingsテーブルがnullの場合
 			//missing_persons・suspicious_person_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 0 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons) {
+		}else if(msgList.size() == 0 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons_sightings・suspicious_person_sightingsがnullではないかつ
 			//missing_personsテーブルがnullの場合
 			//missing_persons_sightings・suspicious_person_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 0 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 0 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			
-		}else if(msgList.size() == 2 && missingPersons && missingPersonsSightings && suspiciousPersonSightings) {
+		}else if(msgList.size() == 2 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullではない場合
 			//end_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 2 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings) {
+		}else if(msgList.size() == 2 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//suspicious_person_sightingsがnullではないかつ
 			//missing_persons_sightings・missing_personsテーブルがnullの場合
 			//missing_personsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 2 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 2 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_personsがnullではないかつ
 			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			//missing_personsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			
-		}else if(msgList.size() == 2 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 2 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_persons_sightingsがnullではないかつ
 			//missing_persons・suspicious_person_sightingテーブルがnullの場合
 			//missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
-		}else if(msgList.size() == 2 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 2 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・missing_persons_sightingsがnullではないかつ
 			//suspicious_person_sightingsテーブルがnullの場合
 			//missing_persons・missing_persons_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			
-		}else if(msgList.size() == 2 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings) {
+		}else if(msgList.size() == 2 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_persons・suspicious_person_sightingsがnullではないかつ
 			//missing_persons_sightingsテーブルがnullの場合
 			//missing_persons・suspicious_person_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons) {
+		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && !place) {
 			//日付の範囲指定がないかつ
+			//場所名の指定はしてないかつ
 			//missing_persons_sightings・suspicious_person_sightingsがnullではないかつ
 			//missing_personsテーブルがnullの場合
 			//missing_persons_sightings・suspicious_person_sightingsのend_flag==true以外を全件取得
-			informationRepository.setInformationTable(informations);
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
 			
-		}else if(msgList.size() == 2 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings) {
+		}else if(msgList.size() == 2 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定がないかつ
+			//場所名の指定はしてないかつ
+			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+		}else if(msgList.size() == 0 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons・missing_persons_sightings・suspicious_person_sightingsテーブルがnullではない場合
+			//end_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 0 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//suspicious_person_sightingsがnullではないかつ
+			//missing_persons_sightings・missing_personsテーブルがnullの場合
+			//suspicious_person_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 0 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_personsがnullではないかつ
+			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
+			//missing_personsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			
+		}else if(msgList.size() == 0 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons_sightingsがnullではないかつ
+			//missing_persons・suspicious_person_sightingテーブルがnullの場合
+			//missing_persons_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			
+		}else if(msgList.size() == 0 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons・missing_persons_sightingsがnullではないかつ
+			//suspicious_person_sightingsテーブルがnullの場合
+			//missing_persons・missing_persons_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			
+		}else if(msgList.size() == 0 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons・suspicious_person_sightingsがnullではないかつ
+			//missing_persons_sightingsテーブルがnullの場合
+			//missing_persons・suspicious_person_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 0 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons_sightings・suspicious_person_sightingsがnullではないかつ
+			//missing_personsテーブルがnullの場合
+			//missing_persons_sightings・suspicious_person_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 0 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
+			//日付の範囲を指定しているかつ
+			//場所名の指定はしているかつ
+			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			
+		}else if(msgList.size() == 2 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullではない場合
+			//end_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 2 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//suspicious_person_sightingsがnullではないかつ
+			//missing_persons_sightings・missing_personsテーブルがnullの場合
+			//missing_personsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 2 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_personsがnullではないかつ
+			//missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
+			//missing_personsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			
+		}else if(msgList.size() == 2 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_persons_sightingsがnullではないかつ
+			//missing_persons・suspicious_person_sightingテーブルがnullの場合
+			//missing_persons_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			
+		}else if(msgList.size() == 2 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_persons・missing_persons_sightingsがnullではないかつ
+			//suspicious_person_sightingsテーブルがnullの場合
+			//missing_persons・missing_persons_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg3", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			
+		}else if(msgList.size() == 2 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_persons・suspicious_person_sightingsがnullではないかつ
+			//missing_persons_sightingsテーブルがnullの場合
+			//missing_persons・suspicious_person_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg2", msg);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && place) {
+			//日付の範囲指定がないかつ
+			//場所名の指定はしているかつ
+			//missing_persons_sightings・suspicious_person_sightingsがnullではないかつ
+			//missing_personsテーブルがnullの場合
+			//missing_persons_sightings・suspicious_person_sightingsのend_flag==true以外を全件取得
+			redirectAttributes.addFlashAttribute("msg1", msg);
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+		}else if(msgList.size() == 2 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
+			//日付の範囲を指定がないかつ
+			//場所名の指定はしているかつ
 			//missing_persons・missing_persons_sightings・suspicious_person_sightingテーブルがnullの場合
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);

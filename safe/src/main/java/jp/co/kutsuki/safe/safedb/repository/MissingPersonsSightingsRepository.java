@@ -21,6 +21,10 @@ public interface MissingPersonsSightingsRepository {
 	
 	public ArrayList<MissingPersonsSightings> getDateMissingPersonsSightingsTable(DateSearch dateSearch);
 	
+	public ArrayList<MissingPersonsSightings> getPlaceMissingPersonsSightingsTable(DateSearch  dateSearch);
+	
+	public ArrayList<MissingPersonsSightings> getDatePlaceMissingPersonsSightingsTable(DateSearch dateSearch);
+	
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsIdTable(String id);
 	
 	public void Update(String id, MissingPersonsSightings missingPersonsSightings);
