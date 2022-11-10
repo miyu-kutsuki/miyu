@@ -43,12 +43,12 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable() {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where end_flag = false order by date ASC";
+		String sql = "select * from missing_persons_sightings where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
 			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
 			missingPersonsSightings.setId(rs.getInt("id"));
@@ -64,7 +64,6 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 			missingPersonsSightings.setUser_id(rs.getString("user_id"));
 			missingPersonsSightingsList.add(missingPersonsSightings);
 		}
-		
 		return missingPersonsSightingsList;
 	}
 	
@@ -74,12 +73,12 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(User user) {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
+		String sql = "select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
 			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
 			missingPersonsSightings.setId(rs.getInt("id"));
@@ -104,13 +103,74 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getDateMissingPersonsSightingsTable(DateSearch dateSearch) {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";
+		String sql = "select * from missing_persons_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
+			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
+			missingPersonsSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersonsSightings.setDate(date);
+			missingPersonsSightings.setGender(rs.getString("gender"));
+			missingPersonsSightings.setAge(rs.getInt("age"));
+			missingPersonsSightings.setDetail(rs.getString("detail"));
+			missingPersonsSightings.setPrefectures(rs.getString("prefectures"));
+			missingPersonsSightings.setMunicipalities(rs.getString("municipalities"));
+			missingPersonsSightings.setOther(rs.getString("other"));
+			missingPersonsSightings.setUser_id(rs.getString("user_id"));
+			missingPersonsSightingsList.add(missingPersonsSightings);
+		}
+		return missingPersonsSightingsList;
+	}
+	
+	/** missing_persons_sightingsテーブルから
+	 * 指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<MissingPersonsSightings> getPlaceMissingPersonsSightingsTable(DateSearch  dateSearch) {
+		//SQL定義
+		String sql = " select * from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%");
+		//結果を取得
+		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
+			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
+			missingPersonsSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			missingPersonsSightings.setDate(date);
+			missingPersonsSightings.setGender(rs.getString("gender"));
+			missingPersonsSightings.setAge(rs.getInt("age"));
+			missingPersonsSightings.setDetail(rs.getString("detail"));
+			missingPersonsSightings.setPrefectures(rs.getString("prefectures"));
+			missingPersonsSightings.setMunicipalities(rs.getString("municipalities"));
+			missingPersonsSightings.setOther(rs.getString("other"));
+			missingPersonsSightings.setUser_id(rs.getString("user_id"));
+			missingPersonsSightingsList.add(missingPersonsSightings);
+		}
+		return missingPersonsSightingsList;
+	}
+
+	/** missing_persons_sightingsテーブルから
+	 * 範囲指定された日付＋指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<MissingPersonsSightings> getDatePlaceMissingPersonsSightingsTable(DateSearch dateSearch) {
+		//SQL定義
+		String sql = " select * from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+				dateSearch.getStartDate(), dateSearch.getEndDate());
+		//結果を取得
+		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while (rs.next()) {
 			MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();
 			missingPersonsSightings.setId(rs.getInt("id"));
 			// Date型からLocaldate型へ変換
@@ -133,13 +193,13 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsIdTable(String id) {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where id = ?";
+		String sql = "select * from missing_persons_sightings where id = ?";
 		//SQL実行し取得を実施
 		Integer listId = Integer.valueOf(id);
 		SqlRowSet rs = template.queryForRowSet(sql, listId);
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		if(!rs.isLast()) {
 			while(rs.next()) {
 				MissingPersonsSightings missingPersonsSightings = new MissingPersonsSightings();

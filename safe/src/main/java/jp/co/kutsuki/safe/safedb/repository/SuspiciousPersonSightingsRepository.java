@@ -21,6 +21,10 @@ public interface SuspiciousPersonSightingsRepository {
 	
 	public ArrayList<SuspiciousPersonSightings> getDateSuspiciousPersonSightingsTable(DateSearch dateSearch);
 	
+	public ArrayList<SuspiciousPersonSightings> getPlaceSuspiciousPersonSightingsTable(DateSearch  dateSearch);
+	
+	public ArrayList<SuspiciousPersonSightings> getDatePlaceSuspiciousPersonSightingsTable(DateSearch dateSearch);
+	
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsIdTable(String id);
 	
 	public void Update(String id, SuspiciousPersonSightings suspiciousPersonSightings);

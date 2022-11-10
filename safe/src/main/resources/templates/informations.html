@@ -2,10 +2,10 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>各情報表示ページ</title>
+<title>各情報検索ページ</title>
 </head>
 <body>
-	<h1>各情報表示ページ</h1>
+	<h1>各情報検索ページ</h1>
 	
 	<th:block th:each="errorMsg : ${msg}">
 		<label id="error" th:text="${errorMsg}"></label><br>
@@ -14,7 +14,9 @@
 	<form th:action="@{/Search}" method="post">
 		<label>日付</label><br>
 		<input type="date" name="startDate">〜
-		<input type="date" name="endDate">
+		<input type="date" name="endDate"><br>
+		<label>場所</label><br>
+		<input type="text" name="searchPlace">
 		<input type="submit" value="検索">
 	</form>
 	
