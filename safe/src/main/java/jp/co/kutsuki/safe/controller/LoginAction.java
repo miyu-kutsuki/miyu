@@ -37,13 +37,13 @@ public class LoginAction {
 	public String UserView(@RequestParam String user_id, @RequestParam String password, 
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 		
+		//errorメッセージ用変数
+		List<String> msg = new ArrayList<>();
+
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
 		User userInformation = userRepository.getUserTable(user_id);
-		
-		//errorメッセージ用変数
-		List<String> msg = new ArrayList<>();
-		
+				
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("user", bindingResult);

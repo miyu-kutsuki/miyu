@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.Informations;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
@@ -34,7 +35,14 @@ public class MissingPersonSightingsEditPageAction {
 	}
 	
 	@GetMapping
-	public String EditPageView(Model model) {
+	public String EditPageView(Model model, RedirectAttributes redirectAttributes) {
+		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
 		
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");

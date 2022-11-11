@@ -22,7 +22,7 @@ public class LoginPageAction {
 	}
 	
 	@GetMapping
-	public String LoginPageView() {
+	public String loginPageView() {
 		return "login";
 	}
 }
