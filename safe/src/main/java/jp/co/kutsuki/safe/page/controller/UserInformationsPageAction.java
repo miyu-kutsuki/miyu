@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.Informations;
 import jp.co.kutsuki.safe.entity.User;
@@ -28,7 +29,16 @@ public class UserInformationsPageAction {
 	HttpSession session;
 	
 	@GetMapping
-	public String UserInformationsPageView(Model model) {
+	public String userInformationsPageView(Model model, RedirectAttributes redirectAttributes) {
+		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
+
+	
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
