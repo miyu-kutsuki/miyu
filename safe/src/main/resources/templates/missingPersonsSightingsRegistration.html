@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>探し人目撃情報登録ページ</title>
 </head>
 <body>
-	<h1>探し人目撃情報登録ページ</h1>
+	<script th:href="@{/webjars/jquery/3.5.0/js/jquery.min.js}"></script>
+	<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 	
-	<form th:action="@{/MissingPersonsSightingsRegistration}" method="post" th:object="${missingPersonsSightings}">
-		<ul th:if="${#fields.hasErrors('*')}">
-			<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('gender')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('age')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('detail')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('prefectures')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('other')}" th:text="${errors}"></li>
-		</ul>
-	
-		<div>
-			<label for="date">目撃日</label><br>
-			<input type="date" th:field="*{date}">
-		</div>
+	<div class="container">
+		<div class="d-flex flex-column align-items-center justify-content-center">
+			<h1>探し人目撃情報登録ページ</h1>
+			<div class="w-45 h-auto p-3">
+				<form th:action="@{/MissingPersonsSightingsRegistration}" method="post" th:object="${missingPersonsSightings}">
+					<ul th:if="${#fields.hasErrors('*')}">
+						<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('gender')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('age')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('detail')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('prefectures')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('other')}" th:text="${errors}"></li>
+					</ul>
 				
-		<div>
-			<label for="gender">性別</label><br>
-			<input type="radio" name="gender" value="男" required>男
-			<input type="radio" name="gender" value="女">女
-			<input type="radio" name="gender" value="不明">不明
+					<div class="mb-3">
+						<label for="date" class="form-label">目撃日</label><br>
+						<input type="date" th:field="*{date}" class="form-control">
+					</div>
+							
+					<div class="mb-3">
+						<label for="gender" class="form-check-label">性別</label><br>
+						<input type="radio" name="gender" value="男" required>男
+						<input type="radio" name="gender" value="女">女
+						<input type="radio" name="gender" value="不明">不明
+					</div>
+					
+					<div class="mb-3">
+						<label for="age" class="form-label">推定年齢</label><br>
+						<input type="number" th:field="*{age}" class="form-control">
+					</div>
+					
+					<div class="mb-3">
+						<label for="detail" class="form-label">服装・背格好・経緯</label><br>
+						<textarea th:field="*{detail}" rows="5" cols="30" class="form-control"></textarea>
+					</div>
+					
+					<div class="mb-3">
+						<label for="place" class="form-label">目撃場所</label><br>
+						都道府県名<br>
+						<input type="text" th:field="*{prefectures}" class="form-control"><br>
+						市区町村<br>
+						<input type="text" th:field="*{municipalities}" class="form-control"><br>
+						番地等<br>
+						<textarea th:field="*{other}" rows="5" cols="30" class="form-control"></textarea>
+					</div>
+					
+					<input type="submit" value="登録" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+				
+				<form th:action="@{/Menu}" method="get">
+					<input type="submit" value="メニューページへ" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+			</div>
 		</div>
-		
-		<div>
-			<label for="age">推定年齢</label><br>
-			<input type="number" th:field="*{age}">
-		</div>
-		
-		<div>
-			<label for="detail">服装・背格好・経緯</label><br>
-			<textarea th:field="*{detail}" rows="5" cols="30"></textarea>
-		</div>
-		
-		<div>
-			<label for="place">目撃場所</label><br>
-			都道府県名<br>
-			<input type="text" th:field="*{prefectures}"><br>
-			市区町村<br>
-			<input type="text" th:field="*{municipalities}"><br>
-			番地等<br>
-			<textarea th:field="*{other}" rows="5" cols="30"></textarea>
-		</div>
-		
-		<input type="submit" value="登録">
-	</form>
-	
-	<form th:action="@{/Menu}" method="get">
-		<input type="submit" value="メニューページへ">
-	</form>
-
+	</div>
 </body>
 </html>

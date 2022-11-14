@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>SAFE</title>
 </head>
 <body>
-	<h1>トップ画面</h1>
-	<form th:action="@{/Login}">
-		<input type="submit" value="ログイン画面へ">
-	</form>
+	<script th:href="@{/webjars/jquery/3.5.0/js/jquery.min.js}"></script>
+	<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 	
-	<form th:action="@{/UserRegistration}">
-		<input type="submit" value="新規会員登録へ">
-	</form>
-	
-	<form th:action="@{/Management}">
-		<input type="submit" value="管理者専用画面へ">
-	</form>
+	<div class="container">
+		<div class="d-flex flex-column align-items-center justify-content-center">
+			<h1>トップ画面</h1>
+			
+			<div class="w-45 h-auto p-3">
+				<form th:action="@{/Login}">
+					<input type="submit" value="ログイン画面へ" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+				
+				<form th:action="@{/UserRegistration}">
+					<input type="submit" value="新規会員登録へ" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+				
+				<form th:action="@{/Management}">
+					<input type="submit" value="管理者専用画面へ" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

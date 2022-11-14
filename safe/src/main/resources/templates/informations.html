@@ -1,81 +1,139 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>各情報表示ページ</title>
 </head>
 <body>
-	<h1>各情報表示ページ</h1>
+	<script th:href="@{/webjars/jquery/3.5.0/js/jquery.min.js}"></script>
+	<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 	
-	<th:block th:each="errorMsg : ${msg}">
-		<label id="error" th:text="${errorMsg}"></label><br>
-	</th:block>
-		
-	<form th:action="@{/Search}" method="post">
-		<label>日付</label><br>
-		<input type="date" name="startDate">〜
-		<input type="date" name="endDate">
-		<input type="submit" value="検索">
-	</form>
+	<div class="container">
+		<div class="d-flex flex-column align-items-center justify-content-center">
+			<h1>各情報表示ページ</h1>
+			
+			<th:block th:each="errorMsg : ${msg}">
+				<label id="error" th:text="${errorMsg}"></label><br>
+			</th:block>
+			
+				<form th:action="@{/Search}" method="post">
+					<label class="form-label">日付</label><br>
+					<input type="date" name="startDate" class="form-control">〜<input type="date" name="endDate" class="form-control"><br>
+					<label class="form-label">場所</label><br>
+					<input type="text" name="searchPlace" class="form-control">
+					<input type="submit" value="検索" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+			
+		</div>
+	</div>
 	
 	<h2>探し人情報</h2>
 	
 	<p id="error" th:text="${msg1}"></p>
 	
-	<table>
-		<tr th:each="missingPerson : ${missingPersonsList}">
-			<td th:text="${missingPerson.date}"></td>
-			<td th:text="${missingPerson.name}"></td>
-			<td th:text="${missingPerson.gender}"></td>
-			<td th:text="${missingPerson.age}"></td>
-			<td th:text="${missingPerson.detail}"></td>
-			<td>
-			[[${missingPerson.prefectures}]]
-			[[${missingPerson.municipalities}]]
-			[[${missingPerson.other}]]
-			</td>
-		</tr>
-	</table>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-bordered text-nowrap">
+				<thead>
+					<tr>
+						<th scope="col" class="small">行方不明日</th>
+						<th scope="col" class="small">氏名</th>
+						<th scope="col" class="small">性別</th>
+						<th scope="col" class="small">年齢</th>
+						<th scope="col" class="small">詳細</th>
+						<th scope="col" class="small">最後に立ち寄った可能性のある場所</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="missingPerson : ${missingPersonsList}">
+						<td th:text="${missingPerson.date}" class="small"></td>
+						<td th:text="${missingPerson.name}" class="small"></td>
+						<td th:text="${missingPerson.gender}" class="small"></td>
+						<td th:text="${missingPerson.age}" class="small"></td>
+						<td th:text="${missingPerson.detail}" class="small"></td>
+						<td class="small">
+						[[${missingPerson.prefectures}]]
+						[[${missingPerson.municipalities}]]
+						[[${missingPerson.other}]]
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	
 	<h2>探し人目撃情報</h2>
 	
 	<p id="error" th:text="${msg2}"></p>
 	
-	<table>
-		<tr th:each="missingPersonSightings : ${missingPersonSightingsList}">
-			<td th:text="${missingPersonSightings.date}"></td>
-			<td th:text="${missingPersonSightings.gender}"></td>
-			<td th:text="${missingPersonSightings.age}"></td>
-			<td th:text="${missingPersonSightings.detail}"></td>
-			<td>
-			[[${missingPersonSightings.prefectures}]]
-			[[${missingPersonSightings.municipalities}]]
-			[[${missingPersonSightings.other}]]
-			</td>
-		</tr>
-	</table>
-	
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-bordered text-nowrap">
+				<thead>
+					<tr>
+						<th scope="col" class="small">行方不明日</th>
+						<th scope="col" class="small">性別</th>
+						<th scope="col" class="small">年齢</th>
+						<th scope="col" class="small">詳細</th>
+						<th scope="col" class="small">最後に立ち寄った可能性のある場所</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="missingPersonSightings : ${missingPersonSightingsList}">
+						<td th:text="${missingPersonSightings.date}"  class="small"></td>
+						<td th:text="${missingPersonSightings.gender}"  class="small"></td>
+						<td th:text="${missingPersonSightings.age}"  class="small"></td>
+						<td th:text="${missingPersonSightings.detail}"  class="small"></td>
+						<td  class="small">
+						[[${missingPersonSightings.prefectures}]]
+						[[${missingPersonSightings.municipalities}]]
+						[[${missingPersonSightings.other}]]
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<h2>不審者目撃情報</h2>
 	
 	<p id="error" th:text="${msg3}"></p>
 	
-	<table>
-		<tr th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
-			<td th:text="${suspiciousPersonSightings.date}"></td>
-			<td th:text="${suspiciousPersonSightings.gender}"></td>
-			<td th:text="${suspiciousPersonSightings.age}"></td>
-			<td th:text="${suspiciousPersonSightings.detail}"></td>
-			<td>
-			[[${suspiciousPersonSightings.prefectures}]]
-			[[${suspiciousPersonSightings.municipalities}]]
-			[[${suspiciousPersonSightings.other}]]
-			</td>
-		</tr>
-	</table>
-		
-	<form th:action="@{/Menu}" method="get">
-		<input type="submit" value="メニューページへ">
-	</form>
+	<div class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-bordered text-nowrap">
+				<thead>
+					<tr>
+						<th scope="col" class="small">行方不明日</th>
+						<th scope="col" class="small">性別</th>
+						<th scope="col" class="small">年齢</th>
+						<th scope="col" class="small">詳細</th>
+						<th scope="col" class="small">最後に立ち寄った可能性のある場所</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
+						<td th:text="${suspiciousPersonSightings.date}"  class="small"></td>
+						<td th:text="${suspiciousPersonSightings.gender}"  class="small"></td>
+						<td th:text="${suspiciousPersonSightings.age}"  class="small"></td>
+						<td th:text="${suspiciousPersonSightings.detail}"  class="small"></td>
+						<td class="small">
+						[[${suspiciousPersonSightings.prefectures}]]
+						[[${suspiciousPersonSightings.municipalities}]]
+						[[${suspiciousPersonSightings.other}]]
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	
+	<div class="container">
+		<div class="d-flex flex-column align-items-center justify-content-center">
+			<form th:action="@{/Menu}" method="get">
+				<input type="submit" value="メニューページへ" class="btn btn-outline-dark btn-block mt-3">
+			</form>
+		</div>
+	</div>
 </body>
 </html>

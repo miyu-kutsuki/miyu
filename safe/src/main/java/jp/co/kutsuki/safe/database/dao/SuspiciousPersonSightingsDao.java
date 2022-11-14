@@ -48,7 +48,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		SqlRowSet rs = template.queryForRowSet(sql);
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
 			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
 			suspiciousPersonSightings.setId(rs.getInt("id"));
@@ -79,7 +79,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
 			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
 			suspiciousPersonSightings.setId(rs.getInt("id"));
@@ -109,7 +109,68 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		SqlRowSet rs = template.queryForRowSet(sql, dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while(rs.next()) {
+			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
+			suspiciousPersonSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			suspiciousPersonSightings.setDate(date);
+			suspiciousPersonSightings.setGender(rs.getString("gender"));
+			suspiciousPersonSightings.setAge(rs.getInt("age"));
+			suspiciousPersonSightings.setDetail(rs.getString("detail"));
+			suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+			suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+			suspiciousPersonSightings.setOther(rs.getString("other"));
+			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
+			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
+		}
+		return suspiciousPersonSightingsList;
+	}
+	
+	/** suspicious_person_sightingsテーブルから
+	 * 指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<SuspiciousPersonSightings> getPlaceSuspiciousPersonSightingsTable(DateSearch  dateSearch) {
+		//SQL定義
+		String sql = "select * from suspicious_person_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%");
+		//結果を取得
+		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
+		while(rs.next()) {
+			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
+			suspiciousPersonSightings.setId(rs.getInt("id"));
+			// Date型からLocaldate型へ変換
+			LocalDate date = new java.sql.Date(rs.getDate("date").getTime()).toLocalDate();
+			suspiciousPersonSightings.setDate(date);
+			suspiciousPersonSightings.setGender(rs.getString("gender"));
+			suspiciousPersonSightings.setAge(rs.getInt("age"));
+			suspiciousPersonSightings.setDetail(rs.getString("detail"));
+			suspiciousPersonSightings.setPrefectures(rs.getString("prefectures"));
+			suspiciousPersonSightings.setMunicipalities(rs.getString("municipalities"));
+			suspiciousPersonSightings.setOther(rs.getString("other"));
+			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
+			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
+		}
+		return suspiciousPersonSightingsList;
+	}
+
+	/** suspicious_person_sightingsテーブルから
+	 * 範囲指定された日付＋指定された場所名＋end_flag==falseのみ全件取得 */
+	@Override
+	public ArrayList<SuspiciousPersonSightings> getDatePlaceSuspiciousPersonSightingsTable(DateSearch dateSearch) {
+		//SQL定義
+		String sql = "select * from suspicious_person_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
+		//SQL実行し取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+				dateSearch.getStartDate(), dateSearch.getEndDate());
+		//結果を取得
+		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		while(rs.next()) {
 			SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
 			suspiciousPersonSightings.setId(rs.getInt("id"));
@@ -139,7 +200,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		SqlRowSet rs = template.queryForRowSet(sql, listId);
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
-		//rs(SQL実行取得結果)が0の場合elseを処理する
+		//rs(SQL実行取得結果)がtrueの場合のみ処理する
 		if(!rs.isLast()) {
 			while(rs.next()) {
 				SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();

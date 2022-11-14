@@ -28,6 +28,7 @@ public class DateSearch {
 	/** 行方不明の範囲指定end */
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate endDate;
-
-
+	
+	/** 検索場所名の指定 */
+	private String searchPlace;
 }
