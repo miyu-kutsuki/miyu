@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 
@@ -26,7 +27,14 @@ public class UserInformationsMissingPersonSightingsAction {
 		
 	@RequestMapping(value="/UserInformationsMissingPersonSightingsAction", method = RequestMethod.POST)
 	public String UserInformationsView(@RequestParam(name = "edit", required = false) String edit, 
-			@RequestParam(name = "end", required = false) String end) {
+			@RequestParam(name = "end", required = false) String end, RedirectAttributes redirectAttributes) {
+		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
 		
 		//編集ボタンが押下されたら指定されたidのデータを更新
 		if(!(edit == null)) {

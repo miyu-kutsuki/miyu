@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,10 +30,20 @@ public class SearchAction {
 	@Autowired
 	InformationRepository informationRepository;
 	
+	@Autowired
+	HttpSession session;
+	
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
 	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate, 
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
 			Model model, RedirectAttributes redirectAttributes){
+		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
 		
 		DateSearch dateSearch = new DateSearch();
 		dateSearch.setStartDate(startDate);

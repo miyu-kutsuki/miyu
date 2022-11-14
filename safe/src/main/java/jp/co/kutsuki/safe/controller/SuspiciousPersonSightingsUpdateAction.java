@@ -40,6 +40,13 @@ public class SuspiciousPersonSightingsUpdateAction {
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonsSightings, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
+		
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
 		//更新するデータのidを取得
