@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet"/>
 <meta charset="UTF-8">
 <title>ユーザー新規登録ページ</title>
 </head>
 <body>
-	<h1>ユーザー新規登録ページ</h1>
-	<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
-		<ul th:if="${#fields.hasErrors('*')}">
-			<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
-			<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
-		</ul>
-	
-		<ul th:unless="${msg} == null">
-			<th:block th:each="errorMsg : ${msg}">
-				<li id="error" th:text="${errorMsg}"></li>
-			</th:block>
-		</ul>
-		<div>
-			<label for="user_id">ユーザーID：</label>
-			<input type="text" th:field="*{user_id}">
-		</div>
-		<div>
-			<label for="password">パスワード：</label>
-			<input type="password" th:field="*{password}">
-		</div>
-		<input type="submit" value="登録">
-	</form>
-	
-	<form th:action="@{/Safe}">
-		<input type="submit" value="トップページへ">
-	</form>
+	<script th:href="@{/webjars/jquery/3.5.0/js/jquery.min.js}"></script>
+	<script th:href="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 
+	<div class="container">
+		<div class="d-flex flex-column align-items-center justify-content-center">
+			<h1>ユーザー新規登録ページ</h1>
+			
+			<div class="w-45 h-auto p-3">
+				<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
+					<ul th:if="${#fields.hasErrors('*')}">
+						<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
+						<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
+					</ul>
+				
+					<ul th:unless="${msg} == null">
+						<th:block th:each="errorMsg : ${msg}">
+							<li id="error" th:text="${errorMsg}"></li>
+						</th:block>
+					</ul>
+					<div class="mb-3">
+						<label for="user_id" class="form-label">ユーザーID：</label>
+						<input type="text" th:field="*{user_id}" class="form-control">
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">パスワード：</label>
+						<input type="password" th:field="*{password}" class="form-control">
+					</div>
+					<input type="submit" value="登録" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+				
+				<form th:action="@{/Safe}">
+					<input type="submit" value="トップページへ" class="btn btn-outline-dark btn-block mt-3">
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
