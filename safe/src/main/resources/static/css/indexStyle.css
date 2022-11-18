@@ -3,11 +3,12 @@
 .top{
 	width: 100%;
 	height: 800px;
-	background-image: url(../images/top1.jpg);
+	background-image: url(../images/top1.png);
+	background-position: 50% 50%;
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
 .d-flex{
-	padding-top: 25%;
+	padding-top: 20%;
 }

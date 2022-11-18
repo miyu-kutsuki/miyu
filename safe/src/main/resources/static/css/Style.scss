@@ -1,0 +1,13 @@
+/*モバイルファーストを想定したブレークポイントのmap*/
+$breakpoint: (
+  sp: 'screen and (max-width: 767px)',
+  tab: 'screen and (min-width: 768px)',
+  pc: 'screen and (min-width: 1025px)'
+);
+
+/*関数mediaQueryの定義*/
+@mixin mediaQuery($point) {
+  @media #{map-get($breakpoint, $point)} {
+   @content;
+  }
+}

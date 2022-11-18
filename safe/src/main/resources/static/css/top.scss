@@ -1,0 +1,9 @@
+body {
+  background-color: #bebeff;
+  @include m.mediaQuery(tab) {
+    background-color: #ffbebe;
+  }
+  @include m.mediaQuery(pc) {
+    background-color: #cacaca;
+  }
+}

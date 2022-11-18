@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.outer_frame{
+	width: 450px;
+	height: auto;
+	margin: auto;
+}
+
+.in_frame{
+	width: 300px;
+	height: auto;
+	margin: auto;
+}
