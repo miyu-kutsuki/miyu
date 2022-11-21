@@ -11,3 +11,8 @@
 	height: auto;
 	margin: auto;
 }
+
+ul{
+	list-style:none;
+	color: #ff0000;
+}
