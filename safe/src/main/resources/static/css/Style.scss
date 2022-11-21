@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/*モバイルファーストを想定したブレークポイントのmap*/
+$breakpoint: (
+  sp: 'screen and (max-width: 767px)',
+  tab: 'screen and (min-width: 768px)',
+  pc: 'screen and (min-width: 1025px)'
+);
+
+/*mediaQueryの定義*/
+@mixin mediaQuery($point) {
+  @media #{map-get($breakpoint, $point)} {
+   @content;
+  }
+}
+
+body {
+  @include mediaQuery(sp) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/sp.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+	.d-flex{
+	padding-top: 20%;
+	}
+  }
+ 
+   @include mediaQuery(tab) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/tab.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+	.d-flex{
+	padding-top: 20%;
+	}
+  }
+
+  @include mediaQuery(pc) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+	.d-flex{
+	padding-top: 20%;
+	}
+  }
+ 
+}

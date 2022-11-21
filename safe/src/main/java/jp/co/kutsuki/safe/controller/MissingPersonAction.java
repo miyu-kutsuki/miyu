@@ -41,6 +41,13 @@ public class MissingPersonAction {
 			@Validated @ModelAttribute MissingPersons missingPerson, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		
+		//セッション有効チェック
+		boolean check = (boolean)session.getAttribute("check");
+		if(check) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Login";
+		}
+		
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
 		
