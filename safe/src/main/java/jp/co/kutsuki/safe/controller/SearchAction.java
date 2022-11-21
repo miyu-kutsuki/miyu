@@ -38,6 +38,7 @@ public class SearchAction {
 	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate, 
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
 			@RequestParam String searchPlace, Model model, RedirectAttributes redirectAttributes){
+
 		
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
@@ -45,6 +46,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
+
 		
 		DateSearch dateSearch = new DateSearch();
 		dateSearch.setStartDate(startDate);

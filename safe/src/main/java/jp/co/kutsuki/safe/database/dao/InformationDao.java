@@ -137,4 +137,5 @@ public class InformationDao implements InformationRepository{
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsIdTable(id));
 	}
+
 }

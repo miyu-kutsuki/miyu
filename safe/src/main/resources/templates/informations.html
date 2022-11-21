@@ -5,9 +5,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <link rel="stylesheet" href="./css/informationsStyle.css">
 <meta charset="UTF-8">
-<title>各情報表示ページ</title>
+<title>各情報検索ページ</title>
 </head>
 <body>
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 	<div class="container-fluid text-center">
@@ -140,5 +141,81 @@
 		</div>
 
 	</div>
+=======
+	<h1>各情報検索ページ</h1>
+	
+	<th:block th:each="errorMsg : ${msg}">
+		<label id="error" th:text="${errorMsg}"></label><br>
+	</th:block>
+		
+	<form th:action="@{/Search}" method="post">
+		<label>日付</label><br>
+		<input type="date" name="startDate">〜
+		<input type="date" name="endDate"><br>
+		<label>場所</label><br>
+		<input type="text" name="searchPlace">
+		<input type="submit" value="検索">
+	</form>
+	
+	<h2>探し人情報</h2>
+	
+	<p id="error" th:text="${msg1}"></p>
+	
+	<table>
+		<tr th:each="missingPerson : ${missingPersonsList}">
+			<td th:text="${missingPerson.date}"></td>
+			<td th:text="${missingPerson.name}"></td>
+			<td th:text="${missingPerson.gender}"></td>
+			<td th:text="${missingPerson.age}"></td>
+			<td th:text="${missingPerson.detail}"></td>
+			<td>
+			[[${missingPerson.prefectures}]]
+			[[${missingPerson.municipalities}]]
+			[[${missingPerson.other}]]
+			</td>
+		</tr>
+	</table>
+	
+	<h2>探し人目撃情報</h2>
+	
+	<p id="error" th:text="${msg2}"></p>
+	
+	<table>
+		<tr th:each="missingPersonSightings : ${missingPersonSightingsList}">
+			<td th:text="${missingPersonSightings.date}"></td>
+			<td th:text="${missingPersonSightings.gender}"></td>
+			<td th:text="${missingPersonSightings.age}"></td>
+			<td th:text="${missingPersonSightings.detail}"></td>
+			<td>
+			[[${missingPersonSightings.prefectures}]]
+			[[${missingPersonSightings.municipalities}]]
+			[[${missingPersonSightings.other}]]
+			</td>
+		</tr>
+	</table>
+	
+	<h2>不審者目撃情報</h2>
+	
+	<p id="error" th:text="${msg3}"></p>
+	
+	<table>
+		<tr th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
+			<td th:text="${suspiciousPersonSightings.date}"></td>
+			<td th:text="${suspiciousPersonSightings.gender}"></td>
+			<td th:text="${suspiciousPersonSightings.age}"></td>
+			<td th:text="${suspiciousPersonSightings.detail}"></td>
+			<td>
+			[[${suspiciousPersonSightings.prefectures}]]
+			[[${suspiciousPersonSightings.municipalities}]]
+			[[${suspiciousPersonSightings.other}]]
+			</td>
+		</tr>
+	</table>
+		
+	<form th:action="@{/Menu}" method="get">
+		<input type="submit" value="メニューページへ">
+	</form>
+	
+
 </body>
 </html>
