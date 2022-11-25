@@ -3,6 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/frameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>メニューページ</title>
@@ -10,33 +11,40 @@
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-	<div class="container">
+	<div class="container vh-100">
 		<div class="d-flex flex-column align-items-center justify-content-center">
 			<h1 class="h1">メニュー選択ページ</h1>
+			<div class="outer_frame">
 			<div class="d-grid gap-6">
-				<form th:action="@{/MissingPersons}">
-					<input type="submit" value="探し人を登録する" class="btn btn-outline-dark mt-3 w-100">
-				</form>
+			
+				<div class="in_frame">
 				
-				<form th:action="@{/MissingPersonsSightings}">
-					<input type="submit" value="探し人の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
-				</form>
+					<form th:action="@{/MissingPersons}">
+						<input type="submit" value="探し人を登録する" class="btn btn-outline-dark mt-3 w-100">
+					</form>
+					
+					<form th:action="@{/MissingPersonsSightings}">
+						<input type="submit" value="探し人の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
+					</form>
+					
+					<form th:action="@{/SuspiciousPersonSightings}">
+						<input type="submit" value="不審者の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
+					</form>
+					
+					<form th:action="@{/Informations}">
+						<input type="submit" value="各情報を確認する" class="btn btn-outline-dark mt-3 w-100">
+					</form>
+					
+					<form th:action="@{/UserInformations}">
+						<input type="submit" value="ユーザーページ" class="btn btn-outline-dark mt-3 w-100">
+					</form>
+					
+					<form th:action="@{/LogoutAction}" method="post">
+						<input type="submit" value="ログアウト" class="btn btn-outline-dark mt-3 w-100">
+					</form>
 				
-				<form th:action="@{/SuspiciousPersonSightings}">
-					<input type="submit" value="不審者の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
-				</form>
-				
-				<form th:action="@{/Informations}">
-					<input type="submit" value="各情報を確認する" class="btn btn-outline-dark mt-3 w-100">
-				</form>
-				
-				<form th:action="@{/UserInformations}">
-					<input type="submit" value="ユーザーページ" class="btn btn-outline-dark mt-3 w-100">
-				</form>
-				
-				<form th:action="@{/LogoutAction}" method="post">
-					<input type="submit" value="ログアウト" class="btn btn-outline-dark mt-3 w-100">
-				</form>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>
