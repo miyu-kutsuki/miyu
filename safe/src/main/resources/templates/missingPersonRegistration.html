@@ -15,7 +15,7 @@
 		<div class="d-flex flex-column align-items-center justify-content-center h-100">
 			<h1 class="h1">探し人情報登録ページ</h1>
 			<div class="w-75 h-100 p-3">
-				<form th:action="@{/MissingPersonsRegistration}" method="post" th:object="${missingPersons}">
+				<form th:action="@{/MissingPersonsRegistrationCheckAction}" method="post" th:object="${missingPersons}">
 					<ul th:if="${#fields.hasErrors('*')}">
 						<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
 						<li th:each="errors:${#fields.errors('name')}" th:text="${errors}"></li>
@@ -64,15 +64,14 @@
 					</div>
 					
 					<div class="w-100 h-auto text-center">
-						<input type="submit" value="登録" class="btn btn-outline-dark w-50 mt-3">
+						<input type="submit" value="確認" class="btn btn-outline-dark w-50 mt-3">
 					</div>
 				</form>
 				
-				<form th:action="@{/Menu}" method="get">
-					<div class="w-100 h-auto text-center">
-						<input type="submit" value="メニューページへ" class="btn btn-outline-dark w-50 mt-3">
-					</div>
-				</form>
+				<div class="w-100 h-auto text-center">
+					<button type="button" name="submit" th:attr="onclick='location.href=\''+'Menu'+'\''" class="btn btn-outline-dark w-50 mt-3">メニューページへ</button>
+				</div>
+				
 			</div>
 		</div>
 	</div>

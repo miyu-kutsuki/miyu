@@ -35,7 +35,7 @@ public class UserRegistrationCheckAction {
 	@RequestMapping(value="/UserRegistrationCheckAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-				
+		
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
 		User userInformation = userRepository.getUserTable(user_id);
@@ -72,7 +72,7 @@ public class UserRegistrationCheckAction {
 			newUser.setPassword(password);
 			session.setAttribute("user", newUser);
 			model.addAttribute("user", newUser);
-			return "UserRegistrationCheck";
+			return "forward:UserRegistrationCheck";
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);
 			return "redirect:UserRegistration";
