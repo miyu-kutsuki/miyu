@@ -6,15 +6,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.kutsuki.safe.entity.User;
-
 /**
- * 新規登録ページ遷移用コントローラー
+ * ユーザー登録確認画面遷移用のコントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("UserRegistration")
-public class UserRegistrationPageAction {
+@RequestMapping("UserRegistrationCheck")
+public class UserRegistrationCheckPageAction {
 	
 	@ModelAttribute
 	public User setUpUser() {
@@ -23,6 +22,7 @@ public class UserRegistrationPageAction {
 	
 	@GetMapping
 	public String pageView() {
-		return "userRegistration";
+		return "userRegistrationCheck";
 	}
+
 }
