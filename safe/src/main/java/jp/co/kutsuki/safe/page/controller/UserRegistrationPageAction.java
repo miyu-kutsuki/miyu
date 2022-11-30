@@ -23,7 +23,6 @@ public class UserRegistrationPageAction {
 	
 	@GetMapping
 	public String pageView() {
-		
 		return "userRegistration";
 	}
 }

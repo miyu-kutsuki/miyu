@@ -16,7 +16,7 @@
 			<h1 class="h1">ユーザー新規登録ページ</h1>
 			<div class="outer_frame">
 				<div class="d-grid gap-2 mt-3">
-					<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
+					<form th:action="@{/UserRegistrationCheckAction}" method="post" th:object="${user}">
 						<ul th:if="${#fields.hasErrors('*')}">
 								<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
 								<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
@@ -36,20 +36,18 @@
 							
 							<div class="mb-3">
 								<label for="password" class="form-label">パスワード</label>
-								<input type="password" th:field="*{password}" class="form-control">
+								<input type="text" th:field="*{password}" class="form-control">
 							</div>
 							
-							<input type="submit" value="登録" class="btn btn-outline-dark mt-3 w-100">
+							<input type="submit" value="確認" class="btn btn-outline-dark mt-3 w-100">
 						
 						</div>
 					</form>
 					
 					<div class="in_frame">
-						<form th:action="@{/Safe}">
-							
-							<input type="submit" value="トップページへ" class="btn btn-outline-dark mt-3 w-100">
-							
-						</form>
+						
+						<button type="button" name="submit" th:attr="onclick='location.href=\''+'Safe'+'\''" class="btn btn-outline-dark mt-3 w-100">トップページへ</button>
+						
 					</div>
 				</div>
 			</div>

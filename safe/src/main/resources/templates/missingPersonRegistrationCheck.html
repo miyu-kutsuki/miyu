@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="./css/registrationStyle.css">
+<link rel="icon" href="./images/favicon.ico">
+<meta charset="UTF-8">
+<title>登録確認ページ</title>
+</head>
+<body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<div class="container h-100">
+		<div
+			class="d-flex flex-column align-items-center justify-content-center">
+			<h1 class="h1">登録確認ページ</h1>
+			<h5 class="h5 mt-2">下記内容で登録しますか？</h5>
+
+			<div class="w-75 h-100 p-3 text-center">
+				<form th:action="@{/MissingPersonsRegistration}" method="post"
+					th:object="${missingPersons}">
+
+					<div class="mb-3">
+						<label for="date" class="form-label">行方不明日</label>:
+							<label for="date" class="form-label" th:text="*{date}"></label>
+					</div>
+
+					<div class="mb-3">
+						<label for="name" class="form-label">氏名</label>:
+						<label for="name" class="form-label" th:text="*{name}"></label>
+					</div>
+
+					<div class="mb-3">
+						<label for="gender" class="form-label">性別</label>:
+							<label for="gender" class="form-label" th:text="*{gender}"></label>
+					</div>
+
+					<div class="mb-3">
+						<label for="age" class="form-label">年齢</label>:
+							<label for="age" class="form-label" th:text="*{age}"></label>
+					</div>
+
+					<div class="mb-3">
+						<label for="detail" class="form-label">服装・背格好・経緯</label><br>
+						<label for="detail" class="form-label" th:text="*{detail}"></label>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label">最後に立ち寄った可能性のある場所</label><br>
+						都道府県:
+						 <label for="prefectures" class="form-label" th:text="*{prefectures}"></label><br>
+						市区町村:
+						<label for="municipalities" class="form-label" th:text="*{municipalities}"></label><br>
+						番地等:
+						<label for="other" class="form-label" th:text="*{other}"></label>
+					</div>
+
+					<div class="w-100 h-auto text-center">
+						<input type="submit" value="登録"
+							class="btn btn-outline-dark w-50 mt-3">
+					</div>
+				</form>
+
+				<div class="w-100 h-auto text-center">
+					<form th:action="@{/MissingPersonsRegistrationBackAction}" method="post">
+						<input type="submit" value="戻る" class="btn btn-outline-dark w-50 mt-3">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

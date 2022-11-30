@@ -16,7 +16,7 @@
 			<h1 class="h1">探し人目撃情報登録ページ</h1>
 			
 			<div class="w-75 h-100 p-3">
-				<form th:action="@{/MissingPersonsSightingsRegistration}" method="post" th:object="${missingPersonsSightings}">
+				<form th:action="@{/MissingPersonsSightingsRegistrationCheck}" method="post" th:object="${missingPersonsSightings}">
 					<ul th:if="${#fields.hasErrors('*')}">
 						<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
 						<li th:each="errors:${#fields.errors('gender')}" th:text="${errors}"></li>
@@ -34,9 +34,9 @@
 							
 					<div class="mb-3">
 						<label for="gender" class="form-check-label">性別</label><br>
-						<input type="radio" name="gender" value="男" class="form-check-input" required>男
-						<input type="radio" name="gender" value="女" class="form-check-input">女
-						<input type="radio" name="gender" value="不明" class="form-check-input">不明
+						<input type="radio" th:field="*{gender}" value="男" class="form-check-input">男
+						<input type="radio" th:field="*{gender}" value="女" class="form-check-input">女
+						<input type="radio" th:field="*{gender}" value="不明" class="form-check-input">不明
 					</div>
 					
 					<div class="mb-3">
@@ -60,14 +60,12 @@
 					</div>
 					
 					<div class="w-100 h-auto text-center">
-						<input type="submit" value="登録" class="btn btn-outline-dark w-50 mt-3">
+						<input type="submit" value="確認" class="btn btn-outline-dark w-50 mt-3">
 					</div>
 				</form>
 				
 				<div class="w-100 h-auto text-center">
-					<form th:action="@{/Menu}" method="get">
-						<input type="submit" value="メニューページへ" class="btn btn-outline-dark w-50 mt-3">
-					</form>
+					<button type="button" name="submit" th:attr="onclick='location.href=\''+'Menu'+'\''" class="btn btn-outline-dark w-50 mt-3">メニューページへ</button>
 				</div>
 				
 			</div>

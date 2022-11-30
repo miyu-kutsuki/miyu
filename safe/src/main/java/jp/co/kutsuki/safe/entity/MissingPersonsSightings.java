@@ -33,6 +33,7 @@ public class MissingPersonsSightings {
 	private LocalDate date;
 		
 	/** 性別 */
+	@NotNull(message = "性別が選択されていません。")
 	private String gender;
 	
 	/** 推定年齢 */

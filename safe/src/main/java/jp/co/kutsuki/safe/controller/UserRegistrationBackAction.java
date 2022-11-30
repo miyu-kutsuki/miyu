@@ -10,23 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.User;
-import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
- *ユーザー登録用のコントローラー
+ * ユーザー登録確認画面から入力画面へ戻る用のコントローラー
  * @author kutsuki
  *
  */
 @Controller
-public class UserRegistrationAction {
-	
-	@Autowired
-	UserRepository userRepository;
-	
+public class UserRegistrationBackAction {
+		
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(value="/UserRegistrationAction", method = RequestMethod.POST)
+	@RequestMapping(value="/UserRegistrationBackAction", method = RequestMethod.POST)
 	public String UserView(RedirectAttributes redirectAttributes, Model model) {
 		
 		//セッション切れかチェック
@@ -34,11 +30,10 @@ public class UserRegistrationAction {
 			return "redirect:Safe";
 		}
 		
-		//usersテーブルにuser_id,passwordを登録
+		//入力情報を保持してユーザー登録画面へ遷移
 		User userInformation = (User) session.getAttribute("user");
-		userRepository.setUserTable(userInformation);
-		model.addAttribute("user", userInformation);
-		return "redirect:Login";
+		redirectAttributes.addFlashAttribute("user", userInformation);
+		return "redirect:UserRegistration";
 
 	}
 }
