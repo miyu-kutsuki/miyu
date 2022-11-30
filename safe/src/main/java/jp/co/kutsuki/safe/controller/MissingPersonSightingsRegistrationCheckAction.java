@@ -28,7 +28,6 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 @Controller
 public class MissingPersonSightingsRegistrationCheckAction {
 	
-	
 	@Autowired
 	MissingPersonsSightingsRepository missingPersonsSightingsRepository;
 	
