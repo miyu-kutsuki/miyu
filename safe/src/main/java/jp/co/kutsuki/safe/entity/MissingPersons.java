@@ -37,6 +37,7 @@ public class MissingPersons {
 	private String name;
 	
 	/** 性別 */
+	@NotBlank(message = "性別が選択されていません。")
 	private String gender;
 	
 	/** 年齢 */

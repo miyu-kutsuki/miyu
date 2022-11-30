@@ -36,7 +36,7 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 	
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistrationCheck", method = RequestMethod.POST)
 	public String SuspiciousPersonSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
-			@RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,
+			@RequestParam(name = "gender", required = false) String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonSighting, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
