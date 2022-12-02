@@ -29,13 +29,6 @@ public class SuspiciousPersonSightingsAction {
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistration", method = RequestMethod.POST)
 	public String SuspiciousPersonSightingsView(RedirectAttributes redirectAttributes, Model model) {
 		
-		//セッション有効チェック
-		boolean check = (boolean)session.getAttribute("check");
-		if(check) {
-			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
-		}
-		
 		//missing_persons_sightingsテーブルに登録
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		suspiciousPersonSightingsRepository.setSuspiciousPersonSightingsTable(suspiciousPersonSightings);

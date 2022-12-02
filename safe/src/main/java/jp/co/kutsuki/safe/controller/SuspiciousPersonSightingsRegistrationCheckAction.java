@@ -40,16 +40,14 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonSighting, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-		
-		//セッション有効チェック
-		boolean check = (boolean)session.getAttribute("check");
-		if(check) {
-			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
-		}
-		
+				
 		//ログイン中のuser_idを取得
-		User userInformation = (User) session.getAttribute("user");
+		User userInformation = new User();
+		if((User) session.getAttribute("user") == null) {
+			userInformation.setUser_id("guests");
+		}else {
+			userInformation = (User) session.getAttribute("user");
+		}
 		
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {

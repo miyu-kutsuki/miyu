@@ -21,6 +21,7 @@
 								<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
 								<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
 						</ul>
+						
 						<ul th:unless="${msg} == null" class="text-center">
 							<th:block th:each=erroMsg:${msg}>
 								<li id="error" th:text="${erroMsg}"></li>

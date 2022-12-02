@@ -15,6 +15,11 @@ $breakpoint: (
 }
 
 body {
+	
+	background-image: url(../images/background.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	
   @include mediaQuery(sp) {
     .top{
 	max-width: 100%;
@@ -24,9 +29,16 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	}
-	.d-flex{
-	padding-top: 20%;
+
+	.catch{
+		padding-top: 60%;
 	}
+
+	.catch img{
+		width: 90%;
+		height: 90%;
+	}
+
   }
  
    @include mediaQuery(tab) {
@@ -38,9 +50,11 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	}
-	.d-flex{
-	padding-top: 20%;
+
+	.catch{
+		padding-top: 40%;
 	}
+
   }
 
   @include mediaQuery(pc) {
@@ -52,9 +66,44 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	}
-	.d-flex{
-	padding-top: 20%;
+
+	.catch{
+		padding-top: 20%;
 	}
+	
   }
- 
+}
+
+a{
+	text-decoration:none;
+}
+
+.catch img{
+	width: 75%;
+	height: 75%;
+}
+
+.navbar-light{
+	background-image: url(../images/background.png);
+	margin: 0;
+	padding: 0;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+footer{
+	width: 100%;
+	height: 80px;
+	margin: 0;
+	padding: 0;
+}
+
+.footer_frame{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 30px 0 0 0;
+	text-align: center;
+	background: #93a9c0;
+	color: #ffffff;
 }

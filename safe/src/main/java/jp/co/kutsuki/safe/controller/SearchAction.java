@@ -42,8 +42,11 @@ public class SearchAction {
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
-			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
+			//user_idが"guests"の場合、不審者のみの検索ページに遷移する
+			if(session.getAttribute("userInformation") == null) {
+				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+				return "redirect:Login";
+			}
 		}
 		
 		DateSearch dateSearch = new DateSearch();
@@ -75,12 +78,19 @@ public class SearchAction {
 			msgList.add("終了日付を入力してください。");
 		}
 		
+		//開始・終了のどちらかの日付が指定されていない場合
 		if(msgList.size() == 1) {
-			//開始・終了のどちらかの日付が指定されていない場合
+			if(!(session.getAttribute("userInformation") == null)) {
+				//リダイレクトで不審者のみの検索ページへ遷移
+				redirectAttributes.addFlashAttribute("msg", msgList);
+				return "redirect:GuestsSuspiciousPersonSightings";
+			}
 			//リダイレクトで情報表示ページへ遷移
 			redirectAttributes.addFlashAttribute("msg", msgList);
 			return "redirect:Informations";
 		}
+		
+		
 		
 		//searchPlaceがnullかチェック
 		if(dateSearch.getSearchPlace() == null) {
@@ -421,6 +431,13 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 		}
 		
-		return "redirect:Informations";
+		if(!(session.getAttribute("userInformation") == null)) {
+			//リダイレクトで不審者のみの検索ページへ遷移
+			return "redirect:GuestsSuspiciousPersonSightings";
+		}else {
+			//リダイレクトで情報表示ページへ遷移
+			return "redirect:Informations";
+		}
+		
 	}
 }
