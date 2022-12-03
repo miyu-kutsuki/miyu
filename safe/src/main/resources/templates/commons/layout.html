@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="./css/baseStyle.css">
+<title>ベース：レイアウト</title>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+			<div class="container-fluid">
+				<a th:href="@{/}" class="navbar-brand m-0 p-0"> <img
+					src="./images/logo.png" alt="" width="60" height="60"
+					class="d-inline-block align-text-top m-0 p-0">
+				</a>
+
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse justify-content-end"
+					id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a th:href="@{/MissingPersons}"
+							class="nav-link mt-3" aria-current="page">探し人の登録</a></li>
+							
+						<li class="nav-item"><a th:href="@{/MissingPersonsSightings}"
+							class="nav-link mt-3">目撃情報の登録</a></li>
+							
+						<li class="nav-item"><a
+							th:href="@{/SuspiciousPersonSightings}" class="nav-link mt-3"
+							tabindex="-3" aria-disabled="true">不審者情報の登録</a></li>
+							
+						<li class="nav-item"><a th:href="@{/Informations}"
+							class="nav-link mt-3" tabindex="-3" aria-disabled="true">どこなのサーチ</a>
+						</li>
+						
+						<li class="nav-item"><a th:href="@{/UserInformations}"
+							class="nav-link mt-3" tabindex="-3" aria-disabled="true">ユーザーページ</a>
+						</li>
+						
+						<li class="nav-item"><a th:href="@{/LogoutAction}"
+							class="nav-link mt-3" tabindex="-3" aria-disabled="true">ログアウト</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div layout:fragment="contents" class="main_frame"></div>
+	<footer>
+		<div class="footer_frame">
+			<p>Copyright 2022 doconano All Rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>

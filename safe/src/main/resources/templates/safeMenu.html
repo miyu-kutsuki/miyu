@@ -1,50 +1,70 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/layout}">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/frameStyle.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="./css/menuStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>メニューページ</title>
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<div layout:fragment="contents">
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"></script>
 
-	<div class="container vh-100">
-		<div class="d-flex flex-column align-items-center justify-content-center">
-			<h1 class="h1">メニュー選択ページ</h1>
-			<div class="outer_frame">
-			<div class="d-grid gap-6">
-			
-				<div class="in_frame">
-				
-					<form th:action="@{/MissingPersons}">
-						<input type="submit" value="探し人を登録する" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-					
-					<form th:action="@{/MissingPersonsSightings}">
-						<input type="submit" value="探し人の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-					
-					<form th:action="@{/SuspiciousPersonSightings}">
-						<input type="submit" value="不審者の目撃情報を登録する" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-					
-					<form th:action="@{/Informations}">
-						<input type="submit" value="各情報を確認する" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-					
-					<form th:action="@{/UserInformations}">
-						<input type="submit" value="ユーザーページ" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-					
-					<form th:action="@{/LogoutAction}" method="post">
-						<input type="submit" value="ログアウト" class="btn btn-outline-dark mt-3 w-100">
-					</form>
-				
+		<div class="container">
+			<div
+				class="d-flex flex-column align-items-center justify-content-center">
+				<div class="d-grid gap-6">
+
+					<div class="container">
+
+						<div class="main text-center">
+							<img src="./images/menu1.png" alt="" class="m-3">
+							<a th:href="@{/MissingPersons}">
+								<img src="./images/m1.png" alt="" class="m-3">
+							</a>
+						</div>
+
+						<div class="main_flex text-center">
+							<img src="./images/m2.png" alt="" class="m2 m-3">
+								<a th:href="@{/MissingPersonsSightings}">
+								<img src="./images/menu2.png" alt="" class="menu2 m-3">
+							</a>
+						</div>
+
+						<div class="main text-center">
+							<img src="./images/menu3.png" alt="" class="m-3">
+								<a th:href="@{/SuspiciousPersonSightings}">
+								<img src="./images/m3.png" alt="" class="m-3">
+							</a>
+						</div>
+
+						<div class="main_flex text-center">
+							<img src="./images/m4.png" alt="" class="m4 m-3">
+								 <a th:href="@{/Informations}">
+								<img src="./images/menu4.png" alt="" class="menu4 m-3">
+							</a>
+						</div>
+
+						<div class="main text-center">
+							<img src="./images/menu5.png" alt="" class="m-3">
+							<a th:href="@{/UserInformations}">
+							<img src="./images/m5.png" alt="" class="m-3">
+							</a>
+						</div>
+					</div>
+
 				</div>
-			</div>
 			</div>
 		</div>
 	</div>

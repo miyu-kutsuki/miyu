@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+/*モバイルファーストを想定したブレークポイントのmap
+Bootstrap5のブレークポイントを使用*/
+$breakpoint: (
+  sm: 'screen and (max-width: 576px)',
+  md: 'screen and (min-width: 768px)',
+  lg: 'screen and (min-width: 992px)'
+);
+
+/*mediaQueryの定義*/
+@mixin mediaQuery($point) {
+  @media #{map-get($breakpoint, $point)} {
+   @content;
+  }
+}
+
+body {
+	
+	background-image: url(../images/background.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 100%;
+	
+  @include mediaQuery(sm) {
+   	.main_flex{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 0;
+	}
+	
+	.m2{
+		order: 1;
+	}
+
+	.menu4{
+		order: 0;
+	}
+	
+	.m4{
+		order: 1;
+	}
+  }
+ 
+  @include mediaQuery(md) {
+   	.main_flex{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 0;
+	}
+	
+	.m2{
+		order: 1;
+	}
+
+	.menu4{
+		order: 0;
+	}
+	
+	.m4{
+		order: 1;
+	}
+  } 
+
+  @include mediaQuery(lg) {
+   	.main_flex{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 1;
+	}
+	
+	.m2{
+		order: 0;
+	}
+
+	.menu4{
+		order: 1;
+	}
+	
+	.m4{
+		order: 0;
+	}
+  }
+ 
+}
+
+a {
+  text-decoration: none;
+}
+
+.container{
+	overflow-y: auto;
+	background:rgba(255,255,255,1.0);
+}
