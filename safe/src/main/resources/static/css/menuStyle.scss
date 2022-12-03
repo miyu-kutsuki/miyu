@@ -3,9 +3,12 @@
 /*モバイルファーストを想定したブレークポイントのmap
 Bootstrap5のブレークポイントを使用*/
 $breakpoint: (
-  sm: 'screen and (max-width: 576px)',
+  xs: 'screen and (max-width: 575px)',
+  sm: 'screen and (min-width: 576px)',
   md: 'screen and (min-width: 768px)',
-  lg: 'screen and (min-width: 992px)'
+  lg: 'screen and (min-width: 992px)',
+  xl: 'screen and (min-width: 1200px)',
+  xxl: 'screen and (min-width: 1400px)'
 );
 
 /*mediaQueryの定義*/
@@ -21,6 +24,32 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 100%;
+
+  @include mediaQuery(xs) {
+   	.main_flex{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 0;
+	}
+	
+	.m2{
+		order: 1;
+	}
+
+	.menu4{
+		order: 0;
+	}
+	
+	.m4{
+		order: 1;
+	}
+  }
 	
   @include mediaQuery(sm) {
    	.main_flex{
@@ -99,6 +128,58 @@ body {
 		order: 0;
 	}
   }
+ 
+  @include mediaQuery(xl) {
+   	.main_flex{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 1;
+	}
+	
+	.m2{
+		order: 0;
+	}
+
+	.menu4{
+		order: 1;
+	}
+	
+	.m4{
+		order: 0;
+	}
+  }
+ 
+  @include mediaQuery(xxl) {
+   	.main_flex{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: flex-start;
+	}
+
+	.menu2{
+		order: 1;
+	}
+	
+	.m2{
+		order: 0;
+	}
+
+	.menu4{
+		order: 1;
+	}
+	
+	.m4{
+		order: 0;
+	}
+  }  
  
 }
 

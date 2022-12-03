@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/layout}">
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -13,171 +16,172 @@
 <title>ユーザーページ</title>
 </head>
 <body>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-
-	<div class="container-fluid text-center vh-100">
-		<div class="d-flex flex-column">
-
-			<h1 class="h1">ユーザーページ</h1>
-
-			<form th:action="@{/WithdrawalAction}" method="post">
-				<label class="form-label">ユーザーID</label> <br> <label id="user"
-					th:text="${user.user_id}"></label>
-				<button type="button" name="withdrawal" th:value="${user.id}"
-					class="btn btn-outline-dark" data-bs-toggle="modal"
-					data-bs-target="#staticBackdrop">退会</button>
-				<!-- Modal -->
-				<div class="modal fade" id="staticBackdrop"
-					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-					aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">退会について</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body text-start">
-								退会を選択すると、ユーザー登録情報の抹消は即時に行われますが、
-								現在登録中の行方不明者等の情報につきましては引き続き掲載されます。
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">キャンセル</button>
-								<button type="submit" class="btn btn-primary">退会する</button>
+	<div layout:fragment="contents">
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"></script>
+	
+		<div class="container-fluid text-center">
+			<div class="d-flex flex-column">
+	
+				<h1 class="h1">ユーザーページ</h1>
+	
+				<form th:action="@{/WithdrawalAction}" method="post">
+					<label class="form-label">ユーザーID</label> <br> <label id="user"
+						th:text="${user.user_id}"></label>
+					<button type="button" name="withdrawal" th:value="${user.id}"
+						class="btn btn-outline-dark" data-bs-toggle="modal"
+						data-bs-target="#staticBackdrop">退会</button>
+					<!-- Modal -->
+					<div class="modal fade" id="staticBackdrop"
+						data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+						aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="staticBackdropLabel">退会について</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-start">
+									退会を選択すると、ユーザー登録情報の抹消は即時に行われますが、
+									現在登録中の行方不明者等の情報につきましては引き続き掲載されます。
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">キャンセル</button>
+									<button type="submit" class="btn btn-primary">退会する</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-
-			<h2 class="h2 mt-3">登録履歴</h2>
-
-			<h3 class="mt-3">探し人情報</h3>
-			<p id="error" th:text="${msg1}"></p>
-			<form th:action="@{/UserInformationsMissingPersonAction}"
-				method="post">
-				<div class="table-responsive">
-					<table class="table table-bordered" th:if="${missingPersonsList}">
-						<thead>
-							<tr>
-								<th scope="col" class="small" style="width: 10%">行方不明日</th>
-								<th scope="col" class="small" style="width: 10%">氏名</th>
-								<th scope="col" class="small" style="width: 5%">性別</th>
-								<th scope="col" class="small" style="width: 5%">年齢</th>
-								<th scope="col" class="small" style="width: 25%">詳細</th>
-								<th scope="col" class="small" style="width: 20%">最後に立ち寄った可能性のある場所</th>
-								<th scope="col" class="small" style="width: 15%"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="missingPerson : ${missingPersonsList}">
-								<td th:text="${missingPerson.date}" class="small"></td>
-								<td th:text="${missingPerson.name}" class="small"></td>
-								<td th:text="${missingPerson.gender}" class="small"></td>
-								<td th:text="${missingPerson.age}" class="small"></td>
-								<td th:text="${missingPerson.detail}" class="small"></td>
-								<td class="small">[[${missingPerson.prefectures}]]
-									[[${missingPerson.municipalities}]] [[${missingPerson.other}]]</td>
-								<td><button type="submit" name="edit"
-										th:value="${missingPerson.id}"
-										class="btn btn-outline-dark btn-block">編集</button>
-									<button type="submit" name="end" th:value="${missingPerson.id}"
-										class="btn btn-outline-dark btn-block">終了</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</form>
-
-			<h3 class="mt-3">探し人目撃情報</h3>
-			<p id="error" th:text="${msg2}"></p>
-			<form th:action="@{/UserInformationsMissingPersonSightingsAction}"
-				method="post">
-				<div class="table-responsive">
-					<table class="table table-bordered"
-						th:if="${missingPersonSightingsList}">
-						<thead>
-							<tr>
-								<th scope="col" class="small" style="width: 10%">行方不明日</th>
-								<th scope="col" class="small" style="width: 5%">性別</th>
-								<th scope="col" class="small" style="width: 5%">年齢</th>
-								<th scope="col" class="small" style="width: 35%">詳細</th>
-								<th scope="col" class="small" style="width: 30%">目撃場所</th>
-								<th scope="col" class="small" style="width: 15%"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								th:each="missingPersonSightings : ${missingPersonSightingsList}">
-								<td th:text="${missingPersonSightings.date}" class="small"></td>
-								<td th:text="${missingPersonSightings.gender}" class="small"></td>
-								<td th:text="${missingPersonSightings.age}" class="small"></td>
-								<td th:text="${missingPersonSightings.detail}" class="small"></td>
-								<td class="small">[[${missingPersonSightings.prefectures}]]
-									[[${missingPersonSightings.municipalities}]]
-									[[${missingPersonSightings.other}]]</td>
-								<td><button type="submit" name="edit"
-										th:value="${missingPersonSightings.id}"
-										class="btn btn-outline-dark btn-block">編集</button>
-									<button type="submit" name="end"
-										th:value="${missingPersonSightings.id}"
-										class="btn btn-outline-dark btn-block">終了</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</form>
-
-			<h3 class="mt-3">不審者目撃情報</h3>
-			<p id="error" th:text="${msg3}"></p>
-			<form th:action="@{/UserInformationsSuspiciousPersonSightingsAction}"
-				method="post">
-				<div class="table-responsive">
-					<table class="table table-bordered"
-						th:if="${suspiciousPersonSightingsList}">
-						<thead>
-							<tr>
-								<th scope="col" class="small" style="width: 10%">行方不明日</th>
-								<th scope="col" class="small" style="width: 5%">性別</th>
-								<th scope="col" class="small" style="width: 5%">年齢</th>
-								<th scope="col" class="small" style="width: 35%">詳細</th>
-								<th scope="col" class="small" style="width: 30%">目撃場所</th>
-								<th scope="col" class="small" style="width: 15%"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
-								<td th:text="${suspiciousPersonSightings.date}" class="small"></td>
-								<td th:text="${suspiciousPersonSightings.gender}" class="small"></td>
-								<td th:text="${suspiciousPersonSightings.age}" class="small"></td>
-								<td th:text="${suspiciousPersonSightings.detail}" class="small"></td>
-								<td class="small">[[${suspiciousPersonSightings.prefectures}]]
-									[[${suspiciousPersonSightings.municipalities}]]
-									[[${suspiciousPersonSightings.other}]]</td>
-								<td><button type="submit" name="edit"
-										th:value="${suspiciousPersonSightings.id}"
-										class="btn btn-outline-dark btn-block">編集</button>
-									<button type="submit" name="end"
-										th:value="${suspiciousPersonSightings.id}"
-										class="btn btn-outline-dark btn-block">終了</button></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</form>
-
-			<form th:action="@{/Menu}" method="get">
-				<input type="submit" value="メニューページへ"
-					class="btn btn-outline-dark btn-block m-3">
-			</form>
-
+				</form>
+	
+				<h2 class="h2 mt-3">登録履歴</h2>
+	
+				<h3 class="mt-3">探し人情報</h3>
+				<p id="error" th:text="${msg1}"></p>
+				<form th:action="@{/UserInformationsMissingPersonAction}"
+					method="post">
+					<div class="table-responsive">
+						<table class="table table-bordered" th:if="${missingPersonsList}">
+							<thead>
+								<tr>
+									<th scope="col" class="small" style="width: 10%">行方不明日</th>
+									<th scope="col" class="small" style="width: 10%">氏名</th>
+									<th scope="col" class="small" style="width: 5%">性別</th>
+									<th scope="col" class="small" style="width: 5%">年齢</th>
+									<th scope="col" class="small" style="width: 25%">詳細</th>
+									<th scope="col" class="small" style="width: 20%">最後に立ち寄った可能性のある場所</th>
+									<th scope="col" class="small" style="width: 15%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="missingPerson : ${missingPersonsList}">
+									<td th:text="${missingPerson.date}" class="small"></td>
+									<td th:text="${missingPerson.name}" class="small"></td>
+									<td th:text="${missingPerson.gender}" class="small"></td>
+									<td th:text="${missingPerson.age}" class="small"></td>
+									<td th:text="${missingPerson.detail}" class="small"></td>
+									<td class="small">[[${missingPerson.prefectures}]]
+										[[${missingPerson.municipalities}]] [[${missingPerson.other}]]</td>
+									<td><button type="submit" name="edit"
+											th:value="${missingPerson.id}"
+											class="btn btn-outline-dark btn-block">編集</button>
+										<button type="submit" name="end" th:value="${missingPerson.id}"
+											class="btn btn-outline-dark btn-block">終了</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+	
+				<h3 class="mt-3">探し人目撃情報</h3>
+				<p id="error" th:text="${msg2}"></p>
+				<form th:action="@{/UserInformationsMissingPersonSightingsAction}"
+					method="post">
+					<div class="table-responsive">
+						<table class="table table-bordered"
+							th:if="${missingPersonSightingsList}">
+							<thead>
+								<tr>
+									<th scope="col" class="small" style="width: 10%">行方不明日</th>
+									<th scope="col" class="small" style="width: 5%">性別</th>
+									<th scope="col" class="small" style="width: 5%">年齢</th>
+									<th scope="col" class="small" style="width: 35%">詳細</th>
+									<th scope="col" class="small" style="width: 30%">目撃場所</th>
+									<th scope="col" class="small" style="width: 15%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									th:each="missingPersonSightings : ${missingPersonSightingsList}">
+									<td th:text="${missingPersonSightings.date}" class="small"></td>
+									<td th:text="${missingPersonSightings.gender}" class="small"></td>
+									<td th:text="${missingPersonSightings.age}" class="small"></td>
+									<td th:text="${missingPersonSightings.detail}" class="small"></td>
+									<td class="small">[[${missingPersonSightings.prefectures}]]
+										[[${missingPersonSightings.municipalities}]]
+										[[${missingPersonSightings.other}]]</td>
+									<td><button type="submit" name="edit"
+											th:value="${missingPersonSightings.id}"
+											class="btn btn-outline-dark btn-block">編集</button>
+										<button type="submit" name="end"
+											th:value="${missingPersonSightings.id}"
+											class="btn btn-outline-dark btn-block">終了</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+	
+				<h3 class="mt-3">不審者目撃情報</h3>
+				<p id="error" th:text="${msg3}"></p>
+				<form th:action="@{/UserInformationsSuspiciousPersonSightingsAction}"
+					method="post">
+					<div class="table-responsive">
+						<table class="table table-bordered"
+							th:if="${suspiciousPersonSightingsList}">
+							<thead>
+								<tr>
+									<th scope="col" class="small" style="width: 10%">行方不明日</th>
+									<th scope="col" class="small" style="width: 5%">性別</th>
+									<th scope="col" class="small" style="width: 5%">年齢</th>
+									<th scope="col" class="small" style="width: 35%">詳細</th>
+									<th scope="col" class="small" style="width: 30%">目撃場所</th>
+									<th scope="col" class="small" style="width: 15%"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr
+									th:each="suspiciousPersonSightings : ${suspiciousPersonSightingsList}">
+									<td th:text="${suspiciousPersonSightings.date}" class="small"></td>
+									<td th:text="${suspiciousPersonSightings.gender}" class="small"></td>
+									<td th:text="${suspiciousPersonSightings.age}" class="small"></td>
+									<td th:text="${suspiciousPersonSightings.detail}" class="small"></td>
+									<td class="small">[[${suspiciousPersonSightings.prefectures}]]
+										[[${suspiciousPersonSightings.municipalities}]]
+										[[${suspiciousPersonSightings.other}]]</td>
+									<td><button type="submit" name="edit"
+											th:value="${suspiciousPersonSightings.id}"
+											class="btn btn-outline-dark btn-block">編集</button>
+										<button type="submit" name="end"
+											th:value="${suspiciousPersonSightings.id}"
+											class="btn btn-outline-dark btn-block">終了</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+	
+				<form th:action="@{/Menu}" method="get">
+					<input type="submit" value="メニューページへ"
+						class="btn btn-outline-dark btn-block m-3">
+				</form>
+	
+			</div>
 		</div>
 	</div>
-
 </body>
 </html>
