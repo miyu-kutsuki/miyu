@@ -27,30 +27,30 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
  */
 @Controller
 public class MissingPersonSightingsRegistrationCheckAction {
-	
+
 	@Autowired
 	MissingPersonsSightingsRepository missingPersonsSightingsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/MissingPersonsSightingsRegistrationCheck", method = RequestMethod.POST)
-	public String MissingPersonsSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
+	public String MissingPersonsSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
 			@RequestParam(name = "gender", required = false) String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute MissingPersonsSightings missingPersonsSighting, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
-		
+
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("missingPersonsSightings", bindingResult);

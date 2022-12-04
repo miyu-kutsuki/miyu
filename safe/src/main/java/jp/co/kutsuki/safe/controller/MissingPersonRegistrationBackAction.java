@@ -18,13 +18,13 @@ import jp.co.kutsuki.safe.entity.MissingPersons;
  */
 @Controller
 public class MissingPersonRegistrationBackAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/MissingPersonsRegistrationBackAction", method = RequestMethod.POST)
 	public String UserView(RedirectAttributes redirectAttributes, Model model) {
-				
+
 		//入力情報を保持して行方不明者情報登録画面へ遷移
 		MissingPersons missingPersons = (MissingPersons) session.getAttribute("missingPersons");
 		redirectAttributes.addFlashAttribute("missingPersons", missingPersons);

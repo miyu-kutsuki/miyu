@@ -19,18 +19,18 @@ import jp.co.kutsuki.safe.entity.MissingPersons;
 @Controller
 @RequestMapping("MissingPersons")
 public class MissingPersonsPageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public MissingPersons setUpMissingPersons() {
 		return new MissingPersons();
 	}
-	
+
 	@GetMapping
 	public String pageView(RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {

@@ -25,32 +25,32 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
  */
 @Controller
 public class MissingPersonUpdateAction {
-	
+
 	@Autowired
 	MissingPersonsRepository  missingPersonsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-		
+
 	@RequestMapping(value="/MissingPersonsUpdate", method = RequestMethod.POST)
-	public String MissingPersonUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
+	public String MissingPersonUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
 			@RequestParam String name, @RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute MissingPersons missingPerson, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");
-		
+
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("missingPersons", bindingResult);
@@ -68,7 +68,7 @@ public class MissingPersonUpdateAction {
 			missingPersons.setOther(other);
 			missingPersons.setUser_id(userInformation.getUser_id());
 			missingPersonsRepository.Update(id, missingPersons);
-			
+
 			return "redirect:UserInformations";
 		}
 	}

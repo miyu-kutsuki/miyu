@@ -8,10 +8,10 @@ import jp.co.kutsuki.safe.entity.User;
  *
  */
 public interface UserRepository {
-	
+
 	public User getUserTable(String user_id);
-	
+
 	public void setUserTable(User user);
-	
+
 	public void Delete(Integer id);
 }

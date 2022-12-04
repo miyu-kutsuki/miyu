@@ -170,7 +170,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 		String sql = " select * from missing_persons where (prefectures like ? or municipalities like ? or other like ?) "
 				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
-		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%",
 				dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();

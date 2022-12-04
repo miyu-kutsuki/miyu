@@ -12,23 +12,23 @@ import jp.co.kutsuki.safe.entity.User;
  *
  */
 public interface MissingPersonsRepository {
-	
+
 	public void setMissingPersonsTable(MissingPersons missingPersons);
-	
+
 	public ArrayList<MissingPersons> getMissingPersonsTable();
-	
+
 	public ArrayList<MissingPersons> getMissingPersonsTable(User user_id);
-	
+
 	public ArrayList<MissingPersons> getDateMissingPersonsTable(DateSearch dateSearch);
-	
+
 	public ArrayList<MissingPersons> getPlaceMissingPersonsTable(DateSearch  dateSearch);
-	
+
 	public ArrayList<MissingPersons> getDatePlaceMissingPersonsTable(DateSearch  dateSearch);
-	
+
 	public ArrayList<MissingPersons> getMissingPersonsIdTable(String id);
-	
+
 	public void Update(String id, MissingPersons missingPersons);
-	
+
 	public void Delete(String id);
-	
+
 }

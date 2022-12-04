@@ -26,19 +26,19 @@ import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
  */
 @Controller
 public class SearchAction {
-	
+
 	@Autowired
 	InformationRepository informationRepository;
-	
+
 	@Autowired
 	HttpSession session;
 
-	
+
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
-	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate, 
+	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
 			@RequestParam String searchPlace, Model model, RedirectAttributes redirectAttributes){
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
@@ -48,7 +48,7 @@ public class SearchAction {
 				return "redirect:Login";
 			}
 		}
-		
+
 		DateSearch dateSearch = new DateSearch();
 		dateSearch.setStartDate(startDate);
 		dateSearch.setEndDate(endDate);
@@ -58,45 +58,45 @@ public class SearchAction {
 			dateSearch.setSearchPlace(searchPlace);
 		}
 		Informations informations = new Informations();
-		
+
 		//errorメッセージ用リスト
 		List<String> msgList = new ArrayList<>();
 		//エラーメッセージ用変数
 		String msg = "該当データがありません。";
-		
+
 		//null判定用変数
 		boolean missingPersons = true;
 		boolean missingPersonsSightings = true;
 		boolean suspiciousPersonSightings = true;
 		boolean place = true;
-		
+
 		if(dateSearch.getStartDate() == null) {
 			msgList.add("開始日付を入力してください。");
 		}
-		
+
 		if(dateSearch.getEndDate() == null) {
 			msgList.add("終了日付を入力してください。");
 		}
-		
+
 		//開始・終了のどちらかの日付が指定されていない場合
 		if(msgList.size() == 1) {
 			if(!(session.getAttribute("userInformation") == null)) {
 				//リダイレクトで不審者のみの検索ページへ遷移
 				redirectAttributes.addFlashAttribute("msg", msgList);
-				return "redirect:GuestsSuspiciousPersonSightings";
+				return "redirect:GuestsSuspiciousPersonSightingsSearch";
 			}
 			//リダイレクトで情報表示ページへ遷移
 			redirectAttributes.addFlashAttribute("msg", msgList);
 			return "redirect:Informations";
 		}
-		
-		
-		
+
+
+
 		//searchPlaceがnullかチェック
 		if(dateSearch.getSearchPlace() == null) {
 			place = false;
 		}
-		
+
 		if(msgList.size() == 0 && !place) {
 			informationRepository.setDateInformationTable(informations, dateSearch);
 		}else if(msgList.size() == 2 && !place) {
@@ -106,22 +106,22 @@ public class SearchAction {
 		}else if(msgList.size() == 2 && place) {
 			informationRepository.setPlaceInformationTable(informations, dateSearch);
 		}
-		
+
 		//missing_personsがnullかチェック
 		if(informations.getMissingPersonsList().size() == 0) {
 			missingPersons = false;
 		}
-		
+
 		//missing_persons_sightingsがnullかチェック
 		if(informations.getMissingPersonsSightingsList().size() == 0) {
 			missingPersonsSightings = false;
 		}
-		
+
 		//suspicious_person_sightingsがnullかチェック
 		if(informations.getSuspiciousPersonSightingsList().size() == 0) {
 			suspiciousPersonSightings = false;
 		}
-		
+
 		//msgのサイズ0かチェック
 		if(msgList.size() == 0 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
@@ -131,7 +131,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -141,7 +141,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -151,7 +151,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -161,7 +161,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -171,7 +171,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -181,7 +181,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -191,7 +191,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -199,7 +199,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
-			
+
 		}else if(msgList.size() == 2 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -208,7 +208,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -218,7 +218,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -228,7 +228,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -238,7 +238,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -248,7 +248,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -258,7 +258,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && !place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしてないかつ
@@ -268,7 +268,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && !place) {
 			//日付の範囲を指定がないかつ
 			//場所名の指定はしてないかつ
@@ -284,7 +284,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -294,7 +294,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -304,7 +304,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -314,7 +314,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -324,7 +324,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -334,7 +334,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -344,7 +344,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 0 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしているかつ
@@ -352,7 +352,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
-			
+
 		}else if(msgList.size() == 2 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -361,7 +361,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && suspiciousPersonSightings && !missingPersons && !missingPersonsSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -371,7 +371,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -381,7 +381,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && !missingPersons && !suspiciousPersonSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -391,7 +391,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && missingPersons && !suspiciousPersonSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -401,7 +401,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersons && suspiciousPersonSightings && !missingPersonsSightings && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -411,7 +411,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -421,7 +421,7 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg1", msg);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && !missingPersons && !missingPersonsSightings && !suspiciousPersonSightings && place) {
 			//日付の範囲を指定がないかつ
 			//場所名の指定はしているかつ
@@ -430,14 +430,14 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 		}
-		
+
 		if(!(session.getAttribute("userInformation") == null)) {
 			//リダイレクトで不審者のみの検索ページへ遷移
-			return "redirect:GuestsSuspiciousPersonSightings";
+			return "redirect:GuestsSuspiciousPersonSightingsSearch";
 		}else {
 			//リダイレクトで情報表示ページへ遷移
 			return "redirect:Informations";
 		}
-		
+
 	}
 }

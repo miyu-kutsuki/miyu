@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Informations {
-		
+
 	/** missing_personsテーブルを保管するリスト */
 	private ArrayList<MissingPersons> missingPersonsList;
-	
+
 	/** missing_persons_sightingsテーブルを保管するリスト */
 	private ArrayList<MissingPersonsSightings> missingPersonsSightingsList;
-	
+
 	/** suspicious_person_sightingテーブルを保管するリスト */
 	private ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList;
-	
+
 }

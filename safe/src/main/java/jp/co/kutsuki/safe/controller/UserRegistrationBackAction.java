@@ -18,18 +18,18 @@ import jp.co.kutsuki.safe.entity.User;
  */
 @Controller
 public class UserRegistrationBackAction {
-		
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/UserRegistrationBackAction", method = RequestMethod.POST)
 	public String UserView(RedirectAttributes redirectAttributes, Model model) {
-		
+
 		//セッション切れかチェック
 		if(session.getAttribute("user") == null) {
 			return "redirect:Safe";
 		}
-		
+
 		//入力情報を保持してユーザー登録画面へ遷移
 		User userInformation = (User) session.getAttribute("user");
 		redirectAttributes.addFlashAttribute("user", userInformation);

@@ -20,18 +20,18 @@ import jp.co.kutsuki.safe.entity.User;
 @Controller
 @RequestMapping("SuspiciousPersonSightings")
 public class SuspiciousPersonSightingsPageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public SuspiciousPersonSightings setUpSuspiciousPersonSightings() {
 		return new SuspiciousPersonSightings();
 	}
-	
+
 	@GetMapping
 	public String pageView(Model model) {
-		
+
 		User userInformation = new User();
 		if((User) session.getAttribute("user") == null) {
 			userInformation.setUser_id("guests");

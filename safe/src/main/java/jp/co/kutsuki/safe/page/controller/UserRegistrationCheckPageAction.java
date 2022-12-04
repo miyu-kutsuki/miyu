@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("UserRegistrationCheck")
 public class UserRegistrationCheckPageAction {
-		
+
 	@PostMapping
 	public String pageView() {
 		return "userRegistrationCheck";

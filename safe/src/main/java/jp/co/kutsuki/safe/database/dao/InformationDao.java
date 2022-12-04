@@ -20,16 +20,16 @@ import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
  */
 @Repository
 public class InformationDao implements InformationRepository{
-	
+
 	@Autowired
 	MissingPersonsRepository  missingPersonsRepository;
-	
+
 	@Autowired
 	MissingPersonsSightingsRepository  missingPersonsSightingsRepository;
-	
+
 	@Autowired
 	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
-	
+
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
@@ -43,7 +43,7 @@ public class InformationDao implements InformationRepository{
 		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable());
 	}
-	
+
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
@@ -59,7 +59,7 @@ public class InformationDao implements InformationRepository{
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable(user));
 	}
 
-	
+
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
@@ -74,7 +74,7 @@ public class InformationDao implements InformationRepository{
 		//suspicious_person_sightingsテーブルのend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDateSuspiciousPersonSightingsTable(dateSearch));
 	}
-	
+
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
@@ -89,7 +89,7 @@ public class InformationDao implements InformationRepository{
 		//suspicious_person_sightingsテーブルの指定された場所名を含むend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getPlaceSuspiciousPersonSightingsTable(dateSearch));
 	}
-	
+
 	/** missing_personsテーブル
 	 * missing_persons_sightingsテーブル
 	 * suspicious_person_sightingsテーブルから
@@ -104,7 +104,7 @@ public class InformationDao implements InformationRepository{
 		//suspicious_person_sightingsテーブルの範囲指定された日付+指定された場所名を含むend_flag==falseのみを取得
 		informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsRepository.getDatePlaceSuspiciousPersonSightingsTable(dateSearch));
 	}
-	
+
 	/**
 	 * missing_personsテーブルid指定されたデータを取得
 	 * @param informations
@@ -115,7 +115,7 @@ public class InformationDao implements InformationRepository{
 		//missing_personsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsIdTable(id));
 	}
-	
+
 	/**
 	 * missing_persons_sightingsテーブルid指定されたデータを取得
 	 * @param informations
@@ -126,7 +126,7 @@ public class InformationDao implements InformationRepository{
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsSightingsList(missingPersonsSightingsRepository.getMissingPersonsSightingsIdTable(id));
 	}
-	
+
 	/**
 	 * suspicious_person_sightingsテーブルid指定されたデータを取得
 	 * @param informations

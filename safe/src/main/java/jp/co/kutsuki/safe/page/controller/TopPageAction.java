@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("Safe")
 public class TopPageAction {
-	
+
 	@Autowired
 	HttpSession session;
 

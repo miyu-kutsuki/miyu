@@ -20,21 +20,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserCheckFilter implements Filter{
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		
+
 	}
-	
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		boolean check = false;
-		
+
         //セッションの有効チェック
         if(session.getAttribute("user") == null) {
         	 check = true;
@@ -42,9 +42,9 @@ public class UserCheckFilter implements Filter{
         session.setAttribute("check", check);
         chain.doFilter(request, response);
 	}
-	
+
 	@Override
     public void destroy() {
-		
+
 	}
 }

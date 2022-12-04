@@ -27,20 +27,20 @@ import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
  */
 @Controller
 public class SuspiciousPersonSightingsRegistrationCheckAction {
-	
+
 	@Autowired
 	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistrationCheck", method = RequestMethod.POST)
-	public String SuspiciousPersonSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
+	public String SuspiciousPersonSightingsView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
 			@RequestParam(name = "gender", required = false) String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonSighting, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-				
+
 		//ログイン中のuser_idを取得
 		User userInformation = new User();
 		if((User) session.getAttribute("user") == null) {
@@ -48,14 +48,21 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		}else {
 			userInformation = (User) session.getAttribute("user");
 		}
-		
+
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightings", bindingResult);
 			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "suspiciousPersonSightings", bindingResult);
-			return "redirect:SuspiciousPersonSightings";
+			
+			if(userInformation.getUser_id().equals("guests")) {
+				//リダイレクトでゲスト用不審者情報登録ページへ遷移
+				return "redirect:GuestsSuspiciousPersonSightings";
+			}else {
+				//リダイレクトで不審者登録情報ページへ遷移
+				return "redirect:SuspiciousPersonSightings";
+			}
 		}
-		
+
 		SuspiciousPersonSightings suspiciousPersonSightings = new SuspiciousPersonSightings();
 		suspiciousPersonSightings.setDate(date);
 		suspiciousPersonSightings.setGender(gender);
@@ -67,6 +74,13 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		suspiciousPersonSightings.setUser_id(userInformation.getUser_id());
 		session.setAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
 		model.addAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
-		return "forward:SuspiciousPersonSightingsRegistrationCheckAction";
+		
+		if(userInformation.getUser_id().equals("guests")) {
+			//リダイレクトでゲスト用不審者情報の登録確認ページへ遷移
+			return "forward:GuestsSuspiciousPersonSightingsRegistrationCheckAction";
+		}else {
+			//リダイレクトで不審者情報の登録確認ページへ遷移
+			return "forward:SuspiciousPersonSightingsRegistrationCheckAction";
+		}
 	}
 }

@@ -22,35 +22,35 @@ import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 @Controller
 @RequestMapping("SuspiciousPersonSightingsEditPage")
 public class SuspiciousPersonSightingsEditPageAction {
-	
+
 	@Autowired
 	InformationRepository informationRepository;
-		
+
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public SuspiciousPersonSightings setUpSuspiciousPersonSightings() {
 		return new SuspiciousPersonSightings();
 	}
-	
+
 	@GetMapping
 	public String EditPageView(Model model, RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");
 
 		Informations informations = new Informations();
 		informationRepository.setSuspiciousPersonSightingsTable(informations, id);
 		model.addAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-		
+
 		return "suspiciousPersonSightingsEditPage";
 	}
 }

@@ -18,15 +18,15 @@ import jp.co.kutsuki.safe.entity.User;
 @Controller
 @RequestMapping("Login")
 public class LoginPageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public User setUpUser() {
 		return new User();
 	}
-	
+
 	@GetMapping
 	public String loginPageView() {
 		session.invalidate();

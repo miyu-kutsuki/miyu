@@ -18,7 +18,7 @@ body {
 	
 	background-image: url(../images/background.png);
 	background-size: cover;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat;	
 	
   @include mediaQuery(sp) {
     .top{
@@ -81,14 +81,6 @@ a{
 .catch img{
 	width: 75%;
 	height: 75%;
-}
-
-.navbar-light{
-	background-image: url(../images/background.png);
-	margin: 0;
-	padding: 0;
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 
 footer{
