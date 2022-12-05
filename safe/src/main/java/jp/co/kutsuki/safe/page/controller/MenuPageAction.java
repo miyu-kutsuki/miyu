@@ -15,13 +15,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("Menu")
 public class MenuPageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@GetMapping
 	public String menuPageView(RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {

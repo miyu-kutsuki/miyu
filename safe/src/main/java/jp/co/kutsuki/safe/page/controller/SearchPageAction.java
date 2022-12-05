@@ -16,13 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("Informations")
 public class SearchPageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@GetMapping
 	public String searchPageView(RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {

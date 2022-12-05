@@ -19,21 +19,21 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  */
 @Controller
 public class UserRegistrationAction {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/UserRegistrationAction", method = RequestMethod.POST)
 	public String UserView(RedirectAttributes redirectAttributes, Model model) {
-		
+
 		//セッション切れかチェック
 		if(session.getAttribute("user") == null) {
 			return "redirect:Safe";
 		}
-		
+
 		//usersテーブルにuser_id,passwordを登録
 		User userInformation = (User) session.getAttribute("user");
 		userRepository.setUserTable(userInformation);

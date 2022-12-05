@@ -19,27 +19,27 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
  */
 @Controller
 public class MissingPersonsSightingsAction {
-	
+
 	@Autowired
 	MissingPersonsSightingsRepository missingPersonsSightingsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/MissingPersonsSightingsRegistration", method = RequestMethod.POST)
 	public String MissingPersonsSightingsView(RedirectAttributes redirectAttributes, Model model) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//missing_persons_sightingsテーブルに登録
 		MissingPersonsSightings missingPersonsSightings = (MissingPersonsSightings)session.getAttribute("missingPersonsSightings");
 		missingPersonsSightingsRepository.setMissingPersonsSightingsTable(missingPersonsSightings);
-		
+
 		return "redirect:MissingPersonsSightings";
 	}
 }

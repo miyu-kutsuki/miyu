@@ -18,35 +18,35 @@ import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
  */
 @Controller
 public class UserInformationsSuspiciousPersonSightingsAction {
-	
+
 	@Autowired
 	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-		
+
 	@RequestMapping(value="/UserInformationsSuspiciousPersonSightingsAction", method = RequestMethod.POST)
-	public String UserInformationsView(@RequestParam(name = "edit", required = false) String edit, 
+	public String UserInformationsView(@RequestParam(name = "edit", required = false) String edit,
 			@RequestParam(name = "end", required = false) String end, RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//編集ボタンが押下されたら指定されたidのデータを更新
 		if(!(edit == null)) {
 			session.setAttribute("id", edit);
 			return "redirect:SuspiciousPersonSightingsEditPage";
 		}
-		
+
 		//終了ボタンが押下されたら指定されたidのカラムend_flagにtrueをセットする
 		if(!(end == null)) {
 			suspiciousPersonSightingsRepository.Delete(end);
 		}
-		
+
 		return "redirect:UserInformations";
 	}
 }

@@ -15,12 +15,12 @@ import jp.co.kutsuki.safe.entity.User;
 @Controller
 @RequestMapping("UserRegistration")
 public class UserRegistrationPageAction {
-	
+
 	@ModelAttribute
 	public User setUpUser() {
 		return new User();
 	}
-	
+
 	@GetMapping
 	public String pageView() {
 		return "userRegistration";

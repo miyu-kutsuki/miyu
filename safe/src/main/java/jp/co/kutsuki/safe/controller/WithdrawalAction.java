@@ -18,16 +18,16 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  */
 @Controller
 public class WithdrawalAction {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/WithdrawalAction", method = RequestMethod.POST)
 	public String Withdrawal(RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {

@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class LogoutAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
-	@RequestMapping(value="/LogoutAction", method = RequestMethod.POST)
+
+	@RequestMapping(value="/LogoutAction", method = RequestMethod.GET)
 	public String Logout() {
 		session.invalidate();
 		return "redirect:Login";

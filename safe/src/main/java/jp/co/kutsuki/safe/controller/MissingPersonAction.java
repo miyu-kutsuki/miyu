@@ -18,27 +18,27 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
  */
 @Controller
 public class MissingPersonAction {
-	
+
 	@Autowired
 	MissingPersonsRepository  missingPersonsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@RequestMapping(value="/MissingPersonsRegistration", method = RequestMethod.POST)
 	public String MissingPersonView(RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//missing_personsテーブルに登録
 		MissingPersons missingPersons = (MissingPersons)session.getAttribute("missingPersons");
 		missingPersonsRepository.setMissingPersonsTable(missingPersons);
-		
+
 		return "redirect:MissingPersons";
 	}
 }

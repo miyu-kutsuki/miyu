@@ -1,10 +1,14 @@
 @charset "UTF-8";
 
-/*モバイルファーストを想定したブレークポイントのmap*/
+/*モバイルファーストを想定したブレークポイントのmap
+Bootstrap5のブレークポイントを使用*/
 $breakpoint: (
-  sp: 'screen and (max-width: 767px)',
-  tab: 'screen and (min-width: 768px)',
-  pc: 'screen and (min-width: 1025px)'
+  xs: 'screen and (max-width: 575px)',
+  sm: 'screen and (min-width: 576px)',
+  md: 'screen and (min-width: 768px)',
+  lg: 'screen and (min-width: 992px)',
+  xl: 'screen and (min-width: 1200px)',
+  xxl: 'screen and (min-width: 1400px)'
 );
 
 /*mediaQueryの定義*/
@@ -15,7 +19,12 @@ $breakpoint: (
 }
 
 body {
-  @include mediaQuery(sp) {
+	
+	background-image: url(../images/background.png);
+	background-size: cover;
+	background-repeat: no-repeat;	
+	
+  @include mediaQuery(xs) {
     .top{
 	max-width: 100%;
 	height: 100vh;
@@ -24,26 +33,19 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	}
-	.d-flex{
-	padding-top: 20%;
+
+	.catch{
+		padding-top: 90%;
 	}
+
+	.catch img{
+		width: 90%;
+		height: 90%;
+	}
+
   }
  
-   @include mediaQuery(tab) {
-    .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/tab.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
-	}
-	.d-flex{
-	padding-top: 20%;
-	}
-  }
-
-  @include mediaQuery(pc) {
+  @include mediaQuery(sm) {
     .top{
 	max-width: 100%;
 	height: 100vh;
@@ -52,9 +54,100 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	}
-	.d-flex{
-	padding-top: 20%;
+
+	.catch{
+		padding-top: 65%;
 	}
+	
+  } 
+ 
+  @include mediaQuery(md) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 45%;
+	}
+	
+  } 
+ 
+   @include mediaQuery(lg) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/tab.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 35%;
+	}
+
   }
  
+  @include mediaQuery(xl) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 25%;
+	}
+	
+  } 
+
+  @include mediaQuery(xxl) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 20%;
+	}
+	
+  }
+}
+
+a{
+	text-decoration:none;
+}
+
+.catch img{
+	width: 75%;
+	height: 75%;
+}
+
+footer{
+	width: 100%;
+	height: 80px;
+	margin: 0;
+	padding: 0;
+}
+
+.footer_frame{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 30px 0 0 0;
+	text-align: center;
+	background: #93a9c0;
+	color: #ffffff;
 }

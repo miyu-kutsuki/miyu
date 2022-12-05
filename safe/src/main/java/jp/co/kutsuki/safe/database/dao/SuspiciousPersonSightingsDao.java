@@ -21,10 +21,10 @@ import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
  */
 @Repository
 public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRepository{
-	
+
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** suspicious_person_sightingsテーブルに1件登録 */
 	@Transactional
 	@Override
@@ -34,10 +34,10 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, suspiciousPersonSightings.getDate(), suspiciousPersonSightings.getGender(), suspiciousPersonSightings.getAge(),
-				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(), 
+				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(),
 				suspiciousPersonSightings.getMunicipalities(), suspiciousPersonSightings.getOther(), suspiciousPersonSightings.getUser_id());
 	}
-	
+
 	/** suspicious_person_sightingsテーブルから
 	 * end_flag==falseのみ全件取得 */
 	@Override
@@ -64,10 +64,10 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
 			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
 		}
-		
+
 		return suspiciousPersonSightingsList;
 	}
-	
+
 	/** suspicious_person_sightingsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
@@ -95,10 +95,10 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 			suspiciousPersonSightings.setUser_id(rs.getString("user_id"));
 			suspiciousPersonSightingsList.add(suspiciousPersonSightings);
 		}
-		
+
 		return suspiciousPersonSightingsList;
 	}
-	
+
 	/** suspicious_person_sightingsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
 	@Override
@@ -127,7 +127,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		}
 		return suspiciousPersonSightingsList;
 	}
-	
+
 	/** suspicious_person_sightingsテーブルから
 	 * 指定された場所名＋end_flag==falseのみ全件取得 */
 	@Override
@@ -166,7 +166,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		String sql = "select * from suspicious_person_sightings where (prefectures like ? or municipalities like ? or other like ?) "
 				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
-		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%",
 				dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
@@ -188,7 +188,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		}
 		return suspiciousPersonSightingsList;
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * idが一致したデータのみ取得 */
 	@Override
@@ -220,7 +220,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		}
 		return suspiciousPersonSightingsList;
 	}
-	
+
 	/**
 	 * idで指定された行のデータを更新する
 	 */
@@ -233,10 +233,10 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		//SQL実行し登録を実施
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, suspiciousPersonSightings.getDate(), suspiciousPersonSightings.getGender(), suspiciousPersonSightings.getAge(),
-				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(), 
+				suspiciousPersonSightings.getDetail(), suspiciousPersonSightings.getPrefectures(),
 				suspiciousPersonSightings.getMunicipalities(), suspiciousPersonSightings.getOther(), listId);
 	}
-	
+
 	/**
 	 * idで指定された行のend_flagにtrueをセットする
 	 * @param id

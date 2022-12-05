@@ -21,10 +21,10 @@ import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
  */
 @Repository
 public class MissingPersonsSightingsDao implements MissingPersonsSightingsRepository{
-	
+
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** missing_persons_sightingsテーブルに1件登録 */
 	@Transactional
 	@Override
@@ -34,10 +34,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
 		//SQL実行し登録を実施
 		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(), missingPersonsSightings.getAge(),
-				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(), 
+				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
 				missingPersonsSightings.getMunicipalities(), missingPersonsSightings.getOther(), missingPersonsSightings.getUser_id());
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * end_flag==falseのみ全件取得 */
 	@Override
@@ -66,7 +66,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		}
 		return missingPersonsSightingsList;
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
@@ -94,10 +94,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 			missingPersonsSightings.setUser_id(rs.getString("user_id"));
 			missingPersonsSightingsList.add(missingPersonsSightings);
 		}
-		
+
 		return missingPersonsSightingsList;
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * 範囲指定された日付＋end_flag==falseのみ全件取得 */
 	@Override
@@ -126,7 +126,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		}
 		return missingPersonsSightingsList;
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * 指定された場所名＋end_flag==falseのみ全件取得 */
 	@Override
@@ -165,7 +165,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		String sql = " select * from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
 				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
-		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", 
+		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%",
 				dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
 		ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
@@ -187,7 +187,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		}
 		return missingPersonsSightingsList;
 	}
-	
+
 	/** missing_persons_sightingsテーブルから
 	 * idが一致したデータのみ取得 */
 	@Override
@@ -219,7 +219,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		}
 		return missingPersonsSightingsList;
 	}
-	
+
 	/**
 	 * idで指定された行のデータを更新する
 	 */
@@ -232,10 +232,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 		//SQL実行し登録を実施
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(), missingPersonsSightings.getAge(),
-				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(), 
+				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
 				missingPersonsSightings.getMunicipalities(), missingPersonsSightings.getOther(), listId);
 	}
-	
+
 	/**
 	 * idで指定された行のend_flagにtrueをセットする
 	 * @param id

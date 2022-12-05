@@ -16,10 +16,10 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  */
 @Repository
 public class UserDao implements UserRepository{
-	
+
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
@@ -36,7 +36,7 @@ public class UserDao implements UserRepository{
 			user.setPassword(rs.getString("password"));
 			user.setEnd_flag(rs.getBoolean("end_flag"));
 		}
-		
+
 		//条件に一致するuser_idがなかった場合
 		//NullPointerExceptionを回避するために"none"を代入している
 		if(user.getId() == null) {
@@ -45,7 +45,7 @@ public class UserDao implements UserRepository{
 		}
 		return user;
 	}
-	
+
 	/** userテーブルに1件登録 */
 	@Transactional
 	@Override
@@ -55,7 +55,7 @@ public class UserDao implements UserRepository{
 		//SQL実行し登録を実施
 		template.update(sql, user.getUser_id(), user.getPassword());
 	}
-	
+
 	/** idで指定された行のend_flagにtrueをセットする */
 	@Transactional
 	@Override

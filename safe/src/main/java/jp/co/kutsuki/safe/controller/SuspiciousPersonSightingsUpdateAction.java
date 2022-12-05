@@ -26,32 +26,32 @@ import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
  */
 @Controller
 public class SuspiciousPersonSightingsUpdateAction {
-	
+
 	@Autowired
 	SuspiciousPersonSightingsRepository  suspiciousPersonSightingsRepository;
-	
+
 	@Autowired
 	HttpSession session;
-		
+
 	@RequestMapping(value="/SuspiciousPersonSightingsUpdate", method = RequestMethod.POST)
-	public String SuspiciousPersonSightingsUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date, 
+	public String SuspiciousPersonSightingsUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
 			@RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute SuspiciousPersonSightings suspiciousPersonsSightings, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//ログイン中のuser_idを取得
 		User userInformation = (User) session.getAttribute("user");
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");
-		
+
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightings", bindingResult);
@@ -68,7 +68,7 @@ public class SuspiciousPersonSightingsUpdateAction {
 			suspiciousPersonSightings.setOther(other);
 			suspiciousPersonSightings.setUser_id(userInformation.getUser_id());
 			suspiciousPersonSightingsRepository.Update(id, suspiciousPersonSightings);
-			
+
 			return "redirect:UserInformations";
 		}
 	}

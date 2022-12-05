@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/logoutLayout}">
+
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -9,36 +12,26 @@
 <title>SAFE</title>
 </head>
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	
-
-	<div class="top">
-		<nav class="navbar navbar-dark bg-dark">
-		  <div class="container-fluid">
-			<a th:href="@{/}" class="navbar-brand m-0 p-0">
-		      <img src="./images/logo.png" alt="" width="50" height="40" class="d-inline-block align-text-top">
-		    </a>
-		    <form th:action="@{/}">
-				<input type="submit" value="管理者画面" class="btn btn-outline-light btn-block">
-			</form>
-		  </div>
-		</nav>
+	<div layout:fragment="contents">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		
+		<div class="top">
+			<div class="catch">
+				<img src="./images/catch.png" alt="" class="m-3">
+			</div>
+		</div>
+		
 		<div class="container">
-			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h2 class="h2 text-light">不審者・行方不明者情報共有アプリ</h2>
-				<h1 class="h1 text-light">SAFE</h1>
-				<div class="w-45 h-auto p-3">
-					<form th:action="@{/Login}">
-						<input type="submit" value="ログイン画面へ" class="btn btn-outline-light btn-block mt-3">
-					</form>
-					
-					<form th:action="@{/UserRegistration}">
-						<input type="submit" value="新規会員登録へ" class="btn btn-outline-light btn-block mt-3">
-					</form>
-				</div>
+			<div class="main text-center">
+				<a th:href="@{/GuestsSuspiciousPersonSightings}">
+					<img src="./images/input.png" alt="" class="m-3">
+				</a>
+				
+				<a th:href="@{/GuestsSuspiciousPersonSightingsSearch}">
+					<img src="./images/check.png" alt="" class="m-3">
+				</a>
 			</div>
 		</div>
 	</div>
-	
 </body>
 </html>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("MissingPersonsRegistrationCheck")
 public class MissingPersonsRegistrationCheckPageAction {
-		
+
 	@PostMapping
 	public String pageView() {
 		return "missingPersonRegistrationCheck";

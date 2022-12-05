@@ -22,35 +22,35 @@ import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 @Controller
 @RequestMapping("MissingPersonSightingsEditPage")
 public class MissingPersonSightingsEditPageAction {
-	
+
 	@Autowired
 	InformationRepository informationRepository;
-		
+
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public MissingPersonsSightings setUpMissingPersonsSightings() {
 		return new MissingPersonsSightings();
 	}
-	
+
 	@GetMapping
 	public String EditPageView(Model model, RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");
 
 		Informations informations = new Informations();
 		informationRepository.setMissingPersonsSightingsTable(informations, id);
 		model.addAttribute("missingPersonsSightingsList", informations.getMissingPersonsSightingsList());
-		
+
 		return "missingPersonsSightingsEditPage";
 	}
 }
