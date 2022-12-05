@@ -16,7 +16,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1 class="h1">『不審者目撃情報』登録情報編集ページ</h1>
+				<h1><img src="./images/edit3.png" alt="" class="m-3"></h1>
 				<div class="w-75 h-auto p-3">
 					<form th:action="@{/SuspiciousPersonSightingsUpdate}" method="post" th:object="${suspiciousPersonSightings}">
 						<ul th:if="${#fields.hasErrors('*')}">

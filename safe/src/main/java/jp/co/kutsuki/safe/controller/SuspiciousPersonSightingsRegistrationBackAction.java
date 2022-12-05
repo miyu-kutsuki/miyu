@@ -30,13 +30,16 @@ public class SuspiciousPersonSightingsRegistrationBackAction {
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		redirectAttributes.addFlashAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
 		
-		User userInformation = (User) session.getAttribute("userInformation");
-		if(userInformation.getUser_id().equals("guests")) {
-			//リダイレクトでゲスト用不審者情報登録ページへ遷移
-			return "redirect:GuestsSuspiciousPersonSightings";
-		}else {
+		if(session.getAttribute("userInformation") == null) {
 			//リダイレクトで不審者登録情報ページへ遷移
 			return "redirect:SuspiciousPersonSightings";
+		}else {
+			User userInformation = (User) session.getAttribute("userInformation");
+			if(userInformation.getUser_id().equals("guests")) {
+				//リダイレクトでゲスト用不審者情報登録ページへ遷移
+				return "redirect:GuestsSuspiciousPersonSightings";
+			}
+			return "redirect:Login";
 		}
 	}
 }

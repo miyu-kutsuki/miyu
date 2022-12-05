@@ -17,7 +17,7 @@
 	
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1 class="h1">探し人情報登録ページ</h1>
+				<h1><img src="./images/title1.png" alt="" class="m-3"></h1>
 				<div class="w-75 h-100 p-3">
 					<form th:action="@{/MissingPersonsRegistrationCheckAction}" method="post" th:object="${missingPersons}">
 						<ul th:if="${#fields.hasErrors('*')}">

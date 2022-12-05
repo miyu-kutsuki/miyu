@@ -17,7 +17,7 @@
 		
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1 class="h1">不審者目撃情報登録ページ</h1>
+				<h1><img src="./images/title3.png" alt="" class="m-3"></h1>
 				<div class="w-75 h-auto p-3">
 					<form th:action="@{/SuspiciousPersonSightingsRegistrationCheck}" method="post" th:object="${suspiciousPersonSightings}">
 						<ul th:if="${#fields.hasErrors('*')}">
