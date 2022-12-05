@@ -12,6 +12,10 @@ body {
 	min-height: 100vh;
 }
 
+#error{
+	color: #ff0000;
+}
+
 .container-fluid{
 	overflow-y: auto;
 }
