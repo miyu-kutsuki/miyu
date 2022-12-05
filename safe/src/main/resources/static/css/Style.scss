@@ -1,10 +1,14 @@
 @charset "UTF-8";
 
-/*モバイルファーストを想定したブレークポイントのmap*/
+/*モバイルファーストを想定したブレークポイントのmap
+Bootstrap5のブレークポイントを使用*/
 $breakpoint: (
-  sp: 'screen and (max-width: 767px)',
-  tab: 'screen and (min-width: 768px)',
-  pc: 'screen and (min-width: 1025px)'
+  xs: 'screen and (max-width: 575px)',
+  sm: 'screen and (min-width: 576px)',
+  md: 'screen and (min-width: 768px)',
+  lg: 'screen and (min-width: 992px)',
+  xl: 'screen and (min-width: 1200px)',
+  xxl: 'screen and (min-width: 1400px)'
 );
 
 /*mediaQueryの定義*/
@@ -20,7 +24,7 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;	
 	
-  @include mediaQuery(sp) {
+  @include mediaQuery(xs) {
     .top{
 	max-width: 100%;
 	height: 100vh;
@@ -31,7 +35,7 @@ body {
 	}
 
 	.catch{
-		padding-top: 60%;
+		padding-top: 90%;
 	}
 
 	.catch img{
@@ -41,7 +45,39 @@ body {
 
   }
  
-   @include mediaQuery(tab) {
+  @include mediaQuery(sm) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 65%;
+	}
+	
+  } 
+ 
+  @include mediaQuery(md) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
+
+	.catch{
+		padding-top: 45%;
+	}
+	
+  } 
+ 
+   @include mediaQuery(lg) {
     .top{
 	max-width: 100%;
 	height: 100vh;
@@ -52,12 +88,28 @@ body {
 	}
 
 	.catch{
-		padding-top: 40%;
+		padding-top: 35%;
 	}
 
   }
+ 
+  @include mediaQuery(xl) {
+    .top{
+	max-width: 100%;
+	height: 100vh;
+	background-image: url(../images/pc.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	}
 
-  @include mediaQuery(pc) {
+	.catch{
+		padding-top: 25%;
+	}
+	
+  } 
+
+  @include mediaQuery(xxl) {
     .top{
 	max-width: 100%;
 	height: 100vh;

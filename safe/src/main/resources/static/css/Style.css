@@ -1,12 +1,13 @@
 @charset "UTF-8";
-/*モバイルファーストを想定したブレークポイントのmap*/
+/*モバイルファーストを想定したブレークポイントのmap
+Bootstrap5のブレークポイントを使用*/
 /*mediaQueryの定義*/
 body {
   background-image: url(../images/background.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 575px) {
   body .top {
     max-width: 100%;
     height: 100vh;
@@ -16,14 +17,40 @@ body {
     background-repeat: no-repeat;
   }
   body .catch {
-    padding-top: 60%;
+    padding-top: 90%;
   }
   body .catch img {
     width: 90%;
     height: 90%;
   }
 }
+@media screen and (min-width: 576px) {
+  body .top {
+    max-width: 100%;
+    height: 100vh;
+    background-image: url(../images/pc.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  body .catch {
+    padding-top: 65%;
+  }
+}
 @media screen and (min-width: 768px) {
+  body .top {
+    max-width: 100%;
+    height: 100vh;
+    background-image: url(../images/pc.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  body .catch {
+    padding-top: 45%;
+  }
+}
+@media screen and (min-width: 992px) {
   body .top {
     max-width: 100%;
     height: 100vh;
@@ -33,10 +60,23 @@ body {
     background-repeat: no-repeat;
   }
   body .catch {
-    padding-top: 40%;
+    padding-top: 35%;
   }
 }
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1200px) {
+  body .top {
+    max-width: 100%;
+    height: 100vh;
+    background-image: url(../images/pc.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  body .catch {
+    padding-top: 25%;
+  }
+}
+@media screen and (min-width: 1400px) {
   body .top {
     max-width: 100%;
     height: 100vh;
