@@ -15,7 +15,3 @@ body {
 #error{
 	color: #ff0000;
 }
-
-.container-fluid{
-	overflow-y: auto;
-}

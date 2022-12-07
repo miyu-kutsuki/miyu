@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * 検索ページ遷移用コントローラー
+ * 探し人情報検索ページ遷移用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("Informations")
-public class SearchPageAction {
-
+@RequestMapping("MissingPersonsSearch")
+public class MissingPersonsSearchPageAction {
+	
 	@Autowired
 	HttpSession session;
 
 	@GetMapping
-	public String searchPageView(RedirectAttributes redirectAttributes) {
+	public String PageView(RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
@@ -30,9 +30,8 @@ public class SearchPageAction {
 			return "redirect:Login";
 		}
 		
-		//個別検索ページ判定用のセッションにnullをセット
-		session.setAttribute("transition", null);
-
-		return "informations";
+		//遷移先の判定用
+		session.setAttribute("transition", "missingPersons");
+		return "missingPersonsSearch";
 	}
 }
