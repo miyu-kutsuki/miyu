@@ -30,4 +30,6 @@ public interface SuspiciousPersonSightingsRepository {
 	public void Update(String id, SuspiciousPersonSightings suspiciousPersonSightings);
 
 	public void Delete(String id);
+	
+	public void DeleteUser(String user_id);
 }

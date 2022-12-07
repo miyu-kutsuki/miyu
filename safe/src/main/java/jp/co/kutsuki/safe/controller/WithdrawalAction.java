@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
+import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
+import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
@@ -21,6 +24,15 @@ public class WithdrawalAction {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	MissingPersonsRepository missingPersonsRepository;
+	
+	@Autowired
+	MissingPersonsSightingsRepository missingPersonsSightingsRepository;
+	
+	@Autowired
+	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 
 	@Autowired
 	HttpSession session;
@@ -38,6 +50,9 @@ public class WithdrawalAction {
 		//更新するデータのidを取得
 		User user = (User) session.getAttribute("user");
 		userRepository.Delete(user.getId());
+		missingPersonsRepository.DeleteUser(user.getUser_id());
+		missingPersonsSightingsRepository.DeleteUser(user.getUser_id());
+		suspiciousPersonSightingsRepository.DeleteUser(user.getUser_id());
 		session.invalidate();
 		return "redirect:Safe";
 	}
