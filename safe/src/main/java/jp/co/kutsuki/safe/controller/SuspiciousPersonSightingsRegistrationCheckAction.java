@@ -53,7 +53,7 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightings", bindingResult);
 			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "suspiciousPersonSightings", bindingResult);
-			
+
 			if(userInformation.getUser_id().equals("guests")) {
 				//リダイレクトでゲスト用不審者情報登録ページへ遷移
 				return "redirect:GuestsSuspiciousPersonSightings";
@@ -74,7 +74,7 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		suspiciousPersonSightings.setUser_id(userInformation.getUser_id());
 		session.setAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
 		model.addAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
-		
+
 		if(userInformation.getUser_id().equals("guests")) {
 			//リダイレクトでゲスト用不審者情報の登録確認ページへ遷移
 			return "forward:GuestsSuspiciousPersonSightingsRegistrationCheckAction";

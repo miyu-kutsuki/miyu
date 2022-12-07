@@ -22,7 +22,7 @@ public class GuestsSuspiciousPersonSightingsPageAction {
 
 	@Autowired
 	HttpSession session;
-	
+
 	@ModelAttribute
 	public SuspiciousPersonSightings setUpSuspiciousPersonSightings() {
 		return new SuspiciousPersonSightings();

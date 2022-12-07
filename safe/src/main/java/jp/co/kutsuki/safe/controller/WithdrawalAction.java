@@ -24,13 +24,13 @@ public class WithdrawalAction {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	MissingPersonsRepository missingPersonsRepository;
-	
+
 	@Autowired
 	MissingPersonsSightingsRepository missingPersonsSightingsRepository;
-	
+
 	@Autowired
 	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 

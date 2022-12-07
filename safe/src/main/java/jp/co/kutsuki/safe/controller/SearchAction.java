@@ -48,7 +48,7 @@ public class SearchAction {
 				return "redirect:Login";
 			}
 		}
-		
+
 		//遷移先画面の判定用セッションの取得
 		String transition =(String)session.getAttribute("transition");
 
@@ -83,28 +83,28 @@ public class SearchAction {
 
 		//開始・終了のどちらかの日付が指定されていない場合
 		if(msgList.size() == 1) {
-			
+
 			//エラーメッセージリストをセット
 			redirectAttributes.addFlashAttribute("msg", msgList);
-			
+
 			if(!(session.getAttribute("userInformation") == null)) {
 				//リダイレクトでゲスト用不審者のみの検索ページへ遷移
 				return "redirect:GuestsSuspiciousPersonSightingsSearch";
 			}
-			
+
 			if(transition == null) {
 				//リダイレクトでall情報表示ページへ遷移
 				return "redirect:Informations";
 			}
-			
+
 			//リダイレクトで個別検索ページへ遷移
 			switch(transition) {
 			case "missingPersons":
 				return "redirect:MissingPersonsSearch";
-				
+
 			case "missingPersonSightings":
 				return "redirect:MissingPersonSightingsSearch";
-			
+
 			case "suspiciousPersonSightings":
 				return "redirect:SuspiciousPersonSightingsSearch";
 			}
@@ -453,21 +453,21 @@ public class SearchAction {
 			//リダイレクトでゲスト用不審者のみの検索ページへ遷移
 			return "redirect:GuestsSuspiciousPersonSightingsSearch";
 		}
-		
+
 		if(!(transition == null)) {
 			//リダイレクトで個別検索ページへ遷移
 			switch(transition) {
 			case "missingPersons":
 				return "redirect:MissingPersonsSearch";
-				
+
 			case "missingPersonSightings":
 				return "redirect:MissingPersonSightingsSearch";
-			
+
 			case "suspiciousPersonSightings":
 				return "redirect:SuspiciousPersonSightingsSearch";
 			}
 		}
-		
+
 		//リダイレクトでall情報表示ページへ遷移
 		return "redirect:Informations";
 	}

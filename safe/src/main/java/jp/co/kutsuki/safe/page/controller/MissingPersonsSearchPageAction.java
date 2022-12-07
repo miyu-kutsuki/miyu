@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("MissingPersonsSearch")
 public class MissingPersonsSearchPageAction {
-	
+
 	@Autowired
 	HttpSession session;
 
@@ -29,7 +29,7 @@ public class MissingPersonsSearchPageAction {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//遷移先の判定用
 		session.setAttribute("transition", "missingPersons");
 		return "missingPersonsSearch";

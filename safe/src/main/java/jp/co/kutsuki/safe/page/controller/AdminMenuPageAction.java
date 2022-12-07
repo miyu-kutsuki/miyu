@@ -9,30 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * 検索ページ遷移用コントローラー
+ * 管理者用メニューページ遷移用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("Informations")
-public class SearchPageAction {
+@RequestMapping("AdminMenu")
+public class AdminMenuPageAction {
 
 	@Autowired
 	HttpSession session;
 
 	@GetMapping
-	public String searchPageView(RedirectAttributes redirectAttributes) {
+	public String menuPageView(RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
-		boolean check = (boolean)session.getAttribute("check");
-		if(check) {
+		if(session.getAttribute("admin") == null) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
+			return "redirect:LoginAdmin";
 		}
 
-		//個別検索ページ判定用のセッションにnullをセット
-		session.setAttribute("transition", null);
-
-		return "informations";
+		return "AdminMenu";
 	}
 }

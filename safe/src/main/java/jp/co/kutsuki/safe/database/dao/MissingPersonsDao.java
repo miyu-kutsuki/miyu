@@ -255,7 +255,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, listId);
 	}
-	
+
 	/** ユーザーが退会した場合
 	 * 該当ユーザーが登録した行方不明者情報のユーザーを"guests"に変更する */
 	@Transactional

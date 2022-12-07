@@ -29,7 +29,7 @@ public class SuspiciousPersonSightingsRegistrationBackAction {
 		//入力情報を保持して行方不明者目撃情報登録画面へ遷移
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		redirectAttributes.addFlashAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
-		
+
 		if(session.getAttribute("userInformation") == null) {
 			//リダイレクトで不審者登録情報ページへ遷移
 			return "redirect:SuspiciousPersonSightings";

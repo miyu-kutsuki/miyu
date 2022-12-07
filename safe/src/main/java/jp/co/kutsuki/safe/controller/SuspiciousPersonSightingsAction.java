@@ -33,7 +33,7 @@ public class SuspiciousPersonSightingsAction {
 		//missing_persons_sightingsテーブルに登録
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		suspiciousPersonSightingsRepository.setSuspiciousPersonSightingsTable(suspiciousPersonSightings);
-		
+
 		if(session.getAttribute("userInformation") == null) {
 			//リダイレクトで不審者登録情報ページへ遷移
 			return "redirect:SuspiciousPersonSightings";

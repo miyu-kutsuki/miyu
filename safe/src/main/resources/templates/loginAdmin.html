@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/adminLayout}">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/frameStyle.css">
+<link rel="icon" href="./images/favicon.ico">
+<meta charset="UTF-8">
+<title>管理者用ログイン</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		
+		<div class="container">
+			<div class="d-flex flex-column align-items-center justify-content-center">
+				<h1>管理者用ログインページ</h1>
+				<div class="outer_frame">
+					<div class="d-grid gap-2 mt-3 p-0">
+						<form th:action="@{/LoginAdminAction}" method="post" th:object="${admin}">
+							<ul th:if="${#fields.hasErrors('*')}">
+									<li th:each="errors:${#fields.errors('admin_id')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
+							</ul>
+							
+							<ul th:unless="${msg} == null" class="text-center">
+								<th:block th:each=erroMsg:${msg}>
+									<li id="error" th:text="${erroMsg}"></li>
+								</th:block>
+							</ul>
+							
+							<div class="in_frame">
+							
+								<div class="mb-3">
+									<label for="admin_id" class="form-label">管理者ID</label>
+									<input type="text" th:field="*{admin_id}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="password" class="form-label">パスワード</label>
+									<input type="password" th:field="*{password}" class="form-control">
+								</div>
+								
+								<input type="submit" value="ログイン" class="btn btn-outline-dark mt-3 w-100">
+							
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
