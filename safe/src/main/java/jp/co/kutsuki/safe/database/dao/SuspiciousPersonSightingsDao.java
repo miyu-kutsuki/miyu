@@ -250,5 +250,16 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, listId);
 	}
+	
+	/** ユーザーが退会した場合
+	 * 該当ユーザーが登録した行方不明者情報のユーザーを"guests"に変更する */
+	@Transactional
+	@Override
+	public void DeleteUser(String user_id) {
+		//SQL定義
+		String sql = "update suspicious_person_sightings set user_id = 'guests' where user_id = ? and end_flag = false";
+		//SQL実行し登録を実施
+		template.update(sql, user_id);
+	}
 
 }

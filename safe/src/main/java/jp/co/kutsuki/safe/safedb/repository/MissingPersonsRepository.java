@@ -30,5 +30,7 @@ public interface MissingPersonsRepository {
 	public void Update(String id, MissingPersons missingPersons);
 
 	public void Delete(String id);
+	
+	public void DeleteUser(String user_id);
 
 }
