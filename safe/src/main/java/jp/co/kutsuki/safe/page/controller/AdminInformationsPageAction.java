@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- * 管理者用メニューページ遷移用コントローラー
+ * 管理者用の情報管理ページ遷移用コントローラー
  * @author kutsuki
  *
  */
 @Controller
-@RequestMapping("AdminMenu")
-public class AdminMenuPageAction {
-
+@RequestMapping("InformationsAdmin")
+public class AdminInformationsPageAction {
+	
 	@Autowired
 	HttpSession session;
 
 	@GetMapping
-	public String menuPageView(RedirectAttributes redirectAttributes) {
+	public String PageView(RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		if(session.getAttribute("admin") == null) {
@@ -29,6 +29,6 @@ public class AdminMenuPageAction {
 			return "redirect:LoginAdmin";
 		}
 
-		return "adminMenu";
+		return "adminInformations";
 	}
 }
