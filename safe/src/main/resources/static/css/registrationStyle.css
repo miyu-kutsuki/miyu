@@ -9,8 +9,7 @@ body {
 	min-height: 100vh;
 }
 
-ul{
-	list-style:none;
+.error{
 	color: #ff0000;
 }
 
@@ -19,4 +18,3 @@ ul{
 	overflow-y: auto;
 	background:rgba(255,255,255,1.0);
 }
-

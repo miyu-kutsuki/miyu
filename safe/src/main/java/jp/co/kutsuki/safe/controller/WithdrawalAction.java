@@ -1,5 +1,7 @@
 package jp.co.kutsuki.safe.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
@@ -43,19 +46,17 @@ public class WithdrawalAction {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
-		if(check) {
-			if(session.getAttribute("admin") == null) {
-				//リダイレクトで管理者用ログインページへ遷移
-				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-				return "redirect:LoginAdmin";
-			}else if(session.getAttribute("admin") == null && check) {
-				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-				return "redirect:Login";
-			}
+		if(check && session.getAttribute("admin") == null) {
+			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+			return "redirect:Safe";
 		}
 		
 		//更新するデータをidから取得
-		User user = userRepository.getOneUserTable(id);
+		User userList = userRepository.getOneUserTable(id);
+		FormLogin user = new FormLogin();
+		user.setId(userList.getId());
+		user.setUser_id(userList.getUser_id());
+		user.setPassword(userList.getPassword());
 		
 		//削除するユーザーIDで各情報の登録があればユーザーIDを"guests"に変更する
 		if(!(missingPersonsRepository.getMissingPersonsTable(user).size() == 0)) {
@@ -76,6 +77,8 @@ public class WithdrawalAction {
 		//画面の遷移先
 		if(!(session.getAttribute("admin") == null)) {
 			//リダイレクトで管理者用の掲載情報管理ページへ遷移
+			ArrayList<User> userAllList = userRepository.getAllUserTable();
+			session.setAttribute("userList", userAllList);
 			return "redirect:UsersInformationsAdmin";
 		}
 		

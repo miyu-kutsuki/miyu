@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.entity.FormLogin;
 
 /**
  * ゲスト用不審者情報検索ページ遷移用コントローラー
@@ -24,8 +24,8 @@ public class GuestsSuspiciousPersonSightingsSearchPageAction {
 	@GetMapping
 	public String PageView() {
 
-		User userInformation = new User();
-		if((User) session.getAttribute("user") == null) {
+		FormLogin userInformation = new FormLogin();
+		if(session.getAttribute("user") == null) {
 			userInformation.setUser_id("guests");
 		}
 		session.setAttribute("userInformation", userInformation);

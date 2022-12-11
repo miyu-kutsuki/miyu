@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
-import jp.co.kutsuki.safe.entity.User;
 
 /**
  * 不審者の目撃情報登録ページ遷移用コントローラー
@@ -32,11 +32,11 @@ public class SuspiciousPersonSightingsPageAction {
 	@GetMapping
 	public String pageView(Model model) {
 
-		User userInformation = new User();
-		if((User) session.getAttribute("user") == null) {
+		FormLogin userInformation = new FormLogin();
+		if(session.getAttribute("user") == null) {
 			userInformation.setUser_id("guests");
 		}else {
-			userInformation = (User) session.getAttribute("user");
+			userInformation = (FormLogin) session.getAttribute("user");
 		}
 		model.addAttribute("userInformation", userInformation);
 		return "suspiciousPersonSightingsRegistration";

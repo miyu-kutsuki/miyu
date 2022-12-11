@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
-import jp.co.kutsuki.safe.entity.User;
 
 /**
  * 不審者目撃情報の登録確認画面から入力画面へ戻る用のコントローラー
@@ -34,7 +34,7 @@ public class SuspiciousPersonSightingsRegistrationBackAction {
 			//リダイレクトで不審者登録情報ページへ遷移
 			return "redirect:SuspiciousPersonSightings";
 		}else {
-			User userInformation = (User) session.getAttribute("userInformation");
+			FormLogin userInformation = (FormLogin) session.getAttribute("userInformation");
 			if(userInformation.getUser_id().equals("guests")) {
 				//リダイレクトでゲスト用不審者情報登録ページへ遷移
 				return "redirect:GuestsSuspiciousPersonSightings";

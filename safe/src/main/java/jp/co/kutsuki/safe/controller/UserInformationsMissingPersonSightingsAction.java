@@ -45,7 +45,7 @@ public class UserInformationsMissingPersonSightingsAction {
 		//編集ボタンが押下されたら指定されたidのデータを更新
 		if(!(edit == null)) {
 			session.setAttribute("id", edit);
-			return "redirect:MissingPersonSightingsEditPage";
+			return "redirect:MissingPersonsSightingsEditPage";
 		}
 
 		//終了ボタンが押下されたら指定されたidのカラムend_flagにtrueをセットする

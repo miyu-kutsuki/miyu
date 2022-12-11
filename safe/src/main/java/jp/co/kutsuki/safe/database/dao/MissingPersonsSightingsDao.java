@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 
 /**
@@ -71,7 +71,7 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
 	@Override
-	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(User user) {
+	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(FormLogin user) {
 		//SQL定義
 		String sql = "select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施

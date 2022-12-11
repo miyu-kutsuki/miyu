@@ -41,6 +41,7 @@ public class UserSearchAction {
 		//エラーメッセージ用変数
 		String msg = "登録データがありません。";
 
+		//ユーザーテーブルを全件取得
 		ArrayList<User> userList = userRepository.getAllUserTable();
 		
 		//user_idの検索
@@ -64,7 +65,7 @@ public class UserSearchAction {
 			}
 		}
 		session.setAttribute("userList", userList);
-
+		
 		return "redirect:UsersInformationsAdmin";
 	}
 }

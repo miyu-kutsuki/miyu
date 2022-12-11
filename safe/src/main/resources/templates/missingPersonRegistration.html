@@ -20,50 +20,48 @@
 				<h1><img src="./images/title1.png" alt="" class="m-3"></h1>
 				<div class="w-75 h-100 p-3">
 					<form th:action="@{/MissingPersonsRegistrationCheckAction}" method="post" th:object="${missingPersons}">
-						<ul th:if="${#fields.hasErrors('*')}">
-							<li th:each="errors:${#fields.errors('date')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('name')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('gender')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('age')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('detail')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('prefectures')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}"></li>
-							<li th:each="errors:${#fields.errors('other')}" th:text="${errors}"></li>
-						</ul>
 						
 						<div class="mb-3">
-							<label for="date" class="form-label">行方不明日</label><br>
+							<label for="date" class="form-label">行方不明日</label>
+							<span th:each="errors:${#fields.errors('date')}" th:text="${errors}" class="error"></span>
 							<input type="date" th:field="*{date}" class="form-control">
 						</div>
 						
 						<div class="mb-3">
-							<label for="name" class="form-label">氏名</label><br>
+							<label for="name" class="form-label">氏名</label>
+							<span th:each="errors:${#fields.errors('name')}" th:text="${errors}" class="error"></span>
 							<input type="text" th:field="*{name}" class="form-control">
 						</div>
 						
 						<div class="mb-3">
-							<label for="gender" class="form-check-label">性別</label><br>
+							<label for="gender" class="form-check-label">性別</label>
+							<span th:each="errors:${#fields.errors('gender')}" th:text="${errors}" class="error"></span>
 							<input type="radio" th:field="*{gender}" th:value="男" class="form-check-input">男
 							<input type="radio" th:field="*{gender}" th:value="女"  class="form-check-input" >女
 						</div>
 						
 						<div class="mb-3">
-							<label for="age" class="form-label">年齢</label><br>
+							<label for="age" class="form-label">年齢</label>
+							<span th:each="errors:${#fields.errors('age')}" th:text="${errors}" class="error"></span>
 							<input type="number" th:field="*{age}" class="form-control">
 						</div>
 						
 						<div class="mb-3">
-							<label for="detail" class="form-label">服装・背格好・経緯</label><br>
+							<label for="detail" class="form-label">服装・背格好・経緯</label>
+							<span th:each="errors:${#fields.errors('detail')}" th:text="${errors}" class="error"></span>
 							<textarea th:field="*{detail}" rows="5" cols="30" class="form-control"></textarea>
 						</div>
 						
 						<div class="mb-3">
 							<label class="form-label">最後に立ち寄った可能性のある場所</label><br>
-							都道府県名<br>
+							都道府県名
+							<span th:each="errors:${#fields.errors('prefectures')}" th:text="${errors}" class="error"></span>
 							<input type="text" th:field="*{prefectures}" class="form-control"><br>
-							市区町村<br>
+							市区町村
+							<span th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}" class="error"></span>
 							<input type="text" th:field="*{municipalities}" class="form-control"><br>
-							番地等<br>
+							番地等
+							<span th:each="errors:${#fields.errors('other')}" th:text="${errors}" class="error"></span>
 							<textarea th:field="*{other}" rows="5" cols="30" class="form-control"></textarea>
 						</div>
 						

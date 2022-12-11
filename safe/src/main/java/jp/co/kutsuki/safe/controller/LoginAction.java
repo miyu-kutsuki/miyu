@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
@@ -35,19 +35,19 @@ public class LoginAction {
 
 	@RequestMapping(value="/LoginAction", method = RequestMethod.POST)
 	public String UserView(@RequestParam String user_id, @RequestParam String password,
-			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+			@Validated @ModelAttribute FormLogin formLogin, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		//errorメッセージ用変数
 		List<String> msg = new ArrayList<>();
 
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
-		User userInformation = userRepository.getUserTable(user_id);
+		FormLogin userInformation = userRepository.getUser(user_id);
 
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("user", bindingResult);
-			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "user", bindingResult);
+			redirectAttributes.addFlashAttribute("formLogin", bindingResult);
+			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "formLogin", bindingResult);
 			return "redirect:Login";
 		}
 
@@ -74,8 +74,6 @@ public class LoginAction {
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
 			session.setAttribute("user", userInformation);
-			userInformation = (User) session.getAttribute("user");
-			model.addAttribute("user", userInformation);
 			return "redirect:Menu";
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);

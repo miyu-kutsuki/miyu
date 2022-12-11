@@ -20,7 +20,7 @@
 				<h1><img src="./images/login.png" alt="" class="m-3"></h1>
 				<div class="outer_frame">
 					<div class="d-grid gap-2 mt-3 p-0">
-						<form th:action="@{/LoginAction}" method="post" th:object="${user}">
+						<form th:action="@{/LoginAction}" method="post" th:object="${formLogin}">
 							<ul th:if="${#fields.hasErrors('*')}">
 									<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
@@ -48,6 +48,11 @@
 							
 							</div>
 						</form>
+						
+						<div class="text-center mt-3">
+							<a th:href="@{/ForgetUserId}"><label>ユーザーIDを忘れた方はコチラ</label></a><br>
+							<a th:href="@{/ForgetUserPassword}"><label>パスワードを忘れた方はコチラ</label></a>
+						</div>
 					</div>
 				</div>
 			</div>

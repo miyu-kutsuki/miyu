@@ -3,8 +3,8 @@ package jp.co.kutsuki.safe.safedb.repository;
 import java.util.ArrayList;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
-import jp.co.kutsuki.safe.entity.User;
 
 /**
  * suspicious_person_sightingsテーブルのリポジトリ
@@ -17,7 +17,7 @@ public interface SuspiciousPersonSightingsRepository {
 
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable();
 
-	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user_id);
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(FormLogin user_id);
 
 	public ArrayList<SuspiciousPersonSightings> getDateSuspiciousPersonSightingsTable(DateSearch dateSearch);
 
