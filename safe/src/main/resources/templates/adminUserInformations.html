@@ -16,7 +16,7 @@
 	
 		<div class="container text-center h-100">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1>ユーザー情報管理ページ</h1>
+				<h1><img src="./images/admin/Atitle3.png" alt="" class="mt-5"></h1>
 				<th:block th:each="errorMsg : ${msg}">
 					<label id="error" th:text="${errorMsg}"></label>
 					<br>
@@ -36,7 +36,7 @@
 				</form>
 			</div>
 	
-			<h1>ユーザー情報</h1>
+			<h1><img src="./images/admin/Ainfo4.png" alt="" class="mt-3"></h1>
 	
 			<p id="error" th:text="${msg1}"></p>
 			<form th:action="@{/WithdrawalAction}" method="post">

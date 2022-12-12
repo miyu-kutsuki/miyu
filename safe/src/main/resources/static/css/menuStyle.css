@@ -7,6 +7,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
+  margin: 0;
 }
 @media screen and (max-width: 575px) {
   body .main_flex {

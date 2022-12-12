@@ -17,7 +17,7 @@
 	
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1>管理者アカウント新規登録ページ</h1>
+				<h1><img src="./images/admin/Atitle1.png" alt="" class="mt-5"></h1>
 				<div class="outer_frame">
 					<div class="d-grid gap-2 mt-3">
 						<form th:action="@{/AdminRegistrationCheckAction}" method="post" th:object="${admin}">
@@ -40,7 +40,7 @@
 								
 								<div class="mb-3">
 									<label for="password" class="form-label">パスワード</label>
-									<input type="text" th:field="*{password}" class="form-control">
+									<input type="password" th:field="*{password}" class="form-control">
 								</div>
 								
 								<input type="submit" value="確認" class="btn btn-outline-dark mt-3 w-100">

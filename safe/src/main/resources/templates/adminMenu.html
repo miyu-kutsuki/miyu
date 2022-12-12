@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./css/adminFrameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
-<title>管理者用ログイン</title>
+<title>管理者メニュー</title>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -17,17 +17,18 @@
 		
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1>管理者メニューページ</h1>
 				<div class="outer_frame">
 					<div class="d-grid gap-3 mt-3 p-0">
-						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ AdminRegistration +'\''">
-						管理者アカウント登録</button>
-						
-						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ InformationsAdmin +'\''">
-						掲載情報管理ページ</button>
-
-						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ UsersInformationsAdmin +'\''">
-						ユーザー情報管理ページ</button>
+					
+						<a th:href="@{/AdminRegistration}">
+							<img src="./images/admin/admin1.png" alt="" class="m-3">
+						</a>
+						<a th:href="@{/InformationsAdmin}">
+							<img src="./images/admin/admin2.png" alt="" class="m-3">
+						</a>
+						<a th:href="@{/UsersInformationsAdmin}">
+							<img src="./images/admin/admin3.png" alt="" class="m-3">
+						</a>
 						
 					</div>
 				</div>
