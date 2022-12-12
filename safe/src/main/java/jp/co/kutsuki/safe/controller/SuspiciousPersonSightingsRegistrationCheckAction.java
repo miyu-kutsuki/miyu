@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
@@ -42,18 +42,18 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 			RedirectAttributes redirectAttributes, Model model) {
 
 		//ログイン中のuser_idを取得
-		User userInformation = new User();
-		if((User) session.getAttribute("user") == null) {
+		FormLogin userInformation = new FormLogin();
+		if(session.getAttribute("user") == null) {
 			userInformation.setUser_id("guests");
 		}else {
-			userInformation = (User) session.getAttribute("user");
+			userInformation = (FormLogin) session.getAttribute("user");
 		}
 
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightings", bindingResult);
 			redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "suspiciousPersonSightings", bindingResult);
-			
+
 			if(userInformation.getUser_id().equals("guests")) {
 				//リダイレクトでゲスト用不審者情報登録ページへ遷移
 				return "redirect:GuestsSuspiciousPersonSightings";
@@ -74,7 +74,7 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		suspiciousPersonSightings.setUser_id(userInformation.getUser_id());
 		session.setAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
 		model.addAttribute("suspiciousPersonSightings", suspiciousPersonSightings);
-		
+
 		if(userInformation.getUser_id().equals("guests")) {
 			//リダイレクトでゲスト用不審者情報の登録確認ページへ遷移
 			return "forward:GuestsSuspiciousPersonSightingsRegistrationCheckAction";

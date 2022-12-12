@@ -8,51 +8,59 @@
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+		<nav class="navbar navbar-expand-xl navbar-light fixed-top">
 			<div class="container-fluid">
 				<a th:href="@{/}" class="navbar-brand"> <img
-					src="./images/logo.png" alt="" width="60" height="60"
+					src="./images/logo.png" alt=""  width="151" height="46"
 					class="d-inline-block align-text-top">
 				</a>
 
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
-					aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-				<div class="collapse navbar-collapse justify-content-end"
-					id="navbarNav">
+				<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-						<li class="nav-item active">
-							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページへ</a>
+						<li class="nav-item">
+							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページ</a>
 				   		</li>
-						<li class="nav-item active">
-							<a th:href="@{/Menu}" class="nav-link mt-3" aria-current="page">メニューページへ</a>
+				   		
+						<li class="nav-item">
+							<a th:href="@{/Menu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
 				   		</li>
-						<li class="nav-item active"><a th:href="@{/MissingPersons}"
-							class="nav-link mt-3" aria-current="page">探し人の登録</a></li>
+				   		
+						<li class="nav-item"><a th:href="@{/MissingPersons}"
+							class="nav-link mt-3" aria-current="page">探し人の登録</a>
+						</li>
 							
 						<li class="nav-item"><a th:href="@{/MissingPersonsSightings}"
-							class="nav-link mt-3">目撃情報の登録</a></li>
+							class="nav-link mt-3">目撃情報の登録</a>
+						</li>
 							
 						<li class="nav-item"><a
-							th:href="@{/SuspiciousPersonSightings}" class="nav-link mt-3"
-							tabindex="-3" aria-disabled="true">不審者情報の登録</a></li>
+							th:href="@{/SuspiciousPersonSightings}" 
+							class="nav-link mt-3">不審者情報の登録</a>
+						</li>
 							
-						<li class="nav-item"><a th:href="@{/Informations}"
-							class="nav-link mt-3" tabindex="-3" aria-disabled="true">どこなのサーチ</a>
+						<li class="nav-item dropdown">
+							<a href="" class="nav-link dropdown-toggle mt-3" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							どこなのサーチ</a>
+							 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							 	<li><a th:href="@{/Informations}" class="dropdown-item">一括検索</a></li>
+							 	<li><a th:href="@{/MissingPersonsSearch}" class="dropdown-item">探し人サーチ</a></li>
+							 	<li><a th:href="@{/MissingPersonSightingsSearch}" class="dropdown-item">目撃情報サーチ</a></li>
+							 	<li><a th:href="@{/SuspiciousPersonSightingsSearch}" class="dropdown-item">不審者情報サーチ</a></li>
+							 </ul>
 						</li>
 						
 						<li class="nav-item"><a th:href="@{/UserInformations}"
-							class="nav-link mt-3" tabindex="-3" aria-disabled="true">ユーザーページ</a>
+							class="nav-link mt-3">ユーザーページ</a>
 						</li>
 						
 						<li class="nav-item"><a th:href="@{/LogoutAction}"
-							class="nav-link mt-3" tabindex="-3" aria-disabled="true">ログアウト</a>
+							class="nav-link mt-3">ログアウト</a>
 						</li>
-
 					</ul>
 				</div>
 			</div>
@@ -61,7 +69,7 @@
 	<div layout:fragment="contents" class="main_frame"></div>
 	<footer>
 		<div class="footer_frame">
-			<p>Copyright 2022 doconano All Rights Reserved.</p>
+			<p>Copyright 2023 doconano All Rights Reserved.</p>
 		</div>
 	</footer>
 </body>

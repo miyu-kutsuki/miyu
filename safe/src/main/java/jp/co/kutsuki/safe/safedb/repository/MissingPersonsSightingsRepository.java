@@ -3,8 +3,8 @@ package jp.co.kutsuki.safe.safedb.repository;
 import java.util.ArrayList;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
-import jp.co.kutsuki.safe.entity.User;
 
 /**
  * missing_persons_sightingsテーブルのリポジトリ
@@ -17,7 +17,7 @@ public interface MissingPersonsSightingsRepository {
 
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable();
 
-	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(User user_id);
+	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(FormLogin user_id);
 
 	public ArrayList<MissingPersonsSightings> getDateMissingPersonsSightingsTable(DateSearch dateSearch);
 
@@ -30,6 +30,6 @@ public interface MissingPersonsSightingsRepository {
 	public void Update(String id, MissingPersonsSightings missingPersonsSightings);
 
 	public void Delete(String id);
-	
+
 	public void DeleteUser(String user_id);
 }

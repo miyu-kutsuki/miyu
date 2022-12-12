@@ -7,7 +7,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-
+	margin: 0;
 }
 
 a {
@@ -33,4 +33,7 @@ a {
 	min-height: 100vh;
 	overflow-y: auto;
 	background:rgba(255,255,255,1.0);
+}
+.error_frame{
+	margin-left: 50px;
 }

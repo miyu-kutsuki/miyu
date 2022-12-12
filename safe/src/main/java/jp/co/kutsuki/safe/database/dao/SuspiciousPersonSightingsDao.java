@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
@@ -72,7 +72,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
 	@Override
-	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(User user) {
+	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsTable(FormLogin user) {
 		//SQL定義
 		String sql = " select * from suspicious_person_sightings where user_id = ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
@@ -250,7 +250,7 @@ public class SuspiciousPersonSightingsDao implements SuspiciousPersonSightingsRe
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, listId);
 	}
-	
+
 	/** ユーザーが退会した場合
 	 * 該当ユーザーが登録した行方不明者情報のユーザーを"guests"に変更する */
 	@Transactional

@@ -32,19 +32,31 @@ public class UserInformationsMissingPersonSightingsAction {
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
-			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
+			if(session.getAttribute("admin") == null) {
+				//リダイレクトで管理者用ログインページへ遷移
+				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+				return "redirect:LoginAdmin";
+			}else if(session.getAttribute("admin") == null && check) {
+				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
+				return "redirect:Login";
+			}
 		}
 
 		//編集ボタンが押下されたら指定されたidのデータを更新
 		if(!(edit == null)) {
 			session.setAttribute("id", edit);
-			return "redirect:MissingPersonSightingsEditPage";
+			return "redirect:MissingPersonsSightingsEditPage";
 		}
 
 		//終了ボタンが押下されたら指定されたidのカラムend_flagにtrueをセットする
 		if(!(end == null)) {
 			missingPersonsSightingsRepository.Delete(end);
+		}
+		
+		//画面の遷移先
+		if(!(session.getAttribute("admin") == null)) {
+			//リダイレクトで管理者用の掲載情報管理ページへ遷移
+			return "redirect:InformationsAdmin";
 		}
 
 		return "redirect:UserInformations";

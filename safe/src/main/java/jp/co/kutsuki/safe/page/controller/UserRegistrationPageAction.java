@@ -1,11 +1,17 @@
 package jp.co.kutsuki.safe.page.controller;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.kutsuki.safe.entity.Questions;
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.safedb.repository.QuestionsCrudRepository;
 
 /**
  * 新規登録ページ遷移用コントローラー
@@ -15,6 +21,9 @@ import jp.co.kutsuki.safe.entity.User;
 @Controller
 @RequestMapping("UserRegistration")
 public class UserRegistrationPageAction {
+	
+	@Autowired
+	QuestionsCrudRepository questionsCrudRepository;
 
 	@ModelAttribute
 	public User setUpUser() {
@@ -22,7 +31,12 @@ public class UserRegistrationPageAction {
 	}
 
 	@GetMapping
-	public String pageView() {
+	public String pageView(Model model) {
+		
+		//プルダウンの秘密の質問を取得
+		ArrayList<Questions> questionsList = (ArrayList<Questions>) questionsCrudRepository.findAll();
+		model.addAttribute("questionsList", questionsList);
+
 		return "userRegistration";
 	}
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/adminLayout}">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/informationsStyle.css">
+<link rel="icon" href="./images/favicon.ico">
+<meta charset="UTF-8">
+<title>ユーザー情報管理ページ</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	
+		<div class="container text-center h-100">
+			<div class="d-flex flex-column align-items-center justify-content-center">
+				<h1><img src="./images/admin/Atitle3.png" alt="" class="mt-5"></h1>
+				<th:block th:each="errorMsg : ${msg}">
+					<label id="error" th:text="${errorMsg}"></label>
+					<br>
+				</th:block>
+	
+				<form th:action="@{/UserSearch}" method="post">
+					<div class="row">
+						<div class="col-12 mt-3">
+							<label class="form-label">ユーザーID</label><br> <input type="text"
+								name="user_id" class="form-control"> 
+						</div>
+						
+						<div class="w-45 h-auto p-3 text-center">
+							<input type="submit" value="検索" class="btn btn-outline-dark w-25 mt-3">
+						</div>
+					</div>
+				</form>
+			</div>
+	
+			<h1><img src="./images/admin/Ainfo4.png" alt="" class="mt-3"></h1>
+	
+			<p id="error" th:text="${msg1}"></p>
+			<form th:action="@{/WithdrawalAction}" method="post">
+			<div class="table-responsive h-100">
+				<table class="table table-bordered">
+					<thead th:unless="${msg1}">
+						<tr>
+							<th scope="col" class="small" style="width:10%">id</th>
+							<th scope="col" class="small" style="width:80%">ユーザーID</th>
+							<th scope="col" class="small" style="width:10%">終了</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${userList}">
+							<td th:text="${user.id}" class="small"></td>
+							<td th:text="${user.user_id}" class="small"></td>
+							<td>
+							<button type="submit" name="end" th:value="${user.id}"
+							class="btn btn-outline-dark btn-block btn-sm">終了</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

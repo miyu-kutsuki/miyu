@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.Informations;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 
 /**
@@ -27,7 +27,7 @@ public class UserInformationsPageAction {
 
 	@Autowired
 	HttpSession session;
-
+	
 	@GetMapping
 	public String userInformationsPageView(Model model, RedirectAttributes redirectAttributes) {
 
@@ -40,7 +40,7 @@ public class UserInformationsPageAction {
 
 
 		//ログイン中のuser_idを取得
-		User userInformation = (User) session.getAttribute("user");
+		FormLogin userInformation = (FormLogin) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
 		Informations informations = new Informations();
 

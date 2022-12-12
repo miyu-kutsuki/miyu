@@ -10,12 +10,16 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	margin: 0;
 }
 
 #error{
+	list-style:none;
 	color: #ff0000;
 }
 
-.container-fluid{
-	overflow-y: auto;
+.in_frame{
+	width: 350px;
+	height: auto;
+	margin: 5px auto;
 }

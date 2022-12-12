@@ -7,10 +7,10 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+	margin: 0;
 }
 
-ul{
-	list-style:none;
+.error{
 	color: #ff0000;
 }
 
@@ -19,4 +19,3 @@ ul{
 	overflow-y: auto;
 	background:rgba(255,255,255,1.0);
 }
-

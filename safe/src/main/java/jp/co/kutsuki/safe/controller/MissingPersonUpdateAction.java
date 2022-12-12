@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.MissingPersons;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 /**
  * 探し人情報の変更・更新用コントローラー
@@ -47,7 +47,7 @@ public class MissingPersonUpdateAction {
 		}
 
 		//ログイン中のuser_idを取得
-		User userInformation = (User) session.getAttribute("user");
+		FormLogin userInformation = (FormLogin) session.getAttribute("user");
 		//更新するデータのidを取得
 		String id = (String) session.getAttribute("id");
 

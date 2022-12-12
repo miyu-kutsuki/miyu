@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.MissingPersons;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 
 /**
@@ -74,7 +74,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 	 * ログインユーザーとuser_idが一致したデータの
 	 * end_flag==falseのみ全件取得 */
 	@Override
-	public ArrayList<MissingPersons> getMissingPersonsTable(User user) {
+	public ArrayList<MissingPersons> getMissingPersonsTable(FormLogin user) {
 		//SQL定義
 		String sql = " select * from missing_persons where user_id = ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
@@ -255,7 +255,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 		Integer listId = Integer.valueOf(id);
 		template.update(sql, listId);
 	}
-	
+
 	/** ユーザーが退会した場合
 	 * 該当ユーザーが登録した行方不明者情報のユーザーを"guests"に変更する */
 	@Transactional

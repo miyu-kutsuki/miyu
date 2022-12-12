@@ -17,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
 import jp.co.kutsuki.safe.entity.Informations;
+import jp.co.kutsuki.safe.entity.MissingPersons;
+import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
+import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 
 /**
@@ -37,18 +40,12 @@ public class SearchAction {
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
 	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
-			@RequestParam String searchPlace, Model model, RedirectAttributes redirectAttributes){
+			@RequestParam String searchPlace, @RequestParam(name = "user_id", required = false) String user_id, Model model, RedirectAttributes redirectAttributes){
 
-		//セッション有効チェック
-		boolean check = (boolean)session.getAttribute("check");
-		if(check) {
-			//user_idが"guests"の場合、不審者のみの検索ページに遷移する
-			if(session.getAttribute("userInformation") == null) {
-				redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-				return "redirect:Login";
-			}
-		}
+		//遷移先画面の判定用セッションの取得
+		String transition =(String)session.getAttribute("transition");
 
+		//検索日付の取得
 		DateSearch dateSearch = new DateSearch();
 		dateSearch.setStartDate(startDate);
 		dateSearch.setEndDate(endDate);
@@ -70,27 +67,53 @@ public class SearchAction {
 		boolean suspiciousPersonSightings = true;
 		boolean place = true;
 
+		//検索日付が開始・終了ともに入力されているか
 		if(dateSearch.getStartDate() == null) {
 			msgList.add("開始日付を入力してください。");
 		}
-
 		if(dateSearch.getEndDate() == null) {
 			msgList.add("終了日付を入力してください。");
+		}
+		
+		//検索日付の終了日を開始日より未来ではないか
+		if(!(dateSearch.getStartDate() == null) && !(dateSearch.getEndDate() == null)) {
+			if(dateSearch.getEndDate().isBefore(dateSearch.getStartDate())) {
+				msgList.add("検索日付に誤りがあります。");
+			}
 		}
 
 		//開始・終了のどちらかの日付が指定されていない場合
 		if(msgList.size() == 1) {
+			
+			//エラーメッセージリストをセット
+			redirectAttributes.addFlashAttribute("msg", msgList);
+
 			if(!(session.getAttribute("userInformation") == null)) {
-				//リダイレクトで不審者のみの検索ページへ遷移
-				redirectAttributes.addFlashAttribute("msg", msgList);
+				//リダイレクトでゲスト用不審者のみの検索ページへ遷移
 				return "redirect:GuestsSuspiciousPersonSightingsSearch";
 			}
-			//リダイレクトで情報表示ページへ遷移
-			redirectAttributes.addFlashAttribute("msg", msgList);
-			return "redirect:Informations";
+
+			if(transition == null) {
+				if(!(session.getAttribute("admin") == null)) {
+					//リダイレクトで管理者用の掲載情報表示ページへ遷移
+					return "redirect:InformationsAdmin";
+				}
+				//リダイレクトでall情報表示ページへ遷移
+				return "redirect:Informations";
+			}
+
+			//リダイレクトで個別検索ページへ遷移
+			switch(transition) {
+			case "missingPersons":
+				return "redirect:MissingPersonsSearch";
+
+			case "missingPersonSightings":
+				return "redirect:MissingPersonSightingsSearch";
+
+			case "suspiciousPersonSightings":
+				return "redirect:SuspiciousPersonSightingsSearch";
+			}
 		}
-
-
 
 		//searchPlaceがnullかチェック
 		if(dateSearch.getSearchPlace() == null) {
@@ -430,14 +453,85 @@ public class SearchAction {
 			redirectAttributes.addFlashAttribute("msg2", msg);
 			redirectAttributes.addFlashAttribute("msg3", msg);
 		}
-
+		
+		//user_idの検索
+		if(!(user_id == null)) {
+			//一時保管用のリスト
+			ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
+			ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
+			ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
+			
+			//探し人のリストから"user_id"が一致するものを抽出する
+			for(int i = 0; i < informations.getMissingPersonsList().size(); i++) {
+				if(informations.getMissingPersonsList().get(i).getUser_id().contains(user_id)) {
+					missingPersonsList.add(informations.getMissingPersonsList().get(i));
+				}
+			}
+			//データの入れ替え
+			informations.getMissingPersonsList().clear();
+			informations.setMissingPersonsList(missingPersonsList);
+			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
+			
+			//探し人目撃情報リストから"user_id"が一致するものを抽出する
+			for(int i = 0; i < informations.getMissingPersonsSightingsList().size(); i++) {
+				if(informations.getMissingPersonsSightingsList().get(i).getUser_id().contains(user_id)) {
+					missingPersonsSightingsList.add(informations.getMissingPersonsSightingsList().get(i));
+				}
+			}
+			//データの入れ替え
+			informations.getMissingPersonsSightingsList().clear();
+			informations.setMissingPersonsSightingsList(missingPersonsSightingsList);
+			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
+			
+			//不審者目撃情報リストから"user_id"が一致するものを抽出する
+			for(int i = 0; i < informations.getSuspiciousPersonSightingsList().size(); i++) {
+				if(informations.getSuspiciousPersonSightingsList().get(i).getUser_id().contains(user_id)) {
+					suspiciousPersonSightingsList.add(informations.getSuspiciousPersonSightingsList().get(i));
+				}
+			}
+			//データの入れ替え
+			informations.getSuspiciousPersonSightingsList().clear();
+			informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsList);
+			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
+			
+			//各リストのサイズが０の場合メッセージを出力
+			if(informations.getMissingPersonsList().size() == 0) {
+				redirectAttributes.addFlashAttribute("msg1", msg);
+			}
+			if(informations.getMissingPersonsSightingsList().size() == 0) {
+				redirectAttributes.addFlashAttribute("msg2", msg);
+			}
+			if(informations.getSuspiciousPersonSightingsList().size() == 0) {
+				redirectAttributes.addFlashAttribute("msg3", msg);
+			}
+		}
+		
+		//画面遷移
 		if(!(session.getAttribute("userInformation") == null)) {
-			//リダイレクトで不審者のみの検索ページへ遷移
+			//リダイレクトでゲスト用不審者のみの検索ページへ遷移
 			return "redirect:GuestsSuspiciousPersonSightingsSearch";
-		}else {
-			//リダイレクトで情報表示ページへ遷移
-			return "redirect:Informations";
 		}
 
+		if(!(transition == null)) {
+			//リダイレクトで個別検索ページへ遷移
+			switch(transition) {
+			case "missingPersons":
+				return "redirect:MissingPersonsSearch";
+
+			case "missingPersonSightings":
+				return "redirect:MissingPersonSightingsSearch";
+
+			case "suspiciousPersonSightings":
+				return "redirect:SuspiciousPersonSightingsSearch";
+			}
+		}
+		
+		if(!(session.getAttribute("admin") == null)) {
+			//リダイレクトで管理者用の掲載情報管理ページへ遷移
+			return "redirect:InformationsAdmin";
+		}
+
+		//リダイレクトでall情報表示ページへ遷移
+		return "redirect:Informations";
 	}
 }

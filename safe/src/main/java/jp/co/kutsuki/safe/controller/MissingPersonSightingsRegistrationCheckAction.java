@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
 
 /**
@@ -49,7 +49,7 @@ public class MissingPersonSightingsRegistrationCheckAction {
 		}
 
 		//ログイン中のuser_idを取得
-		User userInformation = (User) session.getAttribute("user");
+		FormLogin userInformation = (FormLogin) session.getAttribute("user");
 
 		//バリデーションの入力チェック
 		if(bindingResult.hasErrors()) {

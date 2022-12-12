@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jp.co.kutsuki.safe.entity.DateSearch;
+import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.Informations;
-import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsSightingsRepository;
@@ -50,7 +50,7 @@ public class InformationDao implements InformationRepository{
 	 * ログインユーザーとuser_idが一致するデータ
 	 * end_flag==falseのみ全件取得  */
 	@Override
-	public void setInformationTable(Informations informations, User user) {
+	public void setInformationTable(Informations informations, FormLogin user) {
 		//missing_personsテーブルのend_flag==falseのみを取得
 		informations.setMissingPersonsList(missingPersonsRepository.getMissingPersonsTable(user));
 		//missing_persons_sightingsテーブルのend_flag==falseのみを取得

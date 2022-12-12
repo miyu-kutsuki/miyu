@@ -37,7 +37,6 @@ public class UserRegistrationAction {
 		//usersテーブルにuser_id,passwordを登録
 		User userInformation = (User) session.getAttribute("user");
 		userRepository.setUserTable(userInformation);
-		model.addAttribute("user", userInformation);
 		return "redirect:Login";
 
 	}

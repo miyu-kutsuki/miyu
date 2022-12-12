@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{commons/layout}">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/informationsStyle.css">
+<link rel="icon" href="./images/favicon.ico">
+<meta charset="UTF-8">
+<title>探し人情報検索ページ</title>
+</head>
+<body>
+	<div layout:fragment="contents">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	
+		<div class="container-fluid text-center">
+			<div class="d-flex flex-column align-items-center justify-content-center">
+				<h1><img src="./images/search2.png" alt="" class="mt-5"></h1>
+				<th:block th:each="errorMsg : ${msg}">
+					<label id="error" th:text="${errorMsg}"></label>
+					<br>
+				</th:block>
+	
+				<form th:action="@{/Search}" method="post">
+					<div class="row">
+						<div class="col">
+							<label class="form-label">開始日付</label><br> <input type="date"
+								name="startDate" class="form-control">
+						</div>
+	
+						<div class="col">
+							<label class="form-label">終了日付</label><br> <input type="date"
+								name="endDate" class="form-control">
+						</div>
+	
+						<div class="col-12 mt-3">
+							<label class="form-label">場所</label><br> <input type="text"
+								name="searchPlace" class="form-control"> 
+						</div>
+						<div class="w-45 h-auto p-3 text-center">
+							<input type="submit" value="検索" class="btn btn-outline-dark w-25 mt-3">
+						</div>
+					</div>
+				</form>
+			</div>
+	
+	
+			<h1><img src="./images/info2.png" alt="" class="m-3"></h1>
+	
+			<p id="error" th:text="${msg2}"></p>
+			<div class="table-responsive h-100">
+				<table class="table table-bordered">
+					<thead th:unless="${msg2}">
+						<tr>
+							<th scope="col" class="small" style="width:10%">行方不明日</th>
+							<th scope="col" class="small" style="width:5%">性別</th>
+							<th scope="col" class="small" style="width:5%">年齢</th>
+							<th scope="col" class="small" style="width:40%">詳細</th>
+							<th scope="col" class="small" style="width:40%">目撃場所</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							th:each="missingPersonSightings : ${missingPersonSightingsList}">
+							<td th:text="${missingPersonSightings.date}" class="small"></td>
+							<td th:text="${missingPersonSightings.gender}" class="small"></td>
+							<td th:text="${missingPersonSightings.age}" class="small"></td>
+							<td th:text="${missingPersonSightings.detail}" class="small"></td>
+							<td class="small">[[${missingPersonSightings.prefectures}]]
+								[[${missingPersonSightings.municipalities}]]
+								[[${missingPersonSightings.other}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -17,13 +17,19 @@
 	
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1><img src="./images/addUser.png" alt="" class="m-3"></h1>
-				<div class="outer_frame">
+				<h1><img src="./images/addUser.png" alt="" class="mt-5"></h1>
+				<div class="outer_frame mb-3">
 					<div class="d-grid gap-2 mt-3">
 						<form th:action="@{/UserRegistrationCheckAction}" method="post" th:object="${user}">
 							<ul th:if="${#fields.hasErrors('*')}">
 									<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('familyName')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('firstName')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('birthday')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('email')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('question_id')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('answer')}" th:text="${errors}"></li>
 							</ul>
 							<ul th:unless="${msg} == null">
 								<th:block th:each="errorMsg : ${msg}">
@@ -40,7 +46,46 @@
 								
 								<div class="mb-3">
 									<label for="password" class="form-label">パスワード</label>
-									<input type="text" th:field="*{password}" class="form-control">
+									<input type="password" th:field="*{password}" class="form-control">
+								</div>
+								
+								
+								<div class="mb-3">
+									<label for="familyName" class="form-label">名字</label>
+									<input type="text" th:field="*{familyName}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="firstName" class="form-label">名前</label>
+									<input type="text" th:field="*{firstName}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="birthday" class="form-label">生年月日</label>
+									<input type="date" th:field="*{birthday}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="email" class="form-label">メールアドレス</label>
+									<input type="email" th:field="*{email}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="questions" class="form-label">秘密の質問</label>
+									<select class="form-select" aria-label="Default select example" th:field="*{question_id}">
+										<option value="0"></option>
+											<option
+											th:each="questions : ${questionsList}"
+											th:selected="${questions.id == question_id}"
+											th:value="${questions.id}"
+											th:text="${questions.questions}">
+											</option>
+									</select>
+								</div>
+								
+								<div class="mb-3">
+									<label for="answer" class="form-label">秘密の質問の答え</label>
+									<input type="text" th:field="*{answer}" class="form-control">
 								</div>
 								
 								<input type="submit" value="確認" class="btn btn-outline-dark mt-3 w-100">

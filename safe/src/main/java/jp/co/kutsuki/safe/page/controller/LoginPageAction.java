@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.entity.FormLogin;
 
 /**
  * ログインページ遷移用コントローラー
@@ -23,8 +23,8 @@ public class LoginPageAction {
 	HttpSession session;
 
 	@ModelAttribute
-	public User setUpUser() {
-		return new User();
+	public FormLogin setUpUser() {
+		return new FormLogin();
 	}
 
 	@GetMapping

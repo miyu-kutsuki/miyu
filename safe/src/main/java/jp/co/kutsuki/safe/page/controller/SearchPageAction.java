@@ -27,8 +27,11 @@ public class SearchPageAction {
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
-			return "redirect:Login";
+			return "redirect:Safe";
 		}
+
+		//個別検索ページ判定用のセッションにnullをセット
+		session.setAttribute("transition", null);
 
 		return "informations";
 	}

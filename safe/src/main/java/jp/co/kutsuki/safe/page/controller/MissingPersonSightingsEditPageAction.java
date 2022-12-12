@@ -20,7 +20,7 @@ import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
  *
  */
 @Controller
-@RequestMapping("MissingPersonSightingsEditPage")
+@RequestMapping("MissingPersonsSightingsEditPage")
 public class MissingPersonSightingsEditPageAction {
 
 	@Autowired
