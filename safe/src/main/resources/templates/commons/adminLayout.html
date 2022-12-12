@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/baseStyle.css">
+<link rel="stylesheet" href="./css/adminStyle.css">
 <title>ベース：管理者画面レイアウト</title>
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 			<div class="container-fluid">
 				<a th:href="@{/}" class="navbar-brand"> <img
 					src="./images/logo.png" alt="" width="60" height="60"
@@ -25,7 +25,10 @@
 				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページへ</a>
+							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページ</a>
+				   		</li>
+						<li class="nav-item">
+							<a th:href="@{/AdminMenu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
 				   		</li>
 						<li class="nav-item">
 							<a th:href="@{/AdminRegistration}" class="nav-link mt-3" aria-current="page">管理者アカウント登録</a>

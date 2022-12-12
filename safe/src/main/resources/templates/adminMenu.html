@@ -6,7 +6,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/frameStyle.css">
+<link rel="stylesheet" href="./css/adminFrameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>管理者用ログイン</title>
@@ -19,8 +19,16 @@
 			<div class="d-flex flex-column align-items-center justify-content-center">
 				<h1>管理者メニューページ</h1>
 				<div class="outer_frame">
-					<div class="d-grid gap-2 mt-3 p-0">
-					
+					<div class="d-grid gap-3 mt-3 p-0">
+						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ AdminRegistration +'\''">
+						管理者アカウント登録</button>
+						
+						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ InformationsAdmin +'\''">
+						掲載情報管理ページ</button>
+
+						<button type="button" class="btn btn-outline-dark" name="submit" th:attr="onClick='location.href=\''+ UsersInformationsAdmin +'\''">
+						ユーザー情報管理ページ</button>
+						
 					</div>
 				</div>
 			</div>

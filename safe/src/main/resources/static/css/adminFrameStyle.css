@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+body {
+	background-color: #c7ced3;
+	background-size: cover;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+.outer_frame{
+	width: 450px;
+}
+
+.in_frame{
+	width: 300px;
+	height: auto;
+	margin: 0 auto;
+}
+
+.outer_frame ul{
+	list-style:none;
+	color: #ff0000;
+}
+
+.container{
+	min-height: 100vh;
+	overflow-y: auto;
+	background:rgba(255,255,255,1.0);
+}
+.error_frame{
+	margin-left: 50px;
+}
