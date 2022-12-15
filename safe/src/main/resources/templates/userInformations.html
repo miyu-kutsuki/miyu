@@ -62,60 +62,7 @@
 				</form>
 				
 				<div class="in_frame mt-3">
-					<form th:action="@{/ChangePassword}" method="post">
-						<label class="form-label">パスワードを変更する</label><br>
-						<ul th:unless="${msg4} == null" class="text-start">
-							<th:block th:each=erroMsg:${msg4}>
-								<li id="error" th:text="${erroMsg}"></li>
-							</th:block>
-						</ul>
-					
-						<div class="d-flex flex-row justify-content-center align-items-center mt-1">
-							<label class="form-label text-nowrap">変更後：</label>
-							<input type="password" name="password1" class="form-control">
-						</div>
-						<div class="d-flex flex-row justify-content-center align-items-center mt-2">
-							<label class="form-label text-nowrap">確認用：</label>
-							<input type="password" name="password2" class="form-control">
-						</div>
-						<input type="submit" value="変更" class="btn btn-outline-dark mt-2">
-					</form>
-				</div>
-				
-				<div class="in_frame mt-3">
-					<form th:action="@{/ChangeFamilyName}" method="post">
-						<label class="form-label">名字を変更する</label><br>
-						<label class="form-label">現在：[[${user.familyName}]]</label>
-						<ul th:unless="${msg5} == null" class="text-center">
-							<th:block th:each=erroMsg:${msg5}>
-								<li id="error" th:text="${erroMsg}"></li>
-							</th:block>
-						</ul>
-					
-						<div class="d-flex flex-row justify-content-center align-items-center mt-1">
-							<label class="form-label text-nowrap">変更後：</label>
-							<input type="text" name="familyName" class="form-control">
-						</div>
-						<input type="submit" value="変更" class="btn btn-outline-dark mt-2">
-					</form>
-				</div>
-				
-				<div class="in_frame mt-3">
-					<form th:action="@{/ChangeMailAddress}" method="post">
-						<label class="form-label">メールアドレスを変更する</label><br>
-						<label class="form-label">現在：[[${user.email}]]</label>
-						<ul th:unless="${msg6} == null" class="text-center">
-							<th:block th:each=erroMsg:${msg6}>
-								<li id="error" th:text="${erroMsg}"></li>
-							</th:block>
-						</ul>
-					
-						<div class="d-flex flex-row justify-content-center align-items-center mt-1">
-							<label class="form-label text-nowrap">変更後：</label>
-							<input type="email" name="email" class="form-control">
-						</div>
-						<input type="submit" value="変更" class="btn btn-outline-dark mt-2">
-					</form>
+					<a th:href="@{/UserInformationChangeScreen}">ユーザー情報を変更する</a>
 				</div>
 				
 				<h1><img src="./images/history.png" alt="" class="m-3"></h1>
