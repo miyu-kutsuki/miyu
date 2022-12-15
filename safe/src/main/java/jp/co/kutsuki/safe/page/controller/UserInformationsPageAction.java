@@ -11,7 +11,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.Informations;
+import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.safedb.repository.InformationRepository;
+import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
  * ユーザーページ遷移用コントローラー
@@ -28,6 +30,9 @@ public class UserInformationsPageAction {
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	@GetMapping
 	public String userInformationsPageView(Model model, RedirectAttributes redirectAttributes) {
 
@@ -41,7 +46,10 @@ public class UserInformationsPageAction {
 
 		//ログイン中のuser_idを取得
 		FormLogin userInformation = (FormLogin) session.getAttribute("user");
-		model.addAttribute("user", userInformation);
+		//ユーザー情報の取得
+		User user = userRepository.getUserIdTable(userInformation.getUser_id());
+		model.addAttribute("user", user);
+		
 		Informations informations = new Informations();
 
 		//エラーメッセージ用変数
