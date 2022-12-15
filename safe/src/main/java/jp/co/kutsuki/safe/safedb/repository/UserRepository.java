@@ -27,4 +27,8 @@ public interface UserRepository {
 	public void deleteUser(Integer id);
 	
 	public void updatePassword(String user_id, String password);
+	
+	public void updateFamilyName(String user_id, String familyName);
+	
+	public void updateMailAddress(String user_id, String mailAddress);
 }

@@ -70,7 +70,7 @@ public class ChangePasswordAction {
 			msg.add("パスワードが変更されました。");
 		}
 		
-		redirectAttributes.addFlashAttribute("msg", msg);
+		redirectAttributes.addFlashAttribute("msg4", msg);
 		
 		//画面の遷移先
 		if(!(msg.size() == 0)){

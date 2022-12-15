@@ -24,7 +24,7 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  *
  */
 @Controller
-public class ChecUserIdAction {
+public class CheckUserIdAction {
 	
 	@Autowired
 	HttpSession session;

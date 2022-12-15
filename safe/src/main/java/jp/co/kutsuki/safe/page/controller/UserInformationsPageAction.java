@@ -27,7 +27,7 @@ public class UserInformationsPageAction {
 
 	@Autowired
 	HttpSession session;
-	
+		
 	@GetMapping
 	public String userInformationsPageView(Model model, RedirectAttributes redirectAttributes) {
 
@@ -42,6 +42,7 @@ public class UserInformationsPageAction {
 		//ログイン中のuser_idを取得
 		FormLogin userInformation = (FormLogin) session.getAttribute("user");
 		model.addAttribute("user", userInformation);
+		
 		Informations informations = new Informations();
 
 		//エラーメッセージ用変数

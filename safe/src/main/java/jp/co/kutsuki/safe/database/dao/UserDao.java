@@ -220,7 +220,7 @@ public class UserDao implements UserRepository{
 		template.update(sql, id);
 	}
 
-	/** idで指定された行のpasswordを変更する */
+	/** user_idで指定された行のpasswordを変更する */
 	@Transactional
 	@Override
 	public void updatePassword(String user_id, String password) {
@@ -228,5 +228,25 @@ public class UserDao implements UserRepository{
 		String sql = "update users set password = ? where user_id = ?";
 		//SQL実行し登録を実施
 		template.update(sql, password, user_id);
+	}
+
+	/** user_idで指定された行の名字を変更する */
+	@Transactional
+	@Override
+	public void updateFamilyName(String user_id, String familyName) {
+		//SQL定義
+		String sql = "update users set familyName = ? where user_id = ?";
+		//SQL実行し登録を実施
+		template.update(sql, familyName, user_id);
+	}
+
+	/** user_idで指定された行のメールアドレスを変更する */
+	@Transactional
+	@Override
+	public void updateMailAddress(String user_id, String mailAddress) {
+		//SQL定義
+		String sql = "update users set email = ? where user_id = ?";
+		//SQL実行し登録を実施
+		template.update(sql, mailAddress, user_id);
 	}
 }
