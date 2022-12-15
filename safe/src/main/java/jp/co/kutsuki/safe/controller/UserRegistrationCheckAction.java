@@ -48,7 +48,7 @@ public class UserRegistrationCheckAction {
 
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
-		User userInformation = userRepository.getUserTable(user_id);
+		User userInformation = userRepository.getUserIdTable(user_id);
 
 		//errorメッセージ用変数
 		List<String> msg = new ArrayList<>();

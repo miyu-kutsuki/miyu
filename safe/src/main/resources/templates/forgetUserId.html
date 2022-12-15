@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="./css/frameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
-<title>パスワードを忘れた方</title>
+<title>ユーザーIDを忘れた方</title>
 </head>
 <body>
 	<div layout:fragment="contents">
@@ -17,11 +17,11 @@
 		
 		<div class="container">
 			<div class="d-flex flex-column align-items-center justify-content-center">
-				<h1>パスワードを忘れた方</h1>
+				<h1>ユーザーIDを忘れた方</h1>
 				<div class="outer_frame">
 					<div class="d-grid gap-2 mt-3 p-0">
 					
-						<form th:action="@{/CheckUserId}" method="post">
+						<form th:action="@{/CheckPassword}" method="post">
 							<div class="error_frame">
 								<ul th:unless="${msg} == null" class="">
 									<th:block th:each=erroMsg:${msg}>
@@ -32,8 +32,14 @@
 							<div class="in_frame mb-3">
 							
 								<div class="mb-3">
-									<label for="user_id" class="form-label">ユーザーID</label>
-									<input type="text" name="user_id" class="form-control">
+									<label for="id" class="form-label">会員番号</label>
+									<input type="number" name="id" class="form-control">
+								</div>
+							
+							
+								<div class="mb-3">
+									<label for="password" class="form-label">パスワード</label>
+									<input type="password" name="password" class="form-control">
 								</div>
 								
 								<div class="mb-3">

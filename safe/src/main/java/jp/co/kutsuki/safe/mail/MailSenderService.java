@@ -14,32 +14,25 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import jp.co.kutsuki.safe.entity.User;
-import jp.co.kutsuki.safe.safedb.repository.UserRepository;
+import jp.co.kutsuki.safe.im.service.ImMailSendService;
 
 /**
  * メール送信のクラス
  */
 @Service
-public class MailSenderService {
+public class MailSenderService implements ImMailSendService{
 	
 	@Autowired
 	MailSender mailSender;
 	
-	@Autowired
-	UserRepository userRepository;
-
-		
-	public void mailSend() {
-		
-		//ユーザー情報の取得
-		User user = userRepository.getOneUserTable(3);
-		
+	@Override
+	public void mailSend(User user, String title ,String template) {
 		
 		//メール送信内容作成して設定
 		 SimpleMailMessage message = new SimpleMailMessage();
 		 message.setTo(user.getEmail());
 		 message.setFrom("doconano2023@gmail.com");
-		 message.setSubject("ユーザーIDお問い合せの件");
+		 message.setSubject(title);
 		 
 		//テンプレートエンジンを使用するための設定インスタンスを生成
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -55,7 +48,9 @@ public class MailSenderService {
 		//メールテンプレートに設定するパラメータを設定
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("name", user.getFamilyName());
+		variables.put("id", user.getId());
 		variables.put("user_id", user.getUser_id());
+		variables.put("password", user.getPassword());
 		variables.put("display", true);
 		
 		//テンプレートエンジンを実行してテキストを取得
@@ -63,7 +58,7 @@ public class MailSenderService {
 		context.setVariables(variables);
 		
 		//使用するテンプレートのファイル名とパラメータ情報を設定
-		String text = engine.process("/mail/mailTemplate.txt", context);
+		String text = engine.process(template, context);
 		message.setText(text);
 		//メール送信を実施
 		mailSender.send(message);

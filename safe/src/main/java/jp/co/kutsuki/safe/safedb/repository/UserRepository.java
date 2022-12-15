@@ -14,7 +14,9 @@ public interface UserRepository {
 	
 	public FormLogin getUser(String user_id);
 
-	public User getUserTable(String user_id);
+	public User getUserIdTable(String user_id);
+	
+	public User getUserPassTable(Integer id, String password);
 	
 	public ArrayList<User> getAllUserTable();
 	

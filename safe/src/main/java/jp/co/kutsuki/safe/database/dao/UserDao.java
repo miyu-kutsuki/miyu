@@ -49,15 +49,60 @@ public class UserDao implements UserRepository{
 		}
 		return user;	
 	}
-
+	
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
-	public User getUserTable(String user_id) {
+	public User getUserIdTable(String user_id) {
 		//SQL定義
 		String sql = " select * from users where user_id = ? and end_flag = false";
 		//SQL実行し1件取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql,user_id);
+		//結果を取得
+		User user = new User();
+		while(rs.next()) {
+			user.setId(rs.getInt("id"));
+			user.setUser_id(rs.getString("user_id"));
+			user.setPassword(rs.getString("password"));
+			user.setFamilyName(rs.getString("familyName"));
+			user.setFirstName(rs.getString("firstName"));
+			// Date型からLocaldate型へ変換
+			LocalDate birthday = new java.sql.Date(rs.getDate("birthday").getTime()).toLocalDate();
+			user.setBirthday(birthday);
+			user.setEmail(rs.getString("email"));
+			user.setQuestion_id(rs.getInt("question_id"));
+			user.setQuestion(rs.getString("question"));
+			user.setAnswer(rs.getString("answer"));
+			user.setEnd_flag(rs.getBoolean("end_flag"));
+		}
+
+		//条件に一致するuser_idがなかった場合
+		//NullPointerExceptionを回避するために"none"を代入している
+		if(user.getId() == null) {
+			user.setUser_id("none");
+			user.setPassword("none");
+			user.setFamilyName("none");
+			user.setFirstName("none");
+			// Date型からLocaldate型へ変換
+			LocalDate birthday = new java.sql.Date(1111-11-11).toLocalDate();
+			user.setBirthday(birthday);
+			user.setEmail("none");
+			user.setQuestion_id(-1);
+			user.setQuestion("none");
+			user.setAnswer("none");
+			
+		}
+		return user;
+	}
+	
+	/** userテーブルから
+	 * end_flag==falseのみ1件取得  */
+	@Override
+	public User getUserPassTable(Integer id, String password) {
+		//SQL定義
+		String sql = " select * from users where id = ? and password = ? and end_flag = false";
+		//SQL実行し1件取得を実施
+		SqlRowSet rs = template.queryForRowSet(sql,id, password);
 		//結果を取得
 		User user = new User();
 		while(rs.next()) {
