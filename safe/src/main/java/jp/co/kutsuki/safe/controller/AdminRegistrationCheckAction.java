@@ -34,7 +34,7 @@ public class AdminRegistrationCheckAction {
 	HttpSession session;
 
 	@RequestMapping(value="/AdminRegistrationCheckAction", method = RequestMethod.POST)
-	public String UserView(@RequestParam String admin_id, @RequestParam String password,
+	public String userView(@RequestParam String admin_id, @RequestParam String password,
 			@Validated @ModelAttribute Admin admin, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入

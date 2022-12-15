@@ -27,9 +27,9 @@ public interface MissingPersonsSightingsRepository {
 
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsIdTable(String id);
 
-	public void Update(String id, MissingPersonsSightings missingPersonsSightings);
+	public void update(String id, MissingPersonsSightings missingPersonsSightings);
 
-	public void Delete(String id);
+	public void delete(String id);
 
-	public void DeleteUser(String user_id);
+	public void deleteUser(String user_id);
 }

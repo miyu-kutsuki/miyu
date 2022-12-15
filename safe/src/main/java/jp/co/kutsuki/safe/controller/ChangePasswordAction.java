@@ -30,7 +30,7 @@ public class ChangePasswordAction {
 	UserRepository userRepository;
 
 	@RequestMapping(value="/ChangePassword", method = RequestMethod.POST)
-	public String ChangePassword(@RequestParam String password1, 
+	public String changePassword(@RequestParam String password1, 
 			@RequestParam String password2, RedirectAttributes redirectAttributes) {
 		
 		//セッション有効チェック

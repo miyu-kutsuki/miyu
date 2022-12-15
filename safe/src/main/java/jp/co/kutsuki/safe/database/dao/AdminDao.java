@@ -58,7 +58,7 @@ public class AdminDao implements AdminRepository{
 	/** idで指定された行のend_flagにtrueをセットする */
 	@Transactional
 	@Override
-	public void Delete(Integer id) {
+	public void delete(Integer id) {
 		//SQL定義
 		String sql = "update admin set end_flag = true where id = ?";
 		//SQL実行し登録を実施

@@ -34,7 +34,7 @@ public class LoginAction {
 	HttpSession session;
 
 	@RequestMapping(value="/LoginAction", method = RequestMethod.POST)
-	public String UserView(@RequestParam String user_id, @RequestParam String password,
+	public String userView(@RequestParam String user_id, @RequestParam String password,
 			@Validated @ModelAttribute FormLogin formLogin, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		//errorメッセージ用変数

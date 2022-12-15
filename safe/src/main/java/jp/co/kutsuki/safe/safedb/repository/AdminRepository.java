@@ -14,6 +14,6 @@ public interface AdminRepository {
 
 	public void setAdminTable(Admin admin);
 
-	public void Delete(Integer id);
+	public void delete(Integer id);
 
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ResettingPasswordPageAction {
 	
 	@GetMapping
-	public String PageView() {
+	public String pageView() {
 		
 		return "resettingPassword";
 	}

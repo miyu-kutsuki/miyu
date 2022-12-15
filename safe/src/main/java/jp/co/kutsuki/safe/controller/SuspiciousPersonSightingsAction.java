@@ -28,7 +28,7 @@ public class SuspiciousPersonSightingsAction {
 	HttpSession session;
 
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistration", method = RequestMethod.POST)
-	public String SuspiciousPersonSightingsView(RedirectAttributes redirectAttributes, Model model) {
+	public String suspiciousPersonSightingsView(RedirectAttributes redirectAttributes, Model model) {
 
 		//missing_persons_sightingsテーブルに登録
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");

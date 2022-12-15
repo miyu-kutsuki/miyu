@@ -41,7 +41,7 @@ public class UserRegistrationCheckAction {
 	HttpSession session;
 
 	@RequestMapping(value="/UserRegistrationCheckAction", method = RequestMethod.POST)
-	public String UserView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName, 
+	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName, 
 			@RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday, 
 			@RequestParam String email, @RequestParam Integer question_id, @RequestParam String answer,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {

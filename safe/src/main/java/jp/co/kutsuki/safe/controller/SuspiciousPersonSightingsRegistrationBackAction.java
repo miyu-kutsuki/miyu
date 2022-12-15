@@ -24,7 +24,7 @@ public class SuspiciousPersonSightingsRegistrationBackAction {
 	HttpSession session;
 
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistrationBackAction", method = RequestMethod.POST)
-	public String UserView(RedirectAttributes redirectAttributes, Model model) {
+	public String pageView(RedirectAttributes redirectAttributes, Model model) {
 
 		//入力情報を保持して行方不明者目撃情報登録画面へ遷移
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");

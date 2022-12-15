@@ -34,7 +34,7 @@ public class MissingPersonSightingsUpdateAction {
 	HttpSession session;
 
 	@RequestMapping(value="/MissingPersonSightingsUpdate", method = RequestMethod.POST)
-	public String MissingPersonSightingsUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
+	public String missingPersonSightingsUpdate(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "date", required = false) LocalDate date,
 			@RequestParam String gender, @RequestParam(name = "age", required = false) Integer age,
 			@RequestParam String detail, @RequestParam String prefectures, @RequestParam String municipalities, @RequestParam String other,
 			@Validated @ModelAttribute MissingPersonsSightings missingPersonSightings, BindingResult bindingResult,
@@ -67,7 +67,7 @@ public class MissingPersonSightingsUpdateAction {
 			missingPersonsSightings.setMunicipalities(municipalities);
 			missingPersonsSightings.setOther(other);
 			missingPersonsSightings.setUser_id(userInformation.getUser_id());
-			missingPersonsSightingsRepository.Update(id, missingPersonsSightings);
+			missingPersonsSightingsRepository.update(id, missingPersonsSightings);
 
 			return "redirect:UserInformations";
 		}

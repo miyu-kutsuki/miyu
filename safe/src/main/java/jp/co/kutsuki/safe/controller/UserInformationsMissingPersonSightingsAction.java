@@ -26,7 +26,7 @@ public class UserInformationsMissingPersonSightingsAction {
 	HttpSession session;
 
 	@RequestMapping(value="/UserInformationsMissingPersonSightingsAction", method = RequestMethod.POST)
-	public String UserInformationsView(@RequestParam(name = "edit", required = false) String edit,
+	public String userInformationsView(@RequestParam(name = "edit", required = false) String edit,
 			@RequestParam(name = "end", required = false) String end, RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
@@ -50,7 +50,7 @@ public class UserInformationsMissingPersonSightingsAction {
 
 		//終了ボタンが押下されたら指定されたidのカラムend_flagにtrueをセットする
 		if(!(end == null)) {
-			missingPersonsSightingsRepository.Delete(end);
+			missingPersonsSightingsRepository.delete(end);
 		}
 		
 		//画面の遷移先

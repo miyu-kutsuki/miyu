@@ -21,7 +21,7 @@ public class MissingPersonSightingsSearchPageAction {
 	HttpSession session;
 
 	@GetMapping
-	public String PageView(RedirectAttributes redirectAttributes) {
+	public String pageView(RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");

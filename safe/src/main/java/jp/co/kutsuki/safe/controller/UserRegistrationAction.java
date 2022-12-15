@@ -31,7 +31,7 @@ public class UserRegistrationAction {
 	ImMailSendService imMailSendService;
 
 	@RequestMapping(value="/UserRegistrationAction", method = RequestMethod.POST)
-	public String UserView(RedirectAttributes redirectAttributes, Model model) {
+	public String userView(RedirectAttributes redirectAttributes, Model model) {
 
 		//セッション切れかチェック
 		if(session.getAttribute("user") == null) {

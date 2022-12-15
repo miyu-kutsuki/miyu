@@ -34,7 +34,7 @@ public class LoginAdminAction {
 	HttpSession session;
 
 	@RequestMapping(value="/LoginAdminAction", method = RequestMethod.POST)
-	public String AdminView(@RequestParam String admin_id, @RequestParam String password,
+	public String adminView(@RequestParam String admin_id, @RequestParam String password,
 			@Validated @ModelAttribute Admin admin, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		//errorメッセージ用変数

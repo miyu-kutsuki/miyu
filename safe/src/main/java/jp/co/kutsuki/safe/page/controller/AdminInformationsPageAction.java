@@ -21,7 +21,7 @@ public class AdminInformationsPageAction {
 	HttpSession session;
 
 	@GetMapping
-	public String PageView(RedirectAttributes redirectAttributes) {
+	public String pageView(RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		if(session.getAttribute("admin") == null) {

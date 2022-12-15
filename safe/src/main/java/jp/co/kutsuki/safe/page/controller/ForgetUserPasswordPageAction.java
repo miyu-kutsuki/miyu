@@ -24,7 +24,7 @@ public class ForgetUserPasswordPageAction {
 	QuestionsCrudRepository questionsCrudRepository;
 	
 	@GetMapping
-	public String PageView(Model model) {
+	public String pageView(Model model) {
 		
 		//プルダウンの秘密の質問を取得
 		ArrayList<Questions> questionsList = (ArrayList<Questions>) questionsCrudRepository.findAll();
