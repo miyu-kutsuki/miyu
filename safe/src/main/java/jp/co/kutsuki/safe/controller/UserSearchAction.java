@@ -30,7 +30,7 @@ public class UserSearchAction {
 	HttpSession session;
 	
 	@RequestMapping(value="/UserSearch", method = RequestMethod.POST)
-	public String PageView(@RequestParam String user_id, RedirectAttributes redirectAttributes, Model model) {
+	public String pageView(@RequestParam String user_id, RedirectAttributes redirectAttributes, Model model) {
 		
 		//セッション有効チェック
 		if(session.getAttribute("admin") == null) {

@@ -19,7 +19,7 @@ public class LogaoutAdminAction {
 	HttpSession session;
 
 	@RequestMapping(value="/LogoutAdminAction", method = RequestMethod.GET)
-	public String Logout() {
+	public String logout() {
 		session.invalidate();
 		return "redirect:LoginAdmin";
 	}

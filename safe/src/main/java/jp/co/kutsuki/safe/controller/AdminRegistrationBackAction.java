@@ -23,7 +23,7 @@ public class AdminRegistrationBackAction {
 	HttpSession session;
 
 	@RequestMapping(value="/AdminRegistrationBackAction", method = RequestMethod.POST)
-	public String UserView(RedirectAttributes redirectAttributes, Model model) {
+	public String userView(RedirectAttributes redirectAttributes, Model model) {
 
 		//セッション切れかチェック
 		if(session.getAttribute("admin") == null) {

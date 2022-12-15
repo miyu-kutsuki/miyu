@@ -22,7 +22,7 @@ public class GuestsSuspiciousPersonSightingsSearchPageAction {
 	HttpSession session;
 
 	@GetMapping
-	public String PageView() {
+	public String pageView() {
 
 		FormLogin userInformation = new FormLogin();
 		if(session.getAttribute("user") == null) {

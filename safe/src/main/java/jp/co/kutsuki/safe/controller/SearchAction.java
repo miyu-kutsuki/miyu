@@ -38,7 +38,7 @@ public class SearchAction {
 
 
 	@RequestMapping(value="/Search", method = RequestMethod.POST)
-	public String SearchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate,
+	public String searchPageView(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "startDate", required = false)LocalDate startDate,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "endDate", required = false)LocalDate endDate,
 			@RequestParam String searchPlace, @RequestParam(name = "user_id", required = false) String user_id, Model model, RedirectAttributes redirectAttributes){
 

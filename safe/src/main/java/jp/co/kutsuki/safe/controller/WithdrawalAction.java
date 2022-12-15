@@ -42,7 +42,7 @@ public class WithdrawalAction {
 	HttpSession session;
 
 	@RequestMapping(value="/WithdrawalAction", method = RequestMethod.POST)
-	public String Withdrawal(@RequestParam (name="end")Integer id, RedirectAttributes redirectAttributes) {
+	public String withdrawal(@RequestParam (name="end")Integer id, RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
@@ -60,15 +60,15 @@ public class WithdrawalAction {
 		
 		//削除するユーザーIDで各情報の登録があればユーザーIDを"guests"に変更する
 		if(!(missingPersonsRepository.getMissingPersonsTable(user).size() == 0)) {
-			missingPersonsRepository.DeleteUser(user.getUser_id());
+			missingPersonsRepository.deleteUser(user.getUser_id());
 		}
 		
 		if(!(missingPersonsSightingsRepository.getMissingPersonsSightingsTable(user).size() == 0)) {
-			missingPersonsSightingsRepository.DeleteUser(user.getUser_id());
+			missingPersonsSightingsRepository.deleteUser(user.getUser_id());
 		}
 
 		if(!(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable(user).size() == 0)) {
-			suspiciousPersonSightingsRepository.DeleteUser(user.getUser_id());
+			suspiciousPersonSightingsRepository.deleteUser(user.getUser_id());
 		}
 		
 		//ユーザーIDを削除

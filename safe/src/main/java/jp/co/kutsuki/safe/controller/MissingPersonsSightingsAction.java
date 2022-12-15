@@ -27,7 +27,7 @@ public class MissingPersonsSightingsAction {
 	HttpSession session;
 
 	@RequestMapping(value="/MissingPersonsSightingsRegistration", method = RequestMethod.POST)
-	public String MissingPersonsSightingsView(RedirectAttributes redirectAttributes, Model model) {
+	public String missingPersonsSightingsView(RedirectAttributes redirectAttributes, Model model) {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");

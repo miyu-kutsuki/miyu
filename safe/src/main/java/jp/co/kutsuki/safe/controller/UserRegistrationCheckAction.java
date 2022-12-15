@@ -41,14 +41,14 @@ public class UserRegistrationCheckAction {
 	HttpSession session;
 
 	@RequestMapping(value="/UserRegistrationCheckAction", method = RequestMethod.POST)
-	public String UserView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName, 
+	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName, 
 			@RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday, 
 			@RequestParam String email, @RequestParam Integer question_id, @RequestParam String answer,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
 		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
 		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
-		User userInformation = userRepository.getUserTable(user_id);
+		User userInformation = userRepository.getUserIdTable(user_id);
 
 		//errorメッセージ用変数
 		List<String> msg = new ArrayList<>();

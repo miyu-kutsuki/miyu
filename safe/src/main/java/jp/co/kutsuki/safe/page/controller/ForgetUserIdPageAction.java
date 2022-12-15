@@ -17,8 +17,8 @@ import jp.co.kutsuki.safe.safedb.repository.QuestionsCrudRepository;
  *
  */
 @Controller
-@RequestMapping("ForgetUserPassword")
-public class ForgetUserPasswordPageAction {
+@RequestMapping("ForgetUserId")
+public class ForgetUserIdPageAction {
 	
 	@Autowired
 	QuestionsCrudRepository questionsCrudRepository;
@@ -30,6 +30,6 @@ public class ForgetUserPasswordPageAction {
 		ArrayList<Questions> questionsList = (ArrayList<Questions>) questionsCrudRepository.findAll();
 		model.addAttribute("questionsList", questionsList);
 		
-		return "forgetUserPassword";
+		return "forgetUserId";
 	}
 }

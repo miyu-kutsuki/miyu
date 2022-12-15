@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.im.service.ImMailSendService;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
 /**
@@ -25,9 +26,12 @@ public class UserRegistrationAction {
 
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	ImMailSendService imMailSendService;
 
 	@RequestMapping(value="/UserRegistrationAction", method = RequestMethod.POST)
-	public String UserView(RedirectAttributes redirectAttributes, Model model) {
+	public String userView(RedirectAttributes redirectAttributes, Model model) {
 
 		//セッション切れかチェック
 		if(session.getAttribute("user") == null) {
@@ -37,7 +41,13 @@ public class UserRegistrationAction {
 		//usersテーブルにuser_id,passwordを登録
 		User userInformation = (User) session.getAttribute("user");
 		userRepository.setUserTable(userInformation);
-		return "redirect:Login";
+		//ユーザー情報を取得
+		User userList = userRepository.getUserIdTable(userInformation.getUser_id());
+		imMailSendService.mailSend(userList, "ユーザーIDお問い合せの件" ,"/mail/mailRegisterTemplate.txt");
+		model.addAttribute("title", "登録完了");
+		model.addAttribute("msg", "ご登録が完了しました。");
+		
+		return "exit";
 
 	}
 }

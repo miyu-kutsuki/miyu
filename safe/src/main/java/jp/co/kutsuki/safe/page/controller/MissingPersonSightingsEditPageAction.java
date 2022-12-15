@@ -35,7 +35,7 @@ public class MissingPersonSightingsEditPageAction {
 	}
 
 	@GetMapping
-	public String EditPageView(Model model, RedirectAttributes redirectAttributes) {
+	public String editPageView(Model model, RedirectAttributes redirectAttributes) {
 
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");

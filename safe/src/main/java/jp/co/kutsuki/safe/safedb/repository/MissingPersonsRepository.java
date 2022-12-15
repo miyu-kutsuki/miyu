@@ -27,10 +27,10 @@ public interface MissingPersonsRepository {
 
 	public ArrayList<MissingPersons> getMissingPersonsIdTable(String id);
 
-	public void Update(String id, MissingPersons missingPersons);
+	public void update(String id, MissingPersons missingPersons);
 
-	public void Delete(String id);
+	public void delete(String id);
 
-	public void DeleteUser(String user_id);
+	public void deleteUser(String user_id);
 
 }

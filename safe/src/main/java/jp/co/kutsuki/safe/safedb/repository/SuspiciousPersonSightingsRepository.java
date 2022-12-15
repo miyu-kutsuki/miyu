@@ -27,9 +27,9 @@ public interface SuspiciousPersonSightingsRepository {
 
 	public ArrayList<SuspiciousPersonSightings> getSuspiciousPersonSightingsIdTable(String id);
 
-	public void Update(String id, SuspiciousPersonSightings suspiciousPersonSightings);
+	public void update(String id, SuspiciousPersonSightings suspiciousPersonSightings);
 
-	public void Delete(String id);
+	public void delete(String id);
 
-	public void DeleteUser(String user_id);
+	public void deleteUser(String user_id);
 }

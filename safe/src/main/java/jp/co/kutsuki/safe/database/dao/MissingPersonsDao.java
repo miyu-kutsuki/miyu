@@ -230,7 +230,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 	 */
 	@Transactional
 	@Override
-	public void Update(String id, MissingPersons missingPersons) {
+	public void update(String id, MissingPersons missingPersons) {
 		//SQL定義
 		String sql = "update missing_persons "
 				+ "set(date, name, gender, age, detail, prefectures, municipalities, other)=(?, ?, ?, ?, ?, ?, ?, ?) where id = ?";
@@ -248,7 +248,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 	 */
 	@Transactional
 	@Override
-	public void Delete(String id) {
+	public void delete(String id) {
 		//SQL定義
 		String sql = "update missing_persons set end_flag = true where id = ?";
 		//SQL実行し登録を実施
@@ -260,7 +260,7 @@ public class MissingPersonsDao implements MissingPersonsRepository {
 	 * 該当ユーザーが登録した行方不明者情報のユーザーを"guests"に変更する */
 	@Transactional
 	@Override
-	public void DeleteUser(String user_id) {
+	public void deleteUser(String user_id) {
 		//SQL定義
 		String sql = "update missing_persons set user_id = 'guests' where user_id = ? and end_flag = false";
 		//SQL実行し登録を実施
