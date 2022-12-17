@@ -30,11 +30,11 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public void setMissingPersonsSightingsTable(MissingPersonsSightings missingPersonsSightings) {
 		//SQL定義
-		String sql = "insert into missing_persons_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id) "
-				+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into missing_persons_sightings(date, gender, age, detail, prefectures, municipalities, other, user_id)"
+				+ " values(?, ?, pgp_sym_encrypt(?, get_passwd()), ?, ?, ?, ?, pgp_sym_encrypt(?, get_passwd()))";
 		//SQL実行し登録を実施
-		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(), missingPersonsSightings.getAge(),
-				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
+		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(),
+				missingPersonsSightings.getAge().toString(), missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
 				missingPersonsSightings.getMunicipalities(), missingPersonsSightings.getOther(), missingPersonsSightings.getUser_id());
 	}
 
@@ -43,7 +43,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable() {
 		//SQL定義
-		String sql = "select * from missing_persons_sightings where end_flag = false order by date ASC";
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql);
 		//結果を取得
@@ -73,7 +76,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsTable(FormLogin user) {
 		//SQL定義
-		String sql = "select * from missing_persons_sightings where user_id = ? and end_flag = false order by date ASC";
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where pgp_sym_decrypt(user_id, get_passwd()) = ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, user.getUser_id());
 		//結果を取得
@@ -103,7 +109,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getDateMissingPersonsSightingsTable(DateSearch dateSearch) {
 		//SQL定義
-		String sql = "select * from missing_persons_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, dateSearch.getStartDate(), dateSearch.getEndDate());
 		//結果を取得
@@ -132,7 +141,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getPlaceMissingPersonsSightingsTable(DateSearch  dateSearch) {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
 				+ "and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%");
@@ -162,7 +174,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getDatePlaceMissingPersonsSightingsTable(DateSearch dateSearch) {
 		//SQL定義
-		String sql = " select * from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where (prefectures like ? or municipalities like ? or other like ?) "
 				+ "and date >= ? and date <= ? and end_flag = false order by date ASC";
 		//SQL実行し取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql, "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%", "%" + dateSearch.getSearchPlace() + "%",
@@ -193,7 +208,10 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public ArrayList<MissingPersonsSightings> getMissingPersonsSightingsIdTable(String id) {
 		//SQL定義
-		String sql = "select * from missing_persons_sightings where id = ?";
+		String sql = "select id, date, gender,"
+				+ " pgp_sym_decrypt(age, get_passwd())as age, detail, prefectures, municipalities, other,"
+				+ " pgp_sym_decrypt(user_id, get_passwd())as user_id"
+				+ " from missing_persons_sightings where id = ?";
 		//SQL実行し取得を実施
 		Integer listId = Integer.valueOf(id);
 		SqlRowSet rs = template.queryForRowSet(sql, listId);
@@ -228,11 +246,12 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	public void update(String id, MissingPersonsSightings missingPersonsSightings) {
 		//SQL定義
 		String sql = "update missing_persons_sightings "
-				+ "set(date, gender, age, detail, prefectures, municipalities, other)=(?, ?, ?, ?, ?, ?, ?) where id = ?";
+				+ "set(date, gender, age, detail, prefectures, municipalities, other)"
+				+ "=(?, ?, pgp_sym_encrypt(?, get_passwd()), ?, ?, ?, ?) where id = ?";
 		//SQL実行し登録を実施
 		Integer listId = Integer.valueOf(id);
-		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(), missingPersonsSightings.getAge(),
-				missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
+		template.update(sql, missingPersonsSightings.getDate(), missingPersonsSightings.getGender(),
+				missingPersonsSightings.getAge().toString(), missingPersonsSightings.getDetail(), missingPersonsSightings.getPrefectures(),
 				missingPersonsSightings.getMunicipalities(), missingPersonsSightings.getOther(), listId);
 	}
 
@@ -256,7 +275,8 @@ public class MissingPersonsSightingsDao implements MissingPersonsSightingsReposi
 	@Override
 	public void deleteUser(String user_id) {
 		//SQL定義
-		String sql = "update missing_persons_sightings set user_id = 'guests' where user_id = ? and end_flag = false";
+		String sql = "update missing_persons_sightings set user_id = pgp_sym_encrypt('guests', get_passwd())"
+				+ " where pgp_sym_decrypt(user_id, get_passwd()) = ? and end_flag = false";
 		//SQL実行し登録を実施
 		template.update(sql, user_id);
 	}
