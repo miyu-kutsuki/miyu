@@ -55,6 +55,8 @@ public class SearchAction {
 		}else {
 			dateSearch.setSearchPlace(searchPlace);
 		}
+		
+		//各情報を保管するクラス
 		Informations informations = new Informations();
 
 		//errorメッセージ用リスト

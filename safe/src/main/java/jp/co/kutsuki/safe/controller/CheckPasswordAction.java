@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.User;
+import jp.co.kutsuki.safe.im.service.ImChangeCheckService;
 import jp.co.kutsuki.safe.im.service.ImMailSendService;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 
@@ -36,6 +37,9 @@ public class CheckPasswordAction {
 	
 	@Autowired
 	ImMailSendService imMailSendService;
+	
+	@Autowired
+	ImChangeCheckService imChangeCheckService;
 	
 	@RequestMapping(value="/CheckPassword", method = RequestMethod.POST)
 	public String userReissue(@RequestParam(name = "id", required = false) Integer id, @RequestParam String password, @RequestParam String familyName, @RequestParam String firstName,
@@ -58,29 +62,7 @@ public class CheckPasswordAction {
 			msg.add("パスワードが入力されていません。");
 		}
 		
-		if(familyName.isEmpty()) {
-			msg.add("名字が入力されていません。");
-		}
-		
-		if(firstName.isEmpty()) {
-			msg.add("名前が入力されていません。");
-		}
-		
-		if(birthday == null) {
-			msg.add("生年月日入力されていません。");
-		}
-
-		if(email.isEmpty()) {
-			msg.add("メールアドレスが入力されていません。");
-		}
-		
-		if(questions == null) {
-			msg.add("秘密の質問が選択されていません。");
-		}
-		
-		if(answer.isEmpty()) {
-			msg.add("秘密の質問の答えが入力されていません。");
-		}
+		imChangeCheckService.nullcheckExcute(msg, familyName, firstName, firstName, email, questions, answer);
 		
 		//空欄が一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
@@ -97,29 +79,7 @@ public class CheckPasswordAction {
 			msg.add("パスワードが違います。");
 		}
 		
-		if(!familyName.equals(userList.getFamilyName())) {
-			msg.add("名字が違います。");
-		}
-		
-		if(!firstName.equals(userList.getFirstName())) {
-			msg.add("名前が違います。");
-		}
-		
-		if(!birthday.equals(userList.getBirthday())) {
-			msg.add("生年月日が違います。");
-		}
-
-		if(!email.equals(userList.getEmail())) {
-			msg.add("メールアドレスが違います。");
-		}
-		
-		if(!questions.equals(userList.getQuestion_id())) {
-			msg.add("秘密の質問が違います。");
-		}
-		
-		if(!answer.equals(userList.getAnswer())) {
-			msg.add("秘密の質問の答えが違います。");
-		}
+		imChangeCheckService.checkExcute(msg, userList, familyName, firstName, firstName, email, questions, answer);
 		
 		//誤りが一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
