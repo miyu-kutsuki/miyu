@@ -1,5 +1,6 @@
 package jp.co.kutsuki.safe.change;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class ChangeCheckService implements ImChangeCheckService{
 	
 	/** 共通nullチェック */
 	@Override
-	public void nullcheckExcute(List<String> msg, String familyName, String firstName, String birthday,
+	public void nullcheckExcute(List<String> msg, String familyName, String firstName, LocalDate birthday,
 			String email, Integer questions, String answer) {
 		
 		if(familyName.isEmpty()) {
@@ -46,7 +47,7 @@ public class ChangeCheckService implements ImChangeCheckService{
 
 	/** 共通チェック */
 	@Override
-	public void checkExcute(List<String> msg, User userList, String familyName, String firstName, String birthday,
+	public void checkExcute(List<String> msg, User userList, String familyName, String firstName, LocalDate birthday,
 			String email, Integer questions, String answer) {
 		
 		if(!familyName.equals(userList.getFamilyName())) {

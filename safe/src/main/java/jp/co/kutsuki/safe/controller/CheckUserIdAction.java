@@ -53,7 +53,7 @@ public class CheckUserIdAction {
 			msg.add("ユーザーIDが入力されていません。");
 		}
 		
-		imChangeCheckService.nullcheckExcute(msg, familyName, firstName, firstName, email, questions, answer);
+		imChangeCheckService.nullcheckExcute(msg, familyName, firstName, birthday, email, questions, answer);
 		
 		//空欄が一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
@@ -66,7 +66,7 @@ public class CheckUserIdAction {
 			msg.add("ユーザーIDが違います。");
 		}
 		
-		imChangeCheckService.checkExcute(msg, userList, familyName, firstName, firstName, email, questions, answer);
+		imChangeCheckService.checkExcute(msg, userList, familyName, firstName, birthday, email, questions, answer);
 		
 		//誤りが一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
