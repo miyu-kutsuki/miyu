@@ -17,7 +17,7 @@ import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.im.service.ImMailSendService;
 
 /**
- * メール送信のクラス
+ * メール送信の業務ロジッククラス
  */
 @Service
 public class MailSenderService implements ImMailSendService{

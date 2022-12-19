@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +32,7 @@ public class ChangePasswordAction {
 
 	@RequestMapping(value="/ChangePassword", method = RequestMethod.POST)
 	public String changePassword(@RequestParam String password1, 
-			@RequestParam String password2, RedirectAttributes redirectAttributes) {
+			@RequestParam String password2, RedirectAttributes redirectAttributes, Model model) {
 		
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
@@ -67,7 +68,9 @@ public class ChangePasswordAction {
 		if(msg.size() == 0){
 			FormLogin user = (FormLogin)session.getAttribute("user");
 			userRepository.updatePassword(user.getUser_id(), password1);
-			msg.add("パスワードが変更されました。");
+			model.addAttribute("title", "パスワード変更の完了");
+			model.addAttribute("msg", "パスワードが変更されました。");
+			return "exit";
 		}
 		
 		redirectAttributes.addFlashAttribute("msg4", msg);
@@ -77,6 +80,7 @@ public class ChangePasswordAction {
 			if(session.getAttribute("flag") == null) {
 				return "redirect:Login";
 			}else {
+				redirectAttributes.addFlashAttribute("msg", msg);
 				return "redirect:ResettingPassword";
 			}
 		}
