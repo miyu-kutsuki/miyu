@@ -24,7 +24,8 @@ public class AdminDao implements AdminRepository{
 	@Override
 	public Admin getAdminTable(String admin_id) {
 		//SQL定義
-		String sql = " select * from admin where admin_id = ? and end_flag = false";
+		String sql = "select id, pgp_sym_decrypt(admin_id, get_passwd())as admin_id, pgp_sym_decrypt(password, get_passwd())as password, end_flag"
+				+ " from admin where pgp_sym_decrypt(admin_id, get_passwd()) = ? and end_flag = false";
 		//SQL実行し1件取得を実施
 		SqlRowSet rs = template.queryForRowSet(sql,admin_id);
 		//結果を取得
@@ -50,7 +51,8 @@ public class AdminDao implements AdminRepository{
 	@Override
 	public void setAdminTable(Admin admin) {
 		//SQL定義
-		String sql = " insert into admin(admin_id, password) values(?, ?)";
+		String sql = " insert into admin(admin_id, password)"
+				+ " values(pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()))";
 		//SQL実行し登録を実施
 		template.update(sql, admin.getAdmin_id(), admin.getPassword());
 	}
