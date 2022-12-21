@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>地図検索</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="icon" href="./images/favicon.ico">
+<link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+<script src="https://js.arcgis.com/4.23/"></script>
+<link rel="stylesheet" href="./css/mapStyle.css">
+</head>
+<body>
+		<!-- View を表示する要素 -->
+		<script>
+		  require([
+		      // モジュールの読み込み
+		      "esri/Map",
+		      "esri/views/MapView"
+		    ],(Map, MapView) => {
+
+		      // Map の作成
+		      var map = new Map({
+		        basemap: "streets" // ベースマップを定義 (deprecated)
+		      });
+
+		      // View の作成
+		      var view = new MapView({
+		        container: "viewDiv", // View を表示する DOM ノードを参照
+		        map: map  // map オブジェクトを参照
+		      });
+
+		    });
+		</script>
+		<div id="viewDiv"></div>
+</body>
+</html>
