@@ -19,17 +19,17 @@ import jp.co.kutsuki.safe.safedb.repository.QuestionsCrudRepository;
 @Controller
 @RequestMapping("ForgetUserPassword")
 public class ForgetUserPasswordPageAction {
-	
+
 	@Autowired
 	QuestionsCrudRepository questionsCrudRepository;
-	
+
 	@GetMapping
 	public String pageView(Model model) {
-		
+
 		//プルダウンの秘密の質問を取得
 		ArrayList<Questions> questionsList = (ArrayList<Questions>) questionsCrudRepository.findAll();
 		model.addAttribute("questionsList", questionsList);
-		
+
 		return "forgetUserPassword";
 	}
 }

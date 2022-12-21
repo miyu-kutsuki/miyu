@@ -10,5 +10,5 @@ import jp.co.kutsuki.safe.entity.Questions;
  *
  */
 public interface QuestionsCrudRepository extends CrudRepository<Questions, Integer>{
-	
+
 }

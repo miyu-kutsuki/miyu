@@ -26,7 +26,7 @@ import jp.co.kutsuki.safe.safedb.repository.AdminRepository;
  */
 @Controller
 public class AdminRegistrationCheckAction {
-	
+
 	@Autowired
 	AdminRepository adminRepository;
 

@@ -19,10 +19,10 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 @Controller
 @RequestMapping("UserInformationChangeScreen")
 public class UserInformationChangePageAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -35,7 +35,7 @@ public class UserInformationChangePageAction {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//ログイン中のuser_idを取得
 		FormLogin userInformation = (FormLogin) session.getAttribute("user");
 		//ユーザー情報の取得

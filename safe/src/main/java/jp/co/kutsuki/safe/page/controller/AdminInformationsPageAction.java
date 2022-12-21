@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("InformationsAdmin")
 public class AdminInformationsPageAction {
-	
+
 	@Autowired
 	HttpSession session;
 

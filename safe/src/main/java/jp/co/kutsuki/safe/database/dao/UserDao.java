@@ -27,7 +27,7 @@ public class UserDao implements UserRepository{
 
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** userテーブルから
 	 * id, user_id, password
 	 * end_flag==falseのみ1件取得  */
@@ -53,9 +53,9 @@ public class UserDao implements UserRepository{
 			user.setUser_id("none");
 			user.setPassword("none");
 		}
-		return user;	
+		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
@@ -106,11 +106,11 @@ public class UserDao implements UserRepository{
 			user.setQuestion_id(-1);
 			user.setQuestion("none");
 			user.setAnswer("none");
-			
+
 		}
 		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
@@ -162,11 +162,11 @@ public class UserDao implements UserRepository{
 			user.setQuestion_id(-1);
 			user.setQuestion("none");
 			user.setAnswer("none");
-			
+
 		}
 		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ全件取得  */
 	@Override
@@ -207,7 +207,7 @@ public class UserDao implements UserRepository{
 			}
 		return userList;
 	}
-	
+
 	/** userテーブルからidで指定されたレコードかつ
 	 * end_flag==falseのみ取得  */
 	@Override
@@ -256,9 +256,9 @@ public class UserDao implements UserRepository{
 				+ " values(pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()),"
 				+ " pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()),"
 				+ " pgp_sym_encrypt(?, get_passwd()), ?, ?, pgp_sym_encrypt(?, get_passwd()))";
-		
+
 		//データの暗号化の関係上LocalDate型を一度Stringに変換する
-		String birthday = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+		String birthday = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		//SQL実行し登録を実施
 		template.update(sql, user.getUser_id(), user.getPassword(),user.getFamilyName(), user.getFirstName(), birthday,
 				user.getEmail(), user.getQuestion_id(), user.getQuestion(), user.getAnswer());

@@ -30,7 +30,7 @@ public class SearchAction {
 
 	@Autowired
 	InformationRepository informationRepository;
-	
+
 	@Autowired
 	ImSearchService imSearchService;
 
@@ -55,7 +55,7 @@ public class SearchAction {
 		}else {
 			dateSearch.setSearchPlace(searchPlace);
 		}
-		
+
 		//各情報を保管するクラス
 		Informations informations = new Informations();
 
@@ -77,7 +77,7 @@ public class SearchAction {
 		if(dateSearch.getEndDate() == null) {
 			msgList.add("終了日付を入力してください。");
 		}
-		
+
 		//検索日付の終了日を開始日より未来ではないか
 		if(!(dateSearch.getStartDate() == null) && !(dateSearch.getEndDate() == null)) {
 			if(dateSearch.getEndDate().isBefore(dateSearch.getStartDate())) {
@@ -87,7 +87,7 @@ public class SearchAction {
 
 		//開始・終了のどちらかの日付が指定されていない場合
 		if(msgList.size() == 1) {
-			
+
 			//エラーメッセージリストをセット
 			redirectAttributes.addFlashAttribute("msg", msgList);
 
@@ -151,10 +151,10 @@ public class SearchAction {
 		//検索の実行
 		imSearchService.allSearchExcute(msgList, informations, missingPersons, missingPersonsSightings, suspiciousPersonSightings,
 				place, redirectAttributes);
-		
+
 		//user_idの検索
 		imSearchService.userIdSearchExcute(user_id, informations, redirectAttributes);
-		
+
 		//各リストのサイズが０の場合メッセージを出力
 		if(informations.getMissingPersonsList().size() == 0) {
 			redirectAttributes.addFlashAttribute("msg1", msg);
@@ -165,7 +165,7 @@ public class SearchAction {
 		if(informations.getSuspiciousPersonSightingsList().size() == 0) {
 			redirectAttributes.addFlashAttribute("msg3", msg);
 		}
-		
+
 		//画面遷移
 		if(!(session.getAttribute("userInformation") == null)) {
 			//リダイレクトでゲスト用不審者のみの検索ページへ遷移
@@ -185,7 +185,7 @@ public class SearchAction {
 				return "redirect:SuspiciousPersonSightingsSearch";
 			}
 		}
-		
+
 		if(!(session.getAttribute("admin") == null)) {
 			//リダイレクトで管理者用の掲載情報管理ページへ遷移
 			return "redirect:InformationsAdmin";

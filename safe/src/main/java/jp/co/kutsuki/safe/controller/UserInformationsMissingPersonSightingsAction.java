@@ -52,7 +52,7 @@ public class UserInformationsMissingPersonSightingsAction {
 		if(!(end == null)) {
 			missingPersonsSightingsRepository.delete(end);
 		}
-		
+
 		//画面の遷移先
 		if(!(session.getAttribute("admin") == null)) {
 			//リダイレクトで管理者用の掲載情報管理ページへ遷移

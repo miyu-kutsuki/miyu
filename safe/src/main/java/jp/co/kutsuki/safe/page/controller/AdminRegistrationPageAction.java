@@ -15,7 +15,7 @@ import jp.co.kutsuki.safe.entity.Admin;
 @Controller
 @RequestMapping("AdminRegistration")
 public class AdminRegistrationPageAction {
-	
+
 	@ModelAttribute
 	public Admin setUpAdmin() {
 		return new Admin();

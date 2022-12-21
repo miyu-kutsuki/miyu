@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("ResettingPassword")
 public class ResettingPasswordPageAction {
-	
+
 	@GetMapping
 	public String pageView() {
-		
+
 		return "resettingPassword";
 	}
 }

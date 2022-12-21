@@ -21,43 +21,43 @@ import jp.co.kutsuki.safe.safedb.repository.UserRepository;
  */
 @Controller
 public class ChangeFamilyNameAction {
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@RequestMapping(value="/ChangeFamilyName", method = RequestMethod.POST)
 	public String changePassword(@RequestParam String familyName, RedirectAttributes redirectAttributes) {
-		
+
 		//セッション有効チェック
 		boolean check = (boolean)session.getAttribute("check");
 		if(check) {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Login";
 		}
-		
+
 		//errorメッセージ用変数
 		List<String> msg = new ArrayList<>();
-		
+
 		//変更用のpassword1と確認用のpassword2が空欄かチェック
 		if(familyName.isEmpty()) {
 			msg.add("変更後欄に入力がありません。");
 		}
-		
+
 		if(!(familyName.length() >= 1) || !(familyName.length() <= 30)) {
 			msg.add("名字は1〜30桁で入力して下さい。");
 		}
-		
+
 		if(msg.size() == 0){
 			FormLogin user = (FormLogin)session.getAttribute("user");
 			userRepository.updateFamilyName(user.getUser_id(), familyName);
 			msg.add("名字が変更されました。");
 		}
-		
+
 		redirectAttributes.addFlashAttribute("msg5", msg);
-		
-		return "redirect:UserInformations";		
+
+		return "redirect:UserInformations";
 	}
 }

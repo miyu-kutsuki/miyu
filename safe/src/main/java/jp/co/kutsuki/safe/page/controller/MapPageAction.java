@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("MapSearch")
 public class MapPageAction {
-	
+
 	@GetMapping
 	public String loginPageView() {
-		
+
 		return "map";
 	}
 }

@@ -18,7 +18,7 @@ import jp.co.kutsuki.safe.entity.Admin;
  */
 @Controller
 public class AdminRegistrationBackAction {
-	
+
 	@Autowired
 	HttpSession session;
 

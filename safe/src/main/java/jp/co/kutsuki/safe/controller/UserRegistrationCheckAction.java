@@ -33,7 +33,7 @@ public class UserRegistrationCheckAction {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	QuestionsCrudRepository questionsCrudRepository;
 
@@ -41,8 +41,8 @@ public class UserRegistrationCheckAction {
 	HttpSession session;
 
 	@RequestMapping(value="/UserRegistrationCheckAction", method = RequestMethod.POST)
-	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName, 
-			@RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday, 
+	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName,
+			@RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday,
 			@RequestParam String email, @RequestParam Integer question_id, @RequestParam String answer,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
@@ -77,7 +77,7 @@ public class UserRegistrationCheckAction {
 
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
-			
+
 			User newUser = new User();
 			newUser.setUser_id(user_id);
 			newUser.setPassword(password);
@@ -87,15 +87,15 @@ public class UserRegistrationCheckAction {
 			newUser.setEmail(email);
 			newUser.setQuestion_id(question_id);
 			newUser.setAnswer(answer);
-			
+
 			//プルダウンの秘密の質問を取得
 			Optional<Questions> getQuestion = questionsCrudRepository.findById(question_id);
 			Questions question = getQuestion.get();
 			newUser.setQuestion(question.getQuestions());
-			
+
 			session.setAttribute("user", newUser);
 			model.addAttribute("user", newUser);
-			
+
 			return "forward:UserRegistrationCheck";
 		}else {
 			redirectAttributes.addFlashAttribute("msg", msg);

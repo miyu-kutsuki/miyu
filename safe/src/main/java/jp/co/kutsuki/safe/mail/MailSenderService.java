@@ -21,19 +21,19 @@ import jp.co.kutsuki.safe.im.service.ImMailSendService;
  */
 @Service
 public class MailSenderService implements ImMailSendService{
-	
+
 	@Autowired
 	MailSender mailSender;
-	
+
 	@Override
 	public void mailSend(User user, String title ,String template) {
-		
+
 		//メール送信内容作成して設定
 		 SimpleMailMessage message = new SimpleMailMessage();
 		 message.setTo(user.getEmail());
 		 message.setFrom("doconano2023@gmail.com");
 		 message.setSubject(title);
-		 
+
 		//テンプレートエンジンを使用するための設定インスタンスを生成
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 		//テンプレートエンジンの種類を指定
@@ -44,7 +44,7 @@ public class MailSenderService implements ImMailSendService{
 		//テンプレートエンジンを使用するためのインスタンスを生成
 		SpringTemplateEngine engine = new SpringTemplateEngine();
 		engine.setTemplateResolver(templateResolver);
-		
+
 		//メールテンプレートに設定するパラメータを設定
 		Map<String, Object> variables = new HashMap<>();
 		variables.put("name", user.getFamilyName());
@@ -52,11 +52,11 @@ public class MailSenderService implements ImMailSendService{
 		variables.put("user_id", user.getUser_id());
 		variables.put("password", user.getPassword());
 		variables.put("display", true);
-		
+
 		//テンプレートエンジンを実行してテキストを取得
 		Context context = new Context();
 		context.setVariables(variables);
-		
+
 		//使用するテンプレートのファイル名とパラメータ情報を設定
 		String text = engine.process(template, context);
 		message.setText(text);

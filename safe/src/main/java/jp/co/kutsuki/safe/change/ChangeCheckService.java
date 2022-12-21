@@ -14,20 +14,20 @@ import jp.co.kutsuki.safe.im.service.ImChangeCheckService;
  */
 @Service
 public class ChangeCheckService implements ImChangeCheckService{
-	
+
 	/** 共通nullチェック */
 	@Override
 	public void nullcheckExcute(List<String> msg, String familyName, String firstName, LocalDate birthday,
 			String email, Integer questions, String answer) {
-		
+
 		if(familyName.isEmpty()) {
 			msg.add("名字が入力されていません。");
 		}
-		
+
 		if(firstName.isEmpty()) {
 			msg.add("名前が入力されていません。");
 		}
-		
+
 		if(birthday == null) {
 			msg.add("生年月日入力されていません。");
 		}
@@ -35,11 +35,11 @@ public class ChangeCheckService implements ImChangeCheckService{
 		if(email.isEmpty()) {
 			msg.add("メールアドレスが入力されていません。");
 		}
-		
+
 		if(questions == null) {
 			msg.add("秘密の質問が選択されていません。");
 		}
-		
+
 		if(answer.isEmpty()) {
 			msg.add("秘密の質問の答えが入力されていません。");
 		}
@@ -49,15 +49,15 @@ public class ChangeCheckService implements ImChangeCheckService{
 	@Override
 	public void checkExcute(List<String> msg, User userList, String familyName, String firstName, LocalDate birthday,
 			String email, Integer questions, String answer) {
-		
+
 		if(!familyName.equals(userList.getFamilyName())) {
 			msg.add("名字が違います。");
 		}
-		
+
 		if(!firstName.equals(userList.getFirstName())) {
 			msg.add("名前が違います。");
 		}
-		
+
 		if(!birthday.equals(userList.getBirthday())) {
 			msg.add("生年月日が違います。");
 		}
@@ -65,11 +65,11 @@ public class ChangeCheckService implements ImChangeCheckService{
 		if(!email.equals(userList.getEmail())) {
 			msg.add("メールアドレスが違います。");
 		}
-		
+
 		if(!questions.equals(userList.getQuestion_id())) {
 			msg.add("秘密の質問が違います。");
 		}
-		
+
 		if(!answer.equals(userList.getAnswer())) {
 			msg.add("秘密の質問の答えが違います。");
 		}

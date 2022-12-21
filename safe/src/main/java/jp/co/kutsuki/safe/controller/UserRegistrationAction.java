@@ -26,7 +26,7 @@ public class UserRegistrationAction {
 
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	ImMailSendService imMailSendService;
 
@@ -46,7 +46,7 @@ public class UserRegistrationAction {
 		imMailSendService.mailSend(userList, "ユーザーIDお問い合せの件" ,"/mail/mailRegisterTemplate.txt");
 		model.addAttribute("title", "登録完了");
 		model.addAttribute("msg", "ご登録が完了しました。");
-		
+
 		return "exit";
 
 	}
