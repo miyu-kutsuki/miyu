@@ -35,6 +35,10 @@ body {
 	background-repeat: no-repeat;
 	margin: 100px auto 0 auto;
 	}
+
+	img{
+	max-width: 350px;
+	}
   }
  
   @include mediaQuery(sm) {

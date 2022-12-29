@@ -6,6 +6,12 @@
   }
 }
 
+@media screen and (max-width:575px) {
+	img{
+		max-width: 350px;
+	}
+}
+
 body {
 	display: flex;
 	flex-direction: column;

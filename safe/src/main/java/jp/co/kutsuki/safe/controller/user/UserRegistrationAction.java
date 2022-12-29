@@ -43,7 +43,7 @@ public class UserRegistrationAction {
 		userRepository.setUserTable(userInformation);
 		//ユーザー情報を取得
 		User userList = userRepository.getUserIdTable(userInformation.getUser_id());
-		imMailSendService.mailSend(userList, "ユーザーIDお問い合せの件" ,"/mail/mailRegisterTemplate.txt");
+		imMailSendService.mailSend(userList, "会員登録完了のお知らせ" ,"/mail/mailRegisterTemplate.txt");
 		model.addAttribute("title", "登録完了");
 		model.addAttribute("msg", "ご登録が完了しました。");
 

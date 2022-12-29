@@ -10,6 +10,12 @@ body {
 	margin: 0;
 }
 
+@media screen and (max-width:575px) {
+	img{
+		max-width: 350px;
+	}
+}
+
 a {
   text-decoration: none;
 }
