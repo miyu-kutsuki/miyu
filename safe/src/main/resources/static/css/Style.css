@@ -8,7 +8,21 @@ body {
   background-repeat: no-repeat;
   margin: 0;
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 412px) {
+  body .top {
+    max-width: 90%;
+    height: 100vh;
+    background-image: url(../images/pc6.png);
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 100px auto 0 auto;
+  }
+  body img {
+    max-width: 250px;
+  }
+}
+@media screen and (min-width: 413px) {
   body .top {
     max-width: 90%;
     height: 100vh;

@@ -6,10 +6,34 @@ body {
   background-image: url(../images/background.png);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: auto;
   margin: 0;
 }
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 412px) {
+  body .main_flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+  }
+  body .menu2 {
+    order: 0;
+  }
+  body .m2 {
+    order: 1;
+  }
+  body .menu4 {
+    order: 0;
+  }
+  body .m4 {
+    order: 1;
+  }
+  body img {
+    max-width: 250px;
+  }
+}
+@media screen and (min-width: 413px) {
   body .main_flex {
     display: flex;
     flex-direction: column;
@@ -159,7 +183,6 @@ a {
 }
 
 .container {
-  overflow-y: auto;
   background: rgb(255, 255, 255);
 }
 

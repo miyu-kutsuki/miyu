@@ -14,6 +14,26 @@ body {
 	img{
 		max-width: 350px;
 	}
+	
+	.in_frame{
+		width: 290px;
+		height: auto;
+		margin: 0 auto;
+		}
+	
+}
+
+@media screen and (max-width:412px) {
+	img{
+		max-width: 250px;
+	}
+	
+	.in_frame{
+		width: 290px;
+		height: auto;
+		margin: 0 auto;
+		}
+		
 }
 
 a {
@@ -22,6 +42,7 @@ a {
 
 .outer_frame{
 	width: 450px;
+	
 }
 
 .in_frame{
@@ -37,6 +58,7 @@ a {
 
 .container{
 	min-height: 100vh;
+	overflow-x: hidden;
 	overflow-y: auto;
 	background:rgba(255,255,255,1.0);
 }

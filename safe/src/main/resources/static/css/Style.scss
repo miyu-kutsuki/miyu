@@ -3,7 +3,8 @@
 /*モバイルファーストを想定したブレークポイントのmap
 Bootstrap5のブレークポイントを使用*/
 $breakpoint: (
-  xs: 'screen and (max-width: 575px)',
+  xxs: 'screen and (max-width: 412px)',
+  xs: 'screen and (min-width: 413px)',
   sm: 'screen and (min-width: 576px)',
   md: 'screen and (min-width: 768px)',
   lg: 'screen and (min-width: 992px)',
@@ -24,6 +25,22 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	margin: 0;	
+	
+  @include mediaQuery(xxs) {
+    .top{
+	max-width: 90%;
+	height: 100vh;
+	background-image: url(../images/pc6.png);
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin: 100px auto 0 auto;
+	}
+
+	img{
+	max-width: 250px;
+	}
+  }	
 	
   @include mediaQuery(xs) {
     .top{
