@@ -70,9 +70,7 @@
 					</form>
 					
 					<div class="w-100 h-auto text-center">
-						<form th:action="@{/UserInformations}" method="get">
-							<input type="submit" value="ユーザーページへ" class="btn btn-outline-dark w-50 mt-3">
-						</form>
+						<button type="submit" th:attr="onClick='location.href=\''+ @{/UserInformations} +'\''" class="btn btn-outline-dark w-50 mt-3">戻る</button>
 					</div>
 				</div>
 			</div>
