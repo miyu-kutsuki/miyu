@@ -2,15 +2,16 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/baseStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/baseStyle.css">
 <title>ベース：未ログインレイアウト</title>
 </head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+		<nav class="navbar navbar-expand-md navbar-light fixed-top">
 			<div class="container-fluid">
-				<a th:href="@{/}" class="navbar-brand"> <img
+				<a th:href="@{/Doconano/}" class="navbar-brand"> <img
 					src="./images/logo.png" alt=""  width="151" height="46"
 					class="d-inline-block align-text-top">
 				</a>
@@ -21,23 +22,24 @@
 					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
+				
 				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item active">
-							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページ</a>
+							<a th:href="@{/Doconano/}" class="nav-link mt-3" aria-current="page">トップページ</a>
 				   		</li>
 						<li class="nav-item active">
-							<a th:href="@{/Login}" class="nav-link mt-3">ログイン画面</a>
+							<a th:href="@{/Doconano/Login}" class="nav-link mt-3">ログイン画面</a>
 				   		</li>
 				   		<li class="nav-item">
-				   			<a th:href="@{/UserRegistration}" class="nav-link mt-3">新規会員登録</a>
+				   			<a th:href="@{/Doconano/UserRegistration}" class="nav-link mt-3">新規会員登録</a>
 				   		</li>
 				   		<li class="nav-item">
-				   			<a th:href="@{/LoginAdmin}" class="nav-link mt-3">管理者画面</a>
+				   			<a th:href="@{/Doconano/LoginAdmin}" class="nav-link mt-3">管理者画面</a>
 				   		</li>
 			 		</ul>
 			 	</div>
+			 	
 			</div>
 		</nav>
 	</header>

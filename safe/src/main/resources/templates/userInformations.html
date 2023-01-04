@@ -4,6 +4,7 @@
 	layout:decorate="~{commons/layout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -11,7 +12,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/informationsStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/informationsStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>ユーザーページ</title>
@@ -28,7 +29,7 @@
 	
 				<h1><img src="./images/title5.png" alt="" class="mt-5"></h1>
 				
-				<form th:action="@{/WithdrawalAction}" method="post">
+				<form th:action="@{/Doconano/WithdrawalAction}" method="post">
 					<label class="form-label">会員番号：</label>
 					<label id="user" th:text="${user.id}"></label><br>
 					
@@ -62,7 +63,7 @@
 					</div>
 					
 					<div class="mt-2">
-						<a th:href="@{/UserInformationChangeScreen}">ユーザー情報を変更する</a>
+						<a th:href="@{/Doconano/UserInformationChangeScreen}">ユーザー情報を変更する</a>
 					</div>
 				</form>
 				 
@@ -70,7 +71,7 @@
 	
 				<h1><img src="./images/info1.png" alt="" class="m-3"></h1>
 				<p id="error" th:text="${msg1}"></p>
-				<form th:action="@{/UserInformationsMissingPersonAction}"
+				<form th:action="@{/Doconano/UserInformationsMissingPersonAction}"
 					method="post">
 					<div class="table-responsive">
 						<table class="table table-bordered" th:if="${missingPersonsList}">
@@ -107,7 +108,7 @@
 	
 				<h1><img src="./images/info2.png" alt="" class="m-3"></h1>
 				<p id="error" th:text="${msg2}"></p>
-				<form th:action="@{/UserInformationsMissingPersonSightingsAction}"
+				<form th:action="@{/Doconano/UserInformationsMissingPersonSightingsAction}"
 					method="post">
 					<div class="table-responsive">
 						<table class="table table-bordered"
@@ -146,7 +147,7 @@
 	
 				<h1><img src="./images/info3.png" alt="" class="m-3"></h1>
 				<p id="error" th:text="${msg3}"></p>
-				<form th:action="@{/UserInformationsSuspiciousPersonSightingsAction}"
+				<form th:action="@{/Doconano/UserInformationsSuspiciousPersonSightingsAction}"
 					method="post">
 					<div class="table-responsive">
 						<table class="table table-bordered"

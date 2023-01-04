@@ -2,15 +2,16 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/baseStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/baseStyle.css">
 <title>ベース：レイアウト</title>
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-xl navbar-light fixed-top">
 			<div class="container-fluid">
-				<a th:href="@{/}" class="navbar-brand"> <img
+				<a th:href="@{/Doconano/}" class="navbar-brand"> <img
 					src="./images/logo.png" alt=""  width="151" height="46"
 					class="d-inline-block align-text-top">
 				</a>
@@ -23,23 +24,23 @@
 				<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページ</a>
+							<a th:href="@{/Doconano/}" class="nav-link mt-3" aria-current="page">トップページ</a>
 				   		</li>
 				   		
 						<li class="nav-item">
-							<a th:href="@{/Menu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
+							<a th:href="@{/Doconano/Menu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
 				   		</li>
 				   		
-						<li class="nav-item"><a th:href="@{/MissingPersons}"
+						<li class="nav-item"><a th:href="@{/Doconano/MissingPersons}"
 							class="nav-link mt-3" aria-current="page">探し人の登録</a>
 						</li>
 							
-						<li class="nav-item"><a th:href="@{/MissingPersonsSightings}"
+						<li class="nav-item"><a th:href="@{/Doconano/MissingPersonsSightings}"
 							class="nav-link mt-3">目撃情報の登録</a>
 						</li>
 							
 						<li class="nav-item"><a
-							th:href="@{/SuspiciousPersonSightings}" 
+							th:href="@{/Doconano/SuspiciousPersonSightings}" 
 							class="nav-link mt-3">不審者情報の登録</a>
 						</li>
 							
@@ -47,18 +48,18 @@
 							<a href="" class="nav-link dropdown-toggle mt-3" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							どこなのサーチ</a>
 							 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							 	<li><a th:href="@{/Informations}" class="dropdown-item">一括検索</a></li>
-							 	<li><a th:href="@{/MissingPersonsSearch}" class="dropdown-item">探し人サーチ</a></li>
-							 	<li><a th:href="@{/MissingPersonSightingsSearch}" class="dropdown-item">目撃情報サーチ</a></li>
-							 	<li><a th:href="@{/SuspiciousPersonSightingsSearch}" class="dropdown-item">不審者情報サーチ</a></li>
+							 	<li><a th:href="@{/Doconano/Informations}" class="dropdown-item">一括検索</a></li>
+							 	<li><a th:href="@{/Doconano/MissingPersonsSearch}" class="dropdown-item">探し人サーチ</a></li>
+							 	<li><a th:href="@{/Doconano/MissingPersonSightingsSearch}" class="dropdown-item">目撃情報サーチ</a></li>
+							 	<li><a th:href="@{/Doconano/SuspiciousPersonSightingsSearch}" class="dropdown-item">不審者情報サーチ</a></li>
 							 </ul>
 						</li>
 						
-						<li class="nav-item"><a th:href="@{/UserInformations}"
+						<li class="nav-item"><a th:href="@{/Doconano/UserInformations}"
 							class="nav-link mt-3">ユーザーページ</a>
 						</li>
 						
-						<li class="nav-item"><a th:href="@{/LogoutAction}"
+						<li class="nav-item"><a th:href="@{/Doconano/LogoutAction}"
 							class="nav-link mt-3">ログアウト</a>
 						</li>
 					</ul>

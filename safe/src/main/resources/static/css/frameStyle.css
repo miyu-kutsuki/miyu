@@ -19,8 +19,11 @@ body {
 		width: 290px;
 		height: auto;
 		margin: 0 auto;
-		}
+	}
 	
+	#error{
+		margin: 0 auto;
+	}
 }
 
 @media screen and (max-width:412px) {
@@ -32,8 +35,11 @@ body {
 		width: 290px;
 		height: auto;
 		margin: 0 auto;
-		}
-		
+	}
+	
+	#error{
+		margin: 0 auto;
+	}
 }
 
 a {
@@ -41,8 +47,9 @@ a {
 }
 
 .outer_frame{
-	width: 450px;
-	
+	width: 100%;
+	text-align: center;
+	display: block;
 }
 
 .in_frame{
@@ -54,6 +61,11 @@ a {
 .outer_frame ul{
 	list-style:none;
 	color: #ff0000;
+	display: inline-block;
+}
+
+.outer_frame ul li{
+	text-align: left;
 }
 
 .container{
@@ -62,6 +74,7 @@ a {
 	overflow-y: auto;
 	background:rgba(255,255,255,1.0);
 }
-.error_frame{
-	margin-left: 50px;
+
+#error{
+	margin: 0 auto;
 }

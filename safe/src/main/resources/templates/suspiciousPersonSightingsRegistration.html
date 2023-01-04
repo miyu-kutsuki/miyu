@@ -4,10 +4,11 @@
 	layout:decorate="~{commons/layout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/registrationStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/registrationStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>不審者目撃情報登録ページ</title>
@@ -20,7 +21,7 @@
 			<div class="d-flex flex-column align-items-center justify-content-center">
 				<h1><img src="./images/title3.png" alt="" class="mt-5"></h1>
 				<div class="w-75 h-auto p-3">
-					<form th:action="@{/SuspiciousPersonSightingsRegistrationCheck}" method="post" th:object="${suspiciousPersonSightings}">
+					<form th:action="@{/Doconano/SuspiciousPersonSightingsRegistrationCheck}" method="post" th:object="${suspiciousPersonSightings}">
 						
 						<div class="mb-3">
 							<label for="date" class="form-label">目撃日</label>
@@ -57,7 +58,7 @@
 							市区町村
 							<span th:each="errors:${#fields.errors('municipalities')}" th:text="${errors}" class="error"></span>
 							<input type="text" th:field="*{municipalities}" class="form-control"><br>
-							番地等
+							番地・目印になる建物名等
 							<span th:each="errors:${#fields.errors('other')}" th:text="${errors}" class="error"></span>
 							<textarea th:field="*{other}" rows="5" cols="30" class="form-control"></textarea>
 						</div>

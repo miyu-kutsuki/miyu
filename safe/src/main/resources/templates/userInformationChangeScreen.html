@@ -4,6 +4,7 @@
 	layout:decorate="~{commons/layout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -11,7 +12,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/informationsStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/informationsStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>ユーザー情報の変更</title>
@@ -29,7 +30,7 @@
 				<h1><img src="./images/title6.png" alt="" class="mt-5"></h1>
 				
 				<div class="mt-3">
-					<form th:action="@{/ChangePassword}" method="post">
+					<form th:action="@{/Doconano/ChangePassword}" method="post">
 						<label>■パスワードを変更する</label>
 						<hr class="mt-2">
 						<ul th:unless="${msg4} == null" class="text-start">
@@ -51,7 +52,7 @@
 				</div>
 				
 				<div class="mt-3">
-					<form th:action="@{/ChangeFamilyName}" method="post">
+					<form th:action="@{/Doconano/ChangeFamilyName}" method="post">
 						<label>■名字を変更する</label>
 						<hr class="mt-2">
 						<label class="form-label">現在：[[${user.familyName}]]</label>
@@ -70,7 +71,7 @@
 				</div>
 				
 				<div class="mt-3">
-					<form th:action="@{/ChangeMailAddress}" method="post">
+					<form th:action="@{/Doconano/ChangeMailAddress}" method="post">
 						<label>■メールアドレスを変更する</label>
 						<hr class="mt-2">
 						<label class="form-label">現在：[[${user.email}]]</label>
@@ -88,7 +89,7 @@
 					</form>
 				</div>
 				
-				<button type="submit" th:attr="onClick='location.href=\''+ UserInformations +'\''" class="btn btn-outline-dark w-25 m-4">
+				<button type="submit" th:attr="onClick='location.href=\''+ @{/Doconano/UserInformations} +'\''" class="btn btn-outline-dark w-25 m-4">
 				戻る</button>
 				
 			</div>
