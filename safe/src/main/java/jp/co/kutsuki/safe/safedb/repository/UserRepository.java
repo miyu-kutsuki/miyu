@@ -31,4 +31,10 @@ public interface UserRepository {
 	public void updateFamilyName(String user_id, String familyName);
 
 	public void updateMailAddress(String user_id, String mailAddress);
+	
+	public void updateNotification(String user_id, Boolean notification);
+	
+	public void updateNotificationPrefectures(String user_id, String prefectures);
+	
+	public void updateNotificationMunicipalities(String user_id, String municipalities);
 }

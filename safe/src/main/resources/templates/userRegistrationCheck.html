@@ -31,6 +31,19 @@
 						<label for="password" class="form-label" th:text="*{password}"></label>
 					</div>
 					<div class="mb-3 text-center">
+						<label for="notification" class="form-label">不審者情報の通知:</label>
+						<label for="notification" class="form-label" th:if="*{notification}">設定する</label>
+						<label for="notification" class="form-label" th:unless="*{notification}">設定しない</label>
+					</div>
+					<div class="mb-3 text-center">
+						<label for="notification_p" class="form-label">通知する県:</label>
+						<label for="notification_p" class="form-label" th:text="*{notification_p}"></label>
+					</div>
+					<div class="mb-3 text-center">
+						<label for="notification_m" class="form-label">通知する市区町村:</label>
+						<label for="notification_m" class="form-label" th:text="*{notification_m}"></label>
+					</div>
+					<div class="mb-3 text-center">
 						<label for="familyName" class="form-label">名字:</label>
 						<label for="familyName" class="form-label" th:text="*{familyName}"></label>
 					</div>
@@ -62,8 +75,8 @@
 				</form>
 				
 				<form th:action="@{/Doconano/UserRegistrationBackAction}" method="post">
-					<div class="in_frame">
-						<input type="submit" value="戻る" class="btn btn-outline-dark mt-3 w-100">
+					<div class="in_frame m-2">
+						<input type="submit" value="戻る" class="btn btn-outline-dark w-100">
 					</div>
 				</form>
 			</div>

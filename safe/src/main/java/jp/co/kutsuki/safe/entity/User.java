@@ -39,6 +39,22 @@ public class User {
 	@Length(min=5, max=20, message = "パスワードは{min}〜{max}桁で入力して下さい。")
 	@Pattern(regexp = "^[A-Za-z0-9_-]+$", message = "パスワードは『半角英数』『_』『-』のみ使用可能です。")
 	private String password;
+	
+	/** 不審者情報の新着通知フラグ
+	 * false:通知しない
+	 * true:通知しない */
+	@NotNull(message = "不審者情報の通知設定が選択されていません。")
+	private Boolean notification;
+	
+	/** 不審者情報の新着通知フラグ
+	 * 県名の登録
+	 */
+	private String notification_p;
+
+	/** 不審者情報の新着通知フラグ
+	 * 市区町村の登録
+	 */
+	private String notification_m;
 
 	/** 名字 */
 	@NotBlank(message = "名字が入力されていません。")

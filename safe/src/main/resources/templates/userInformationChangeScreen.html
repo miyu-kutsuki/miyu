@@ -52,12 +52,42 @@
 				</div>
 				
 				<div class="mt-3">
+					<form th:action="@{/Doconano/ChangeNotification}" method="post">
+						<label>■不審者情報の通知設定を変更する</label>
+						<hr class="mt-2">
+						<ul th:unless="${msg5} == null" class="text-center">
+							<th:block th:each=erroMsg:${msg5}>
+								<li id="error" th:text="${erroMsg}"></li>
+							</th:block>
+						</ul>
+					
+						<input type="radio" name="notification" th:value="true" th:checked="${user.notification == true}" class="form-check-input" >設定する
+						<input type="radio" name="notification" th:value="false"  th:checked="${user.notification == false}" class="form-check-input" >設定しない
+						<br>
+						
+						<label class="form-label mt-2">現在：[[${user.notification_p}]]</label>
+						<div class="d-flex flex-row justify-content-center align-items-center mt-1">
+							<label class="form-label text-nowrap">変更後：</label>
+							<input type="text" name="notification_p" class="form-control">
+						</div>
+							
+						<label class="form-label mt-1">現在：[[${user.notification_m}]]</label>
+						<div class="d-flex flex-row justify-content-center align-items-center mt-1">
+							<label class="form-label text-nowrap">変更後：</label>
+							<input type="text" name="notification_m" class="form-control">
+						</div>
+						
+						<input type="submit" value="変更" class="btn btn-outline-dark mt-2">
+					</form>
+				</div>
+				
+				<div class="mt-3">
 					<form th:action="@{/Doconano/ChangeFamilyName}" method="post">
 						<label>■名字を変更する</label>
 						<hr class="mt-2">
 						<label class="form-label">現在：[[${user.familyName}]]</label>
-						<ul th:unless="${msg5} == null" class="text-center">
-							<th:block th:each=erroMsg:${msg5}>
+						<ul th:unless="${msg6} == null" class="text-center">
+							<th:block th:each=erroMsg:${msg6}>
 								<li id="error" th:text="${erroMsg}"></li>
 							</th:block>
 						</ul>
@@ -75,8 +105,8 @@
 						<label>■メールアドレスを変更する</label>
 						<hr class="mt-2">
 						<label class="form-label">現在：[[${user.email}]]</label>
-						<ul th:unless="${msg6} == null" class="text-center">
-							<th:block th:each=erroMsg:${msg6}>
+						<ul th:unless="${msg7} == null" class="text-center">
+							<th:block th:each=erroMsg:${msg7}>
 								<li id="error" th:text="${erroMsg}"></li>
 							</th:block>
 						</ul>

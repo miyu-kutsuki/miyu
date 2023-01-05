@@ -2,6 +2,7 @@ package jp.co.kutsuki.safe.mail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import jp.co.kutsuki.safe.entity.MissingPersons;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
+import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
 import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.im.service.ImMailSendService;
 import jp.co.kutsuki.safe.im.service.ImRegistrationNoticeService;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
+import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 /**
  * 通知メールの業務ロジック
@@ -24,6 +27,9 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 	
 	@Autowired
 	MissingPersonsRepository missingPersonsRepository;
+	
+	@Autowired
+	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -53,9 +59,47 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 			}
 		}
 		
+		// keySetでListを作成
+		List<String> keys = new ArrayList<>(users.keySet());
+		
 		//Mapに保存されているuserに通知メールを送る
-		for(int i = 0; i < users.size(); i++) {
-			mailSendService.mailSend(user, "行方不明者目撃情報の新着のお知らせ", "/mail/registrationNoticeTemplate.txt");
+		//重複送信防止のためMapを使用
+		for(int i = 0; i < keys.size(); i++) {
+			user = userRepository.getUserIdTable((String)keys.get(i));
+			mailSendService.mailSend(user, "行方不明者目撃情報の新着のお知らせ", "/mail/missingPersonsRegistrationNoticeTemplate.txt");
+		}
+	}
+	
+	/** 不審者情報の登録時、
+	 * 目撃場所の県・市と不審者情報の通知設定がtrueかつ県・市が一致したユーザーにメールでお知らせする */
+	@Override
+	public void suspiciousPersonSightingsRegistrationNoticeMailSend(SuspiciousPersonSightings suspiciousPersonSightings) {
+		//user_idを保管するMap
+		Map<String, String> users = new HashMap<>();
+		//データベースからend_flagがfalse以外の情報を全て取得
+		ArrayList<User> usersList = userRepository.getAllUserTable();
+		//ユーザー情報の一時保管用
+		User user = new User();
+		
+		//入力された県・市とsuspicious_person_sightingsデータベースに保管されている県・市が一致しているレコードがあるかチェック
+		//一致したMapに追加する
+		for(int i = 0; i < usersList.size(); i++) {
+			if(suspiciousPersonSightings.getPrefectures().equals(usersList.get(i).getNotification_p())) {
+				if(suspiciousPersonSightings.getMunicipalities().equals(usersList.get(i).getNotification_m())) {
+					user = userRepository.getUserIdTable(usersList.get(i).getUser_id());
+					users.put(user.getUser_id(), user.getEmail());
+				}
+			}
+		}
+		
+		// keySetでListを作成
+		List<String> keys = new ArrayList<>(users.keySet());
+		
+		//Mapに保存されているuserに通知メールを送る
+		//重複送信防止のためMapを使用
+		for(int i = 0; i < keys.size(); i++) {
+			user = userRepository.getUserIdTable((String)keys.get(i));
+			mailSendService.mailSend(user, "不審者情報の新着のお知らせ", "/mail/suspiciousPersonSightingsRegistrationNoticeTemplate.txt");
 		}
 	}
 

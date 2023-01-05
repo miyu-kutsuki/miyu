@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.kutsuki.safe.entity.FormLogin;
 import jp.co.kutsuki.safe.entity.SuspiciousPersonSightings;
+import jp.co.kutsuki.safe.im.service.ImRegistrationNoticeService;
 import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 
 /**
@@ -23,6 +24,9 @@ public class SuspiciousPersonSightingsAction {
 
 	@Autowired
 	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
+	
+	@Autowired
+	ImRegistrationNoticeService registrationNoticeService;
 
 	@Autowired
 	HttpSession session;
@@ -33,6 +37,9 @@ public class SuspiciousPersonSightingsAction {
 		//missing_persons_sightingsテーブルに登録
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		suspiciousPersonSightingsRepository.setSuspiciousPersonSightingsTable(suspiciousPersonSightings);
+		
+		//該当者に通知メールの送信
+		registrationNoticeService.suspiciousPersonSightingsRegistrationNoticeMailSend(suspiciousPersonSightings);
 
 		if(session.getAttribute("userInformation") == null) {
 			//リダイレクトで不審者登録情報ページへ遷移

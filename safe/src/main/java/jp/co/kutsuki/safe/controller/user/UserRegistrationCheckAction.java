@@ -41,8 +41,9 @@ public class UserRegistrationCheckAction {
 	HttpSession session;
 
 	@RequestMapping(value="/UserRegistrationCheckAction", method = RequestMethod.POST)
-	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam String familyName,
-			@RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday,
+	public String userView(@RequestParam String user_id, @RequestParam String password, @RequestParam(name = "notification", required = false) Boolean notification,
+			@RequestParam String notification_p, @RequestParam String notification_m,
+			@RequestParam String familyName, @RequestParam String firstName, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)@RequestParam(name = "birthday", required = false) LocalDate birthday,
 			@RequestParam String email, @RequestParam Integer question_id, @RequestParam String answer,
 			@Validated @ModelAttribute User user, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
@@ -74,6 +75,14 @@ public class UserRegistrationCheckAction {
 		}else {
 			msg.add(user_id + "は使用できません。");
 		}
+		
+		//不審者情報の通知設定のnullチェック
+		if(notification_p.isEmpty()) {
+			notification_p = "登録なし";
+		}
+		if(notification_m.isEmpty()) {
+			notification_m = "登録なし";
+		}
 
 		//msgのサイズ0かチェック
 		if(msg.size() == 0) {
@@ -81,6 +90,9 @@ public class UserRegistrationCheckAction {
 			User newUser = new User();
 			newUser.setUser_id(user_id);
 			newUser.setPassword(password);
+			newUser.setNotification(notification);
+			newUser.setNotification_p(notification_p);
+			newUser.setNotification_m(notification_m);
 			newUser.setFamilyName(familyName);
 			newUser.setFirstName(firstName);
 			newUser.setBirthday(birthday);
