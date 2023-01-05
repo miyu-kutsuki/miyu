@@ -18,6 +18,7 @@ import jp.co.kutsuki.safe.im.service.ImMailSendService;
 
 /**
  * メール送信の業務ロジッククラス
+ * @author kutsuki
  */
 @Service
 public class MailSenderService implements ImMailSendService{

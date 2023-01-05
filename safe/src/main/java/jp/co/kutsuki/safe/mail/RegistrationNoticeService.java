@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jp.co.kutsuki.safe.entity.MissingPersons;
 import jp.co.kutsuki.safe.entity.MissingPersonsSightings;
@@ -13,7 +14,12 @@ import jp.co.kutsuki.safe.im.service.ImMailSendService;
 import jp.co.kutsuki.safe.im.service.ImRegistrationNoticeService;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
-
+/**
+ * 通知メールの業務ロジック
+ * @author kutsuki
+ *
+ */
+@Service
 public class RegistrationNoticeService implements ImRegistrationNoticeService{
 	
 	@Autowired
@@ -40,8 +46,10 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		//一致したMapに追加する
 		for(int i = 0; i < missingPersonsList.size(); i++) {
 			if(missingPersonsSightings.getPrefectures().equals(missingPersonsList.get(i).getPrefectures())) {
-				user = userRepository.getUserIdTable(missingPersonsList.get(i).getUser_id());
-				users.put(user.getUser_id(), user.getEmail());
+				if(missingPersonsSightings.getMunicipalities().equals(missingPersonsList.get(i).getMunicipalities())) {
+					user = userRepository.getUserIdTable(missingPersonsList.get(i).getUser_id());
+					users.put(user.getUser_id(), user.getEmail());
+				}
 			}
 		}
 		
