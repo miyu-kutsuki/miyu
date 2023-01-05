@@ -27,7 +27,6 @@ public class MailSenderService implements ImMailSendService{
 
 	@Override
 	public void mailSend(User user, String title ,String template) {
-
 		//メール送信内容作成して設定
 		 SimpleMailMessage message = new SimpleMailMessage();
 		 message.setTo(user.getEmail());
