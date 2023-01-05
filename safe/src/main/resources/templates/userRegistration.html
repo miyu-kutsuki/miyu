@@ -43,11 +43,57 @@
 							
 								<div class="mb-3">
 									<label for="user_id" class="form-label">ユーザーID</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal1">登録条件をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">ユーザーIDの登録条件</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											①ユーザーIDは5〜15桁で入力して下さい。<br>
+											②ユーザーIDは『半角英数』『_』『-』のみ使用可能です。<br>
+											③ユーザーIDは大文字と小文字を区別します。
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="text" th:field="*{user_id}" class="form-control">
 								</div>
 								
 								<div class="mb-3">
 									<label for="password" class="form-label">パスワード</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal2">登録条件をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">パスワードの登録条件</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											①パスワードは5〜20桁で入力して下さい。<br>
+											②パスワードは『半角英数』『_』『-』のみ使用可能です。<br>
+											③パスワードは大文字と小文字を区別します。
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="password" th:field="*{password}" class="form-control">
 								</div>
 								
@@ -64,6 +110,27 @@
 								
 								<div class="mb-3">
 									<label for="birthday" class="form-label">生年月日</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal3">スマホの操作方法をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">生年月日の登録方法</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body text-center">
+											<img src="./images/birthday.png" alt="">
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="date" th:field="*{birthday}" class="form-control">
 								</div>
 								

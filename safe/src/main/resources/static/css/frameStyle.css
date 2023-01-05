@@ -19,6 +19,7 @@ body {
 		width: 290px;
 		height: auto;
 		margin: 0 auto;
+		text-align: left;
 	}
 	
 	#error{
@@ -35,6 +36,7 @@ body {
 		width: 290px;
 		height: auto;
 		margin: 0 auto;
+		text-align: left;
 	}
 	
 	#error{
@@ -56,6 +58,7 @@ a {
 	width: 300px;
 	height: auto;
 	margin: 0 auto;
+	text-align: left;
 }
 
 .outer_frame ul{
