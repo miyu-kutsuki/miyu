@@ -15,7 +15,6 @@ import jp.co.kutsuki.safe.entity.User;
 import jp.co.kutsuki.safe.im.service.ImMailSendService;
 import jp.co.kutsuki.safe.im.service.ImRegistrationNoticeService;
 import jp.co.kutsuki.safe.safedb.repository.MissingPersonsRepository;
-import jp.co.kutsuki.safe.safedb.repository.SuspiciousPersonSightingsRepository;
 import jp.co.kutsuki.safe.safedb.repository.UserRepository;
 /**
  * 通知メールの業務ロジック
@@ -27,9 +26,6 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 	
 	@Autowired
 	MissingPersonsRepository missingPersonsRepository;
-	
-	@Autowired
-	SuspiciousPersonSightingsRepository suspiciousPersonSightingsRepository;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -81,7 +77,7 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		//ユーザー情報の一時保管用
 		User user = new User();
 		
-		//入力された県・市とsuspicious_person_sightingsデータベースに保管されている県・市が一致しているレコードがあるかチェック
+		//入力された県・市とusersデータベースに保管されている県・市が一致しているレコードがあるかチェック
 		//一致したMapに追加する
 		for(int i = 0; i < usersList.size(); i++) {
 			if(suspiciousPersonSightings.getPrefectures().equals(usersList.get(i).getNotification_p())) {
