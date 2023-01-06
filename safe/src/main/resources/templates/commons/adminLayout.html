@@ -2,15 +2,16 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<base href="https://doconano.net/Doconano/"></base>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="./css/adminStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/adminStyle.css">
 <title>ベース：管理者画面レイアウト</title>
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-xl navbar-dark fixed-top">
 			<div class="container-fluid">
-				<a th:href="@{/}" class="navbar-brand"> <img
+				<a th:href="@{/Doconano/}" class="navbar-brand"> <img
 					src="./images/admin/adminLogo.png" alt="" width="151" height="46"
 					class="d-inline-block align-text-top">
 				</a>
@@ -25,22 +26,22 @@
 				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a th:href="@{/}" class="nav-link mt-3" aria-current="page">トップページ</a>
+							<a th:href="@{/Doconano/}" class="nav-link mt-3" aria-current="page">トップページ</a>
 				   		</li>
 						<li class="nav-item">
-							<a th:href="@{/AdminMenu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
+							<a th:href="@{/Doconano/AdminMenu}" class="nav-link mt-3" aria-current="page">メニューページ</a>
 				   		</li>
 						<li class="nav-item">
-							<a th:href="@{/AdminRegistration}" class="nav-link mt-3" aria-current="page">管理者アカウント登録</a>
+							<a th:href="@{/Doconano/AdminRegistration}" class="nav-link mt-3" aria-current="page">管理者アカウント登録</a>
 				   		</li>
 				   		<li class="nav-item">
-				   			<a th:href="@{/InformationsAdmin}" class="nav-link mt-3">掲載情報管理ページ</a>
+				   			<a th:href="@{/Doconano/InformationsAdmin}" class="nav-link mt-3">掲載情報管理ページ</a>
 				   		</li>
 				   		<li class="nav-item">
-				   			<a th:href="@{/UsersInformationsAdmin}" class="nav-link mt-3">ユーザー情報管理ページ</a>
+				   			<a th:href="@{/Doconano/UsersInformationsAdmin}" class="nav-link mt-3">ユーザー情報管理ページ</a>
 				   		</li>
 				   		<li class="nav-item">
-				   			<a th:href="@{/LogoutAdminAction}" class="nav-link mt-3">ログアウト</a>
+				   			<a th:href="@{/Doconano/LogoutAdminAction}" class="nav-link mt-3">ログアウト</a>
 				   		</li>
 			 		</ul>
 			 	</div>
@@ -50,7 +51,7 @@
 	<div layout:fragment="contents" class="main_frame"></div>
 	<footer>
 		<div class="footer_frame">
-			<p>Copyright 2023 doconano All Rights Reserved.</p>
+			<p>Copyright 2023 Doconano All Rights Reserved.</p>
 		</div>
 	</footer>
 </body>

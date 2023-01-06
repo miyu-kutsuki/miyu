@@ -50,19 +50,19 @@ public class WithdrawalAction {
 			redirectAttributes.addFlashAttribute("msg", "セッションが無効です。");
 			return "redirect:Safe";
 		}
-		
+
 		//更新するデータをidから取得
 		User userList = userRepository.getOneUserTable(id);
 		FormLogin user = new FormLogin();
 		user.setId(userList.getId());
 		user.setUser_id(userList.getUser_id());
 		user.setPassword(userList.getPassword());
-		
+
 		//削除するユーザーIDで各情報の登録があればユーザーIDを"guests"に変更する
 		if(!(missingPersonsRepository.getMissingPersonsTable(user).size() == 0)) {
 			missingPersonsRepository.deleteUser(user.getUser_id());
 		}
-		
+
 		if(!(missingPersonsSightingsRepository.getMissingPersonsSightingsTable(user).size() == 0)) {
 			missingPersonsSightingsRepository.deleteUser(user.getUser_id());
 		}
@@ -70,10 +70,10 @@ public class WithdrawalAction {
 		if(!(suspiciousPersonSightingsRepository.getSuspiciousPersonSightingsTable(user).size() == 0)) {
 			suspiciousPersonSightingsRepository.deleteUser(user.getUser_id());
 		}
-		
+
 		//ユーザーIDを削除
 		userRepository.deleteUser(id);
-		
+
 		//画面の遷移先
 		if(!(session.getAttribute("admin") == null)) {
 			//リダイレクトで管理者用の掲載情報管理ページへ遷移
@@ -81,7 +81,7 @@ public class WithdrawalAction {
 			session.setAttribute("userList", userAllList);
 			return "redirect:UsersInformationsAdmin";
 		}
-		
+
 		//セッション破棄
 		session.invalidate();
 		return "redirect:Safe";

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping("Safe")
+@RequestMapping("Doconano")
 public class TopPageAction {
 
 	@Autowired

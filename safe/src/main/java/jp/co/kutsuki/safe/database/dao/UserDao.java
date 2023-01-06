@@ -27,7 +27,7 @@ public class UserDao implements UserRepository{
 
 	@Autowired
 	private JdbcTemplate template;
-	
+
 	/** userテーブルから
 	 * id, user_id, password
 	 * end_flag==falseのみ1件取得  */
@@ -53,15 +53,16 @@ public class UserDao implements UserRepository{
 			user.setUser_id("none");
 			user.setPassword("none");
 		}
-		return user;	
+		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
 	public User getUserIdTable(String user_id) {
 		String sql = " select id, pgp_sym_decrypt(user_id, get_passwd())as user_id,"
-				+ "pgp_sym_decrypt(password, get_passwd())as password, pgp_sym_decrypt(familyName, get_passwd())as familyName, "
+				+ "pgp_sym_decrypt(password, get_passwd())as password, notification, notification_p, notification_m, "
+				+ "pgp_sym_decrypt(familyName, get_passwd())as familyName, "
 				+ "pgp_sym_decrypt(firstName, get_passwd())as firstName, pgp_sym_decrypt(birthday, get_passwd())as birthday, "
 				+ "pgp_sym_decrypt(email, get_passwd())as email, question_id, question, pgp_sym_decrypt(answer, get_passwd())as answer, end_flag"
 				+ " from users where pgp_sym_decrypt(user_id, get_passwd()) = ? and end_flag = false";
@@ -73,6 +74,9 @@ public class UserDao implements UserRepository{
 			user.setId(rs.getInt("id"));
 			user.setUser_id(rs.getString("user_id"));
 			user.setPassword(rs.getString("password"));
+			user.setNotification(rs.getBoolean("notification"));
+			user.setNotification_p(rs.getString("notification_p"));
+			user.setNotification_m(rs.getString("notification_m"));
 			user.setFamilyName(rs.getString("familyName"));
 			user.setFirstName(rs.getString("firstName"));
 			try {
@@ -97,6 +101,9 @@ public class UserDao implements UserRepository{
 		if(user.getId() == null) {
 			user.setUser_id("none");
 			user.setPassword("none");
+			user.setNotification(false);
+			user.setNotification_p("none");
+			user.setNotification_m("none");
 			user.setFamilyName("none");
 			user.setFirstName("none");
 			// Date型からLocaldate型へ変換
@@ -106,18 +113,19 @@ public class UserDao implements UserRepository{
 			user.setQuestion_id(-1);
 			user.setQuestion("none");
 			user.setAnswer("none");
-			
+
 		}
 		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ1件取得  */
 	@Override
 	public User getUserPassTable(Integer id, String password) {
 		//SQL定義
 		String sql = " select id, pgp_sym_decrypt(user_id, get_passwd())as user_id,"
-				+ "pgp_sym_decrypt(password, get_passwd())as password, pgp_sym_decrypt(familyName, get_passwd())as familyName, "
+				+ "pgp_sym_decrypt(password, get_passwd())as password, notification, notification_p, notification_m, "
+				+ "pgp_sym_decrypt(familyName, get_passwd())as familyName, "
 				+ "pgp_sym_decrypt(firstName, get_passwd())as firstName, pgp_sym_decrypt(birthday, get_passwd())as birthday, "
 				+ "pgp_sym_decrypt(email, get_passwd())as email, question_id, question, pgp_sym_decrypt(answer, get_passwd())as answer, end_flag"
 				+ " from users where id = ? and pgp_sym_decrypt(password, get_passwd()) = ? and end_flag = false";
@@ -129,6 +137,9 @@ public class UserDao implements UserRepository{
 			user.setId(rs.getInt("id"));
 			user.setUser_id(rs.getString("user_id"));
 			user.setPassword(rs.getString("password"));
+			user.setNotification(rs.getBoolean("notification"));
+			user.setNotification_p(rs.getString("notification_p"));
+			user.setNotification_m(rs.getString("notification_m"));			
 			user.setFamilyName(rs.getString("familyName"));
 			user.setFirstName(rs.getString("firstName"));
 			try {
@@ -153,6 +164,9 @@ public class UserDao implements UserRepository{
 		if(user.getId() == null) {
 			user.setUser_id("none");
 			user.setPassword("none");
+			user.setNotification(false);
+			user.setNotification_p("none");
+			user.setNotification_m("none");
 			user.setFamilyName("none");
 			user.setFirstName("none");
 			// Date型からLocaldate型へ変換
@@ -162,18 +176,19 @@ public class UserDao implements UserRepository{
 			user.setQuestion_id(-1);
 			user.setQuestion("none");
 			user.setAnswer("none");
-			
+
 		}
 		return user;
 	}
-	
+
 	/** userテーブルから
 	 * end_flag==falseのみ全件取得  */
 	@Override
 	public ArrayList<User> getAllUserTable() {
 		//SQL定義
 		String sql = " select id, pgp_sym_decrypt(user_id, get_passwd())as user_id,"
-				+ "pgp_sym_decrypt(password, get_passwd())as password, pgp_sym_decrypt(familyName, get_passwd())as familyName, "
+				+ "pgp_sym_decrypt(password, get_passwd())as password, notification, notification_p, notification_m, "
+				+ "pgp_sym_decrypt(familyName, get_passwd())as familyName, "
 				+ "pgp_sym_decrypt(firstName, get_passwd())as firstName, pgp_sym_decrypt(birthday, get_passwd())as birthday, "
 				+ "pgp_sym_decrypt(email, get_passwd())as email, question_id, question, pgp_sym_decrypt(answer, get_passwd())as answer, end_flag"
 				+ " from users where end_flag = false order by id ASC";
@@ -186,6 +201,9 @@ public class UserDao implements UserRepository{
 			user.setId(rs.getInt("id"));
 			user.setUser_id(rs.getString("user_id"));
 			user.setPassword(rs.getString("password"));
+			user.setNotification(rs.getBoolean("notification"));
+			user.setNotification_p(rs.getString("notification_p"));
+			user.setNotification_m(rs.getString("notification_m"));			
 			user.setFamilyName(rs.getString("familyName"));
 			user.setFirstName(rs.getString("firstName"));
 			try {
@@ -207,14 +225,15 @@ public class UserDao implements UserRepository{
 			}
 		return userList;
 	}
-	
+
 	/** userテーブルからidで指定されたレコードかつ
 	 * end_flag==falseのみ取得  */
 	@Override
 	public User getOneUserTable(Integer id) {
 		//SQL定義
 		String sql = " select id, pgp_sym_decrypt(user_id, get_passwd())as user_id,"
-				+ "pgp_sym_decrypt(password, get_passwd())as password, pgp_sym_decrypt(familyName, get_passwd())as familyName, "
+				+ "pgp_sym_decrypt(password, get_passwd())as password, notification, notification_p, notification_m, "
+				+ "pgp_sym_decrypt(familyName, get_passwd())as familyName, "
 				+ "pgp_sym_decrypt(firstName, get_passwd())as firstName, pgp_sym_decrypt(birthday, get_passwd())as birthday, "
 				+ "pgp_sym_decrypt(email, get_passwd())as email, question_id, question, pgp_sym_decrypt(answer, get_passwd())as answer, end_flag"
 				+ " from users where id = ? and end_flag = false";
@@ -226,6 +245,9 @@ public class UserDao implements UserRepository{
 			user.setId(rs.getInt("id"));
 			user.setUser_id(rs.getString("user_id"));
 			user.setPassword(rs.getString("password"));
+			user.setNotification(rs.getBoolean("notification"));
+			user.setNotification_p(rs.getString("notification_p"));
+			user.setNotification_m(rs.getString("notification_m"));			
 			user.setFamilyName(rs.getString("familyName"));
 			user.setFirstName(rs.getString("firstName"));
 			try {
@@ -252,16 +274,18 @@ public class UserDao implements UserRepository{
 	@Override
 	public void setUserTable(User user) {
 		//SQL定義
-		String sql = " insert into users(user_id, password, familyName, firstName, birthday, email, question_id, question, answer)"
-				+ " values(pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()),"
+		String sql = " insert into users(user_id, password, notification, notification_p, notification_m, "
+				+ "familyName, firstName, birthday, email, question_id, question, answer)"
+				+ " values(pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()), ?, ?, ?,"
 				+ " pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()), pgp_sym_encrypt(?, get_passwd()),"
 				+ " pgp_sym_encrypt(?, get_passwd()), ?, ?, pgp_sym_encrypt(?, get_passwd()))";
-		
+
 		//データの暗号化の関係上LocalDate型を一度Stringに変換する
-		String birthday = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));;
+		String birthday = user.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		//SQL実行し登録を実施
-		template.update(sql, user.getUser_id(), user.getPassword(),user.getFamilyName(), user.getFirstName(), birthday,
-				user.getEmail(), user.getQuestion_id(), user.getQuestion(), user.getAnswer());
+		template.update(sql, user.getUser_id(), user.getPassword(),user.getNotification(), user.getNotification_p(), 
+				user.getNotification_m(), user.getFamilyName(), 
+				user.getFirstName(), birthday, user.getEmail(), user.getQuestion_id(), user.getQuestion(), user.getAnswer());
 	}
 
 	/** idで指定された行のend_flagにtrueをセットする */
@@ -305,5 +329,38 @@ public class UserDao implements UserRepository{
 				+ " where pgp_sym_decrypt(user_id, get_passwd()) = ?";
 		//SQL実行し登録を実施
 		template.update(sql, mailAddress, user_id);
+	}
+
+	/** user_idで指定された行の不審者情報の通知設定を変更する */
+	@Transactional
+	@Override
+	public void updateNotification(String user_id, Boolean notification) {
+		//SQL定義
+		String sql = "update users set notification = ?"
+				+ " where pgp_sym_decrypt(user_id, get_passwd()) = ?";
+		//SQL実行し登録を実施
+		template.update(sql, notification, user_id);
+	}
+	
+	/** user_idで指定された行の不審者情報の通知設定(県名)を変更する */
+	@Transactional
+	@Override
+	public void updateNotificationPrefectures(String user_id, String prefectures) {
+		//SQL定義
+		String sql = "update users set notification_p = ?"
+				+ " where pgp_sym_decrypt(user_id, get_passwd()) = ?";
+		//SQL実行し登録を実施
+		template.update(sql, prefectures, user_id);
+	}
+	
+	/** user_idで指定された行の不審者情報の通知設定(市区町村)を変更する */
+	@Transactional
+	@Override
+	public void updateNotificationMunicipalities(String user_id, String municipalities) {
+		//SQL定義
+		String sql = "update users set notification_m = ?"
+				+ " where pgp_sym_decrypt(user_id, get_passwd()) = ?";
+		//SQL実行し登録を実施
+		template.update(sql, municipalities, user_id);
 	}
 }

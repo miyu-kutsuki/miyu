@@ -4,9 +4,11 @@
 	layout:decorate="~{commons/logoutLayout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
+<meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/frameStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/frameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>ユーザー新規登録ページ</title>
@@ -20,10 +22,11 @@
 				<h1><img src="./images/addUser.png" alt="" class="mt-5"></h1>
 				<div class="outer_frame mb-3">
 					<div class="d-grid gap-2 mt-3">
-						<form th:action="@{/UserRegistrationCheckAction}" method="post" th:object="${user}">
+						<form th:action="@{/Doconano/UserRegistrationCheckAction}" method="post" th:object="${user}">
 							<ul th:if="${#fields.hasErrors('*')}">
 									<li th:each="errors:${#fields.errors('user_id')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('password')}" th:text="${errors}"></li>
+									<li th:each="errors:${#fields.errors('notification')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('familyName')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('firstName')}" th:text="${errors}"></li>
 									<li th:each="errors:${#fields.errors('birthday')}" th:text="${errors}"></li>
@@ -41,14 +44,76 @@
 							
 								<div class="mb-3">
 									<label for="user_id" class="form-label">ユーザーID</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal1">登録条件をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">ユーザーIDの登録条件</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											①ユーザーIDは5〜15桁で入力して下さい。<br>
+											②ユーザーIDは『半角英数』『_』『-』のみ使用可能です。<br>
+											③ユーザーIDは大文字と小文字を区別します。
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="text" th:field="*{user_id}" class="form-control">
 								</div>
 								
 								<div class="mb-3">
 									<label for="password" class="form-label">パスワード</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal2">登録条件をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">パスワードの登録条件</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+											①パスワードは5〜20桁で入力して下さい。<br>
+											②パスワードは『半角英数』『_』『-』のみ使用可能です。<br>
+											③パスワードは大文字と小文字を区別します。
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="password" th:field="*{password}" class="form-control">
 								</div>
 								
+								<div class="mb-3">
+									<label for="notification" class="form-check-label">不審者情報の通知</label>
+									<br>
+									<input type="radio" th:field="*{notification}" th:value="true" class="form-check-input">設定する
+									<input type="radio" th:field="*{notification}" th:value="false"  class="form-check-input" >設定しない
+								</div>
+								
+								<div class="mb-3">
+									<label for="notification_p" class="form-label">通知する県</label>
+									<input type="text" th:field="*{notification_p}" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label for="notification_m" class="form-label">通知する市区町村</label>
+									<input type="text" th:field="*{notification_m}" class="form-control">
+								</div>
 								
 								<div class="mb-3">
 									<label for="familyName" class="form-label">名字</label>
@@ -62,6 +127,27 @@
 								
 								<div class="mb-3">
 									<label for="birthday" class="form-label">生年月日</label>
+									
+									<!-- trigger modal -->
+									<a href="#exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal3">スマホの操作方法をチェック</a>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">生年月日の登録方法</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body text-center">
+											<img src="./images/birthday.png" alt="">
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+									
 									<input type="date" th:field="*{birthday}" class="form-control">
 								</div>
 								
@@ -83,12 +169,12 @@
 									</select>
 								</div>
 								
-								<div class="mb-3">
+								<div class="mb-4">
 									<label for="answer" class="form-label">秘密の質問の答え</label>
 									<input type="text" th:field="*{answer}" class="form-control">
 								</div>
 								
-								<input type="submit" value="確認" class="btn btn-outline-dark mt-3 w-100">
+								<input type="submit" value="確認" class="btn btn-outline-dark mb-2 w-100">
 							
 							</div>
 						</form>

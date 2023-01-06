@@ -3,7 +3,8 @@
 /*モバイルファーストを想定したブレークポイントのmap
 Bootstrap5のブレークポイントを使用*/
 $breakpoint: (
-  xs: 'screen and (max-width: 575px)',
+  xxs: 'screen and (max-width: 412px)',
+  xs: 'screen and (min-width: 413px)',
   sm: 'screen and (min-width: 576px)',
   md: 'screen and (min-width: 768px)',
   lg: 'screen and (min-width: 992px)',
@@ -19,136 +20,124 @@ $breakpoint: (
 }
 
 body {
-	
 	background-image: url(../images/background.png);
 	background-size: cover;
 	background-repeat: no-repeat;
-	margin: 0;	
+	margin: 0;
+	
+  @include mediaQuery(xxs) {
+    .top{
+		max-width: 90%;
+		height: 170px;
+		background-image: url(../images/main7.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
+	}
+
+	img{
+		max-width: 250px;
+	}
+ }
 	
   @include mediaQuery(xs) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/sp.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 250px;
+		background-image: url(../images/main6.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 90%;
+	img{
+		max-width: 350px;
 	}
-
-	.catch img{
-		width: 90%;
-		height: 90%;
-	}
-
   }
  
   @include mediaQuery(sm) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/pc.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 300px;
+		background-image: url(../images/main5.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 65%;
+	img{
+		max-width: 412px;
 	}
-	
   } 
  
   @include mediaQuery(md) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/pc.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 350px;
+		background-image: url(../images/main4.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 45%;
+	img{
+		max-width: 412px;
 	}
-	
   } 
  
    @include mediaQuery(lg) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/tab.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 400px;
+		background-image: url(../images/main3.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 35%;
+	img{
+		max-width: 412px;
 	}
-
   }
  
   @include mediaQuery(xl) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/pc.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 500px;
+		background-image: url(../images/main2.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 25px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 25%;
+	img{
+		max-width: 412px;
 	}
-	
   } 
 
   @include mediaQuery(xxl) {
     .top{
-	max-width: 100%;
-	height: 100vh;
-	background-image: url(../images/pc.png);
-	background-position: 50% 50%;
-	background-size: cover;
-	background-repeat: no-repeat;
+		max-width: 90%;
+		height: 500px;
+		background-image: url(../images/main1.png);
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		margin: 10px auto 0 auto;
 	}
 
-	.catch{
-		padding-top: 20%;
+	img{
+		max-width: 412px;
 	}
-	
   }
 }
 
 a{
-	text-decoration:none;
-}
-
-.catch img{
-	width: 75%;
-	height: 75%;
-}
-
-footer{
-	width: 100%;
-	height: 80px;
-	margin: 0;
-	padding: 0;
-}
-
-.footer_frame{
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 30px 0 0 0;
-	text-align: center;
-	background: #93a9c0;
-	color: #ffffff;
+	text-decoration: none;
 }

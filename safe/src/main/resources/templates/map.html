@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="./css/mapStyle.css">
+<link rel="icon" href="./images/favicon.ico">
+<link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.22/"></script>
+<meta charset="UTF-8">
+<title>地図検索</title>
+</head>
+<body>
+	<!-- View を表示する要素 -->
+	<script>
+	  require([
+	      // モジュールの読み込み
+	      "esri/Map",
+	      "esri/views/MapView",
+	      "esri/layers/FeatureLayer"
+	    ],(Map, MapView, FeatureLayer) => {
+	    	
+	      // FeatureLayer：全国市区町村界データ 2021： Living Atlas
+	      const cityareaLyr = new FeatureLayer({
+	    	  url: "https://services.arcgis.com/wlVTGRSYTzAbjjiC/arcgis/rest/services/municipalityboundaries2021/FeatureServer",
+	    	  id: "cityarea",
+	    	  opacity: 0.5,
+	    	  minScale: 5000000,//1500000,　パフォーマンスが向上しているのでスケール変更
+	    	  maxScale: 50000,
+	    	  // 上記と同様にこちらも愛知県のみになるようフィルタ定義を追加
+	    	  definitionExpression: "JCODE LIKE '%'"
+	  	    });
+	      
+	      const cityareaToggle = document.getElementById("cityareaLyr");
+	      
+	      cityareaToggle.addEventListener("change", () => {
+	    	    cityareaLyr.visible = cityareaToggle.checked;
+	    	});
+
+	      // Map の作成
+	      var map = new Map({
+	        basemap: "streets", // ベースマップを定義 (deprecated)
+	        layers:[cityareaLyr]
+	      });
+
+	      // View の作成
+	      var view = new MapView({
+	        container: "viewDiv", // View を表示する DOM ノードを参照
+	        map: map  // map オブジェクトを参照
+	      }); 
+	    });
+	</script>
+
+	<span id="layerToggle"> 
+	<input type="checkbox" id="cityareaLyr" checked>全国市区町村界(FeatureLayer)
+	</span>
+
+	<div id="viewDiv"></div>
+	
+</body>
+</html>

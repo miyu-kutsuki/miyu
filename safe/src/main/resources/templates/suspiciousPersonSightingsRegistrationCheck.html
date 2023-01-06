@@ -4,13 +4,15 @@
 	layout:decorate="~{commons/layout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
+<meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/registrationStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/registrationStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>登録確認ページ</title>
@@ -29,7 +31,7 @@
 				<h5 class="h5 mt-2">下記内容で登録しますか？</h5>
 	
 				<div class="w-75 h-100 p-3 text-center">
-					<form th:action="@{/SuspiciousPersonSightingsRegistration}" method="post"
+					<form th:action="@{/Doconano/SuspiciousPersonSightingsRegistration}" method="post"
 						th:object="${suspiciousPersonSightings}">
 	
 						<div class="mb-3">
@@ -58,7 +60,7 @@
 							 <label for="prefectures" class="form-label" th:text="*{prefectures}"></label><br>
 							市区町村:
 							<label for="municipalities" class="form-label" th:text="*{municipalities}"></label><br>
-							番地等:
+							番地・目印になる建物名等:
 							<label for="other" class="form-label" th:text="*{other}"></label>
 						</div>
 	
@@ -69,7 +71,7 @@
 					</form>
 	
 					<div class="w-100 h-auto text-center">
-						<form th:action="@{/SuspiciousPersonSightingsRegistrationBackAction}" method="post">
+						<form th:action="@{/Doconano/SuspiciousPersonSightingsRegistrationBackAction}" method="post">
 							<input type="submit" value="戻る" class="btn btn-outline-dark w-50 mt-3">
 						</form>
 					</div>

@@ -6,6 +6,18 @@
   }
 }
 
+@media screen and (max-width:575px) {
+	img{
+		max-width: 350px;
+	}
+}
+
+@media screen and (max-width:412px) {
+	img{
+		max-width: 250px;
+	}
+}
+
 body {
 	display: flex;
 	flex-direction: column;
@@ -16,10 +28,4 @@ body {
 #error{
 	list-style:none;
 	color: #ff0000;
-}
-
-.in_frame{
-	width: 350px;
-	height: auto;
-	margin: 5px auto;
 }

@@ -18,6 +18,6 @@ public class Questions {
 
 	@Id
 	private Integer id;
-	
+
 	private String questions;
 }

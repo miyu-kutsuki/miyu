@@ -11,9 +11,9 @@ import jp.co.kutsuki.safe.entity.Informations;
  *
  */
 public interface ImSearchService {
-	
-	public void allSearchExcute(List<String> msgList, Informations informations, boolean missingPersons,boolean missingPersonsSightings, 
+
+	public void allSearchExcute(List<String> msgList, Informations informations, boolean missingPersons,boolean missingPersonsSightings,
 			boolean suspiciousPersonSightings, boolean place, RedirectAttributes redirectAttributes);
-	
+
 	public void userIdSearchExcute(String user_id, Informations informations, RedirectAttributes redirectAttributes);
 }

@@ -4,9 +4,11 @@
 	layout:decorate="~{commons/logoutLayout}">
 
 <head>
+<base href="https://doconano.net/Doconano/"></base>
+<meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="./css/frameStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/frameStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>登録確認ページ</title>
@@ -19,7 +21,7 @@
 			<div class="d-flex flex-column align-items-center justify-content-center">
 				<h1><img src="./images/checkTitle.png" alt="" class="mt-5"></h1>
 				<h5 class="h5 mt-2">下記内容で登録しますか？</h5>
-				<form th:action="@{/UserRegistrationAction}" method="post" th:object="${user}">
+				<form th:action="@{/Doconano/UserRegistrationAction}" method="post" th:object="${user}">
 					<div class="mt-3 mb-3 text-center">
 						<label for="user_id" class="form-label">ユーザーID:</label>
 						<label for="user_id" class="form-label" th:text="*{user_id}"></label>
@@ -27,6 +29,19 @@
 					<div class="mb-3 text-center">
 						<label for="password" class="form-label">パスワード:</label>
 						<label for="password" class="form-label" th:text="*{password}"></label>
+					</div>
+					<div class="mb-3 text-center">
+						<label for="notification" class="form-label">不審者情報の通知:</label>
+						<label for="notification" class="form-label" th:if="*{notification}">設定する</label>
+						<label for="notification" class="form-label" th:unless="*{notification}">設定しない</label>
+					</div>
+					<div class="mb-3 text-center">
+						<label for="notification_p" class="form-label">通知する県:</label>
+						<label for="notification_p" class="form-label" th:text="*{notification_p}"></label>
+					</div>
+					<div class="mb-3 text-center">
+						<label for="notification_m" class="form-label">通知する市区町村:</label>
+						<label for="notification_m" class="form-label" th:text="*{notification_m}"></label>
 					</div>
 					<div class="mb-3 text-center">
 						<label for="familyName" class="form-label">名字:</label>
@@ -59,9 +74,9 @@
 					</div>
 				</form>
 				
-				<form th:action="@{/UserRegistrationBackAction}" method="post">
-					<div class="in_frame">
-						<input type="submit" value="戻る" class="btn btn-outline-dark mt-3 w-100">
+				<form th:action="@{/Doconano/UserRegistrationBackAction}" method="post">
+					<div class="in_frame m-2">
+						<input type="submit" value="戻る" class="btn btn-outline-dark w-100">
 					</div>
 				</form>
 			</div>

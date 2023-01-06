@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FormLogin {
-	
+
 	/** userテーブル用識別ID */
 	@Id
 	private Integer id;

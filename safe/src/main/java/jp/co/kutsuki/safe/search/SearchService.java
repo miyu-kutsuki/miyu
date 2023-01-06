@@ -22,9 +22,9 @@ public class SearchService implements ImSearchService{
 
 	/** 全体の検索を実行するメソッド */
 	@Override
-	public void allSearchExcute(List<String> msgList, Informations informations, boolean missingPersons,boolean missingPersonsSightings, 
+	public void allSearchExcute(List<String> msgList, Informations informations, boolean missingPersons,boolean missingPersonsSightings,
 			boolean suspiciousPersonSightings, boolean place, RedirectAttributes redirectAttributes) {
-		
+
 		if(msgList.size() == 0 && missingPersons && missingPersonsSightings && suspiciousPersonSightings && !place) {
 			//日付の範囲を指定しているかつ
 			//場所名の指定はしてないかつ
@@ -255,7 +255,7 @@ public class SearchService implements ImSearchService{
 			//missing_persons・suspicious_person_sightingsのend_flag==true以外を全件取得
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-			
+
 		}else if(msgList.size() == 2 && missingPersonsSightings && suspiciousPersonSightings && !missingPersons && place) {
 			//日付の範囲指定がないかつ
 			//場所名の指定はしているかつ
@@ -270,13 +270,13 @@ public class SearchService implements ImSearchService{
 	/** user_idの検索を実行するメソッド */
 	@Override
 	public void userIdSearchExcute(String user_id, Informations informations, RedirectAttributes redirectAttributes) {
-		
+
 		if(!(user_id == null)) {
 			//一時保管用のリスト
 			ArrayList<MissingPersons> missingPersonsList = new ArrayList<>();
 			ArrayList<MissingPersonsSightings> missingPersonsSightingsList = new ArrayList<>();
 			ArrayList<SuspiciousPersonSightings> suspiciousPersonSightingsList = new ArrayList<>();
-			
+
 			//探し人のリストから"user_id"が一致するものを抽出する
 			for(int i = 0; i < informations.getMissingPersonsList().size(); i++) {
 				if(informations.getMissingPersonsList().get(i).getUser_id().contains(user_id)) {
@@ -287,7 +287,7 @@ public class SearchService implements ImSearchService{
 			informations.getMissingPersonsList().clear();
 			informations.setMissingPersonsList(missingPersonsList);
 			redirectAttributes.addFlashAttribute("missingPersonsList", informations.getMissingPersonsList());
-			
+
 			//探し人目撃情報リストから"user_id"が一致するものを抽出する
 			for(int i = 0; i < informations.getMissingPersonsSightingsList().size(); i++) {
 				if(informations.getMissingPersonsSightingsList().get(i).getUser_id().contains(user_id)) {
@@ -298,7 +298,7 @@ public class SearchService implements ImSearchService{
 			informations.getMissingPersonsSightingsList().clear();
 			informations.setMissingPersonsSightingsList(missingPersonsSightingsList);
 			redirectAttributes.addFlashAttribute("missingPersonSightingsList", informations.getMissingPersonsSightingsList());
-			
+
 			//不審者目撃情報リストから"user_id"が一致するものを抽出する
 			for(int i = 0; i < informations.getSuspiciousPersonSightingsList().size(); i++) {
 				if(informations.getSuspiciousPersonSightingsList().get(i).getUser_id().contains(user_id)) {
@@ -309,6 +309,6 @@ public class SearchService implements ImSearchService{
 			informations.getSuspiciousPersonSightingsList().clear();
 			informations.setSuspiciousPersonSightingsList(suspiciousPersonSightingsList);
 			redirectAttributes.addFlashAttribute("suspiciousPersonSightingsList", informations.getSuspiciousPersonSightingsList());
-		}		
+		}
 	}
 }

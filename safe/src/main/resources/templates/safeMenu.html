@@ -3,13 +3,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{commons/layout}">
 <head>
+<base href="https://doconano.net/Doconano/"></base>
+<meta name="robots" content="noindex,noarchive,nofollow,noimageindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/menuStyle.css">
+<link rel="stylesheet" type="text/css" href="./css/menuStyle.css">
 <link rel="icon" href="./images/favicon.ico">
 <meta charset="UTF-8">
 <title>メニューページ</title>
@@ -21,7 +23,7 @@
 			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 			crossorigin="anonymous"></script>
 
-		<div class="container">
+		<div class="container mt-2">
 			<div
 				class="d-flex flex-column align-items-center justify-content-center">
 				<div class="d-grid gap-5 mt-3">
@@ -29,38 +31,38 @@
 					<div class="container">
 
 						<div class="main text-center">
-							<a th:href="@{/MissingPersons}">
-								<img src="./images/menu1.png" alt="" class="m-3">
+							<a th:href="@{/Doconano/MissingPersons}">
+								<img src="./images/menu1.png" alt="" class="">
 							</a>
-							<img src="./images/m1.png" alt="" class="m-3">
+							<img src="./images/m1.png" alt="" class="">
 						</div>
 
 						<div class="main_flex text-center">
-							<img src="./images/m2.png" alt="" class="m2 m-3">
-							<a th:href="@{/MissingPersonsSightings}">
-								<img src="./images/menu2.png" alt="" class="menu2 m-3">
+							<img src="./images/m2.png" alt="" class="m2">
+							<a th:href="@{/Doconano/MissingPersonsSightings}">
+								<img src="./images/menu2.png" alt="" class="menu2">
 							</a>
 						</div>
 
 						<div class="main text-center">
-							<a th:href="@{/SuspiciousPersonSightings}">
-								<img src="./images/menu3.png" alt="" class="m-3">
+							<a th:href="@{/Doconano/SuspiciousPersonSightings}">
+								<img src="./images/menu3.png" alt="" class="">
 							</a>
-							<img src="./images/m3.png" alt="" class="m-3">
+							<img src="./images/m3.png" alt="" class="">
 						</div>
 
 						<div class="main_flex text-center">
-							<img src="./images/m4.png" alt="" class="m4 m-3">
-							<a th:href="@{/Informations}">
-								<img src="./images/menu4.png" alt="" class="menu4 m-3">
+							<img src="./images/m4.png" alt="" class="m4">
+							<a th:href="@{/Doconano/Informations}">
+								<img src="./images/menu4.png" alt="" class="menu4">
 							</a>
 						</div>
 
 						<div class="main text-center">
-							<a th:href="@{/UserInformations}">
-								<img src="./images/menu5.png" alt="" class="m-3">
+							<a th:href="@{/Doconano/UserInformations}">
+								<img src="./images/menu5.png" alt="" class="">
 							</a>
-							<img src="./images/m5.png" alt="" class="m-3">
+							<img src="./images/m5.png" alt="" class="">
 						</div>
 					</div>
 
