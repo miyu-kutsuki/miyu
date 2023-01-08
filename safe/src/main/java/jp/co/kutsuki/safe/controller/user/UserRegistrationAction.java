@@ -38,16 +38,25 @@ public class UserRegistrationAction {
 			return "redirect:Safe";
 		}
 
-		//usersテーブルにuser_id,passwordを登録
+		//セッションからユーザー情報を取得
 		User userInformation = (User) session.getAttribute("user");
-		userRepository.setUserTable(userInformation);
-		//ユーザー情報を取得
-		User userList = userRepository.getUserIdTable(userInformation.getUser_id());
-		imMailSendService.mailSend(userList, "会員登録完了のお知らせ" ,"/mail/mailRegisterTemplate.txt");
+		
+		//入力されたuser_idとusersテーブルのuser_idが一致した場合は該当のuser_idとpasswordを取得し代入
+		//一致しない場合はid=null,user_id,password=none,end_flag=falseを代入
+		User userCheck = userRepository.getUserIdTable(userInformation.getUser_id());
+		
+		//ユーザーIDの重複不可のためnone(null)かチェック
+		if(userCheck.getUser_id().equals("none")) {
+			//usersテーブルにuser_id,passwordを登録
+			userRepository.setUserTable(userInformation);
+			//登録後の会員情報を取得(会員番号がデータベースでの連番付与のため)
+			User user = userRepository.getUserIdTable(userInformation.getUser_id());
+			//登録完了メールを送信
+			imMailSendService.mailSend(user, "会員登録完了のお知らせ" ,"/mail/mailRegisterTemplate.txt");
+		}
+		
 		model.addAttribute("title", "登録完了");
 		model.addAttribute("msg", "ご登録が完了しました。");
-
 		return "exit";
-
 	}
 }

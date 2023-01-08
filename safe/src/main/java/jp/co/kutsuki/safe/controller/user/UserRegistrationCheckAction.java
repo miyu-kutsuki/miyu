@@ -62,17 +62,7 @@ public class UserRegistrationCheckAction {
 		}
 
 		//ユーザーIDの重複不可のためnone(null)かチェック
-		if(userInformation.getUser_id().equals("none")) {
-			//user_idがnullかチェック
-			if(user_id.length() == 0) {
-				msg.add("ユーザーIDが入力されていません。");
-			}
-
-			//passwordがnullかチェック
-			if(password.length() == 0) {
-				msg.add("パスワードが入力されていません。");
-			}
-		}else {
+		if(!userInformation.getUser_id().equals("none")) {
 			msg.add(user_id + "は使用できません。");
 		}
 		
