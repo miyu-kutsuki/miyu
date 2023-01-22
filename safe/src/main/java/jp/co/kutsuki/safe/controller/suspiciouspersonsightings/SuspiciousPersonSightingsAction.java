@@ -34,7 +34,7 @@ public class SuspiciousPersonSightingsAction {
 	@RequestMapping(value="/SuspiciousPersonSightingsRegistration", method = RequestMethod.POST)
 	public String suspiciousPersonSightingsView(RedirectAttributes redirectAttributes, Model model) {
 
-		//missing_persons_sightingsテーブルに登録
+		//suspicious_persons_sightingsテーブルに登録
 		SuspiciousPersonSightings suspiciousPersonSightings = (SuspiciousPersonSightings)session.getAttribute("suspiciousPersonSightings");
 		suspiciousPersonSightingsRepository.setSuspiciousPersonSightingsTable(suspiciousPersonSightings);
 		

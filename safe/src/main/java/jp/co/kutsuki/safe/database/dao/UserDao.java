@@ -203,7 +203,7 @@ public class UserDao implements UserRepository{
 			user.setPassword(rs.getString("password"));
 			user.setNotification(rs.getBoolean("notification"));
 			user.setNotification_p(rs.getString("notification_p"));
-			user.setNotification_m(rs.getString("notification_m"));			
+			user.setNotification_m(rs.getString("notification_m"));
 			user.setFamilyName(rs.getString("familyName"));
 			user.setFirstName(rs.getString("firstName"));
 			try {

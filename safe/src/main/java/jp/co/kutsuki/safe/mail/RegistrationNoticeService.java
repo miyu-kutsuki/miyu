@@ -55,7 +55,9 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		//入力された県・市とmissing_personsデータベースに保管されている県・市が一致しているレコードがあるかチェック
 		//一致したらMapに追加する
 		for(int i = 0; i < missingPersonsList.size(); i++) {
+			//県名が一致しているかチェック
 			if(missingPersonsSightings.getPrefectures().equals(missingPersonsList.get(i).getPrefectures())) {
+				//市区町村が一致しているかチェック
 				if(missingPersonsSightings.getMunicipalities().equals(missingPersonsList.get(i).getMunicipalities())) {
 					user = userRepository.getUserIdTable(missingPersonsList.get(i).getUser_id());
 					users.put(user.getUser_id(), user.getEmail());
@@ -71,7 +73,7 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		for(int i = 0; i < keys.size(); i++) {
 			//データの登録者以外にメールを送信する
 			if(!keys.get(i).equals(userInformation.getUser_id())) {
-				user = userRepository.getUserIdTable((String)keys.get(i));
+				user = userRepository.getUserIdTable(keys.get(i));
 				mailSendService.mailSend(user, "行方不明者目撃情報の新着のお知らせ", "/mail/missingPersonsRegistrationNoticeTemplate.txt");
 			}
 		}
@@ -88,15 +90,24 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		//ユーザー情報の一時保管用
 		User user = new User();
 		//ログイン中のuser_idを取得
-		FormLogin userInformation = (FormLogin) session.getAttribute("user");
+		FormLogin userInformation = new FormLogin();
+		if(session.getAttribute("user") == null) {
+			userInformation = (FormLogin) session.getAttribute("userInformation");
+		}else {
+			userInformation = (FormLogin) session.getAttribute("user");
+		}
 		
 		//入力された県・市とusersデータベースに保管されている県・市が一致しているレコードがあるかチェック
 		//一致したらMapに追加する
 		for(int i = 0; i < usersList.size(); i++) {
-			if(suspiciousPersonSightings.getPrefectures().equals(usersList.get(i).getNotification_p())) {
-				if(suspiciousPersonSightings.getMunicipalities().equals(usersList.get(i).getNotification_m())) {
-					user = userRepository.getUserIdTable(usersList.get(i).getUser_id());
-					users.put(user.getUser_id(), user.getEmail());
+			//通知設定がtrueかチェック
+			if(usersList.get(i).getNotification()) {
+				//県名が一致しているかチェック
+				if(suspiciousPersonSightings.getPrefectures().equals(usersList.get(i).getNotification_p())) {
+					//市区町村が一致しているかチェック
+					if(suspiciousPersonSightings.getMunicipalities().equals(usersList.get(i).getNotification_m())) {
+						users.put(usersList.get(i).getUser_id(), usersList.get(i).getEmail());
+					}
 				}
 			}
 		}
@@ -109,7 +120,7 @@ public class RegistrationNoticeService implements ImRegistrationNoticeService{
 		for(int i = 0; i < keys.size(); i++) {
 			//データの登録者以外にメールを送信する
 			if(!keys.get(i).equals(userInformation.getUser_id())) {
-				user = userRepository.getUserIdTable((String)keys.get(i));
+				user = userRepository.getUserIdTable(keys.get(i));
 				mailSendService.mailSend(user, "不審者情報の新着のお知らせ", "/mail/suspiciousPersonSightingsRegistrationNoticeTemplate.txt");
 			}
 		}

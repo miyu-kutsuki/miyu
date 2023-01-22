@@ -32,9 +32,7 @@ public class GuestsSuspiciousPersonSightingsPageAction {
 	public String pageView() {
 
 		FormLogin userInformation = new FormLogin();
-		if(session.getAttribute("user") == null) {
-			userInformation.setUser_id("guests");
-		}
+		userInformation.setUser_id("guests");
 		session.setAttribute("userInformation", userInformation);
 		return "guestsSuspiciousPersonSightingsRegistration";
 	}
