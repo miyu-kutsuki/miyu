@@ -68,7 +68,15 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		suspiciousPersonSightings.setGender(gender);
 		suspiciousPersonSightings.setAge(age);
 		suspiciousPersonSightings.setDetail(detail);
+		//全角スペースを空文字に置換
+		prefectures = prefectures.replaceAll("　", "");
+		//文字の間の半角スペースを空文字に変換
+		prefectures = prefectures.replaceAll(" ", "");
 		suspiciousPersonSightings.setPrefectures(prefectures);
+		//全角スペースを空文字に置換
+		municipalities = municipalities.replaceAll("　", "");
+		//文字の間の半角スペースを空文字に変換
+		municipalities = municipalities.replaceAll(" ", "");
 		suspiciousPersonSightings.setMunicipalities(municipalities);
 		suspiciousPersonSightings.setOther(other);
 		suspiciousPersonSightings.setUser_id(userInformation.getUser_id());

@@ -85,6 +85,6 @@ public class ChangePasswordAction {
 			}
 		}
 
-		return "redirect:UserInformations";
+		return "redirect:UserInformationChangeScreen";
 	}
 }

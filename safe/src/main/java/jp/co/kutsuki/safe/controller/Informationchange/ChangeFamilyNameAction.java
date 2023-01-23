@@ -58,6 +58,6 @@ public class ChangeFamilyNameAction {
 
 		redirectAttributes.addFlashAttribute("msg5", msg);
 
-		return "redirect:UserInformations";
+		return "redirect:UserInformationChangeScreen";
 	}
 }

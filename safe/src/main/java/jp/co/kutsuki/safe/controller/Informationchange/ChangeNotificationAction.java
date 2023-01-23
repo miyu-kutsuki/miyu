@@ -51,16 +51,24 @@ public class ChangeNotificationAction {
 		
 		if(!notification_p.isEmpty()) {
 			FormLogin user = (FormLogin)session.getAttribute("user");
+			//全角スペースを空文字に置換
+			notification_p = notification_p.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			notification_p = notification_p.replaceAll(" ", "");
 			userRepository.updateNotificationPrefectures(user.getUser_id(), notification_p);
 			msg.add("不審者情報の通知設定が変更されました。");
 		}
 		
 		if(!notification_m.isEmpty()) {
 			FormLogin user = (FormLogin)session.getAttribute("user");
+			//全角スペースを空文字に置換
+			notification_m = notification_m.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			notification_m = notification_m.replaceAll(" ", "");
 			userRepository.updateNotificationMunicipalities(user.getUser_id(), notification_m);
 			msg.add("不審者情報の通知設定が変更されました。");
 		}
 		
-		return "redirect:UserInformations";
+		return "redirect:UserInformationChangeScreen";
 	}
 }

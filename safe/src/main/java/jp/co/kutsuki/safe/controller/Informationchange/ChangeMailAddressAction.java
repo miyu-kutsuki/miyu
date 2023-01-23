@@ -63,6 +63,6 @@ public class ChangeMailAddressAction {
 
 		redirectAttributes.addFlashAttribute("msg6", msg);
 
-		return "redirect:UserInformations";
+		return "redirect:UserInformationChangeScreen";
 	}
 }

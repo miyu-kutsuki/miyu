@@ -62,7 +62,15 @@ public class MissingPersonSightingsRegistrationCheckAction {
 			missingPersonsSightings.setGender(gender);
 			missingPersonsSightings.setAge(age);
 			missingPersonsSightings.setDetail(detail);
+			//全角スペースを空文字に置換
+			prefectures = prefectures.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			prefectures = prefectures.replaceAll(" ", "");
 			missingPersonsSightings.setPrefectures(prefectures);
+			//全角スペースを空文字に置換
+			municipalities = municipalities.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			municipalities = municipalities.replaceAll(" ", "");
 			missingPersonsSightings.setMunicipalities(municipalities);
 			missingPersonsSightings.setOther(other);
 			missingPersonsSightings.setUser_id(userInformation.getUser_id());

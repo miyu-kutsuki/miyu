@@ -81,7 +81,15 @@ public class UserRegistrationCheckAction {
 			newUser.setUser_id(user_id);
 			newUser.setPassword(password);
 			newUser.setNotification(notification);
+			//全角スペースを空文字に置換
+			notification_p = notification_p.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			notification_p = notification_p.replaceAll(" ", "");
 			newUser.setNotification_p(notification_p);
+			//全角スペースを空文字に置換
+			notification_m = notification_m.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			notification_m = notification_m.replaceAll(" ", "");
 			newUser.setNotification_m(notification_m);
 			newUser.setFamilyName(familyName);
 			newUser.setFirstName(firstName);
