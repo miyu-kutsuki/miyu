@@ -30,7 +30,7 @@ public class GuestsSuspiciousPersonSightingsPageAction {
 
 	@GetMapping
 	public String pageView() {
-
+		session.invalidate();
 		FormLogin userInformation = new FormLogin();
 		userInformation.setUser_id("guests");
 		session.setAttribute("userInformation", userInformation);

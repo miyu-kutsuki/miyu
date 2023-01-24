@@ -44,7 +44,7 @@ public class SuspiciousPersonSightingsRegistrationCheckAction {
 		//ログイン中のuser_idを取得
 		FormLogin userInformation = new FormLogin();
 		if(session.getAttribute("user") == null) {
-			userInformation.setUser_id("guests");
+			userInformation = (FormLogin) session.getAttribute("userInformation");
 		}else {
 			userInformation = (FormLogin) session.getAttribute("user");
 		}
