@@ -23,7 +23,7 @@ public class GuestsSuspiciousPersonSightingsSearchPageAction {
 
 	@GetMapping
 	public String pageView() {
-
+		session.invalidate();
 		FormLogin userInformation = new FormLogin();
 		if(session.getAttribute("user") == null) {
 			userInformation.setUser_id("guests");
