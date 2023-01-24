@@ -53,6 +53,10 @@ public class SearchAction {
 		if(searchPlace.isEmpty()) {
 			dateSearch.setSearchPlace(null);
 		}else {
+			//全角スペースを空文字に置換
+			searchPlace = searchPlace.replaceAll("　", "");
+			//文字の間の半角スペースを空文字に変換
+			searchPlace = searchPlace.replaceAll(" ", "");
 			dateSearch.setSearchPlace(searchPlace);
 		}
 
