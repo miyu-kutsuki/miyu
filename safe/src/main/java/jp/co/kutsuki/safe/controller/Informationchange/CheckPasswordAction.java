@@ -67,7 +67,7 @@ public class CheckPasswordAction {
 		//空欄が一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
 			redirectAttributes.addFlashAttribute("msg", msg);
-			return "redirect:ForgetUserPassword";
+			return "redirect:ForgetUserId";
 		}
 
 		//入力項目が登録内容と誤りがないかチェック
@@ -84,7 +84,7 @@ public class CheckPasswordAction {
 		//誤りが一つでも合った場合、入力画面へ遷移する
 		if(!(msg.size() == 0)) {
 			redirectAttributes.addFlashAttribute("msg", msg);
-			return "redirect:ForgetUserPassword";
+			return "redirect:ForgetUserId";
 		}
 
 		FormLogin user = new FormLogin();
