@@ -84,6 +84,6 @@ public class WithdrawalAction {
 
 		//セッション破棄
 		session.invalidate();
-		return "redirect:Safe";
+		return "redirect:Doconano";
 	}
 }
