@@ -44,7 +44,9 @@ ssl通信の設定をすることでセキュリティー面も考慮しまし�
 #### 使用技術
 
 フロントサイド：HTML5・Bootstrap5・SCSS・CSS3
+
 バックサイド：Java(Spring Framework)・PostgreSQL
+
 サーバ：ubuntu
 
 以上です。
